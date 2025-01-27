@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import helvetica from "../fonts"; // Import the font configuration
+import helvetica from "./fonts";
 import "../globals.css";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
