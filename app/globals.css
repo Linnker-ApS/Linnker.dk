@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-h1 {
-  color: red;
+.h-screen {
+  height: 35vh;
 }
