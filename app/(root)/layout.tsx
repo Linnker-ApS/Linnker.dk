@@ -1,16 +1,11 @@
+import { ReactNode } from "react";
+import helvetica from "../fonts"; // Import the font configuration
 import "../globals.css";
-import { Inter, Manrope } from "next/font/google";
 
-const manrope = Manrope({ subsets: ["latin"] });
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${manrope.className}`}>{children}</body>
+    <html lang="en" className={helvetica.variable}>
+      <body>{children}</body>
     </html>
   );
 }

@@ -6,7 +6,6 @@ import HotelCard from "@/components/HotelCard";
 import Searchbar from "@/components/Searchbar";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
-import HeroImage from "../../public/images/heroimage.jpg";
 
 const Home = () => {
   return (

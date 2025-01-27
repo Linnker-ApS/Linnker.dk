@@ -2,6 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --font-helvetica: "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  font-family: var(--font-helvetica);
+}
+
+/* Font weight examples */
+h1 {
+  font-weight: 900; /* Black */
+}
+
+h2 {
+  font-weight: 700; /* Bold */
+}
+
+h3 {
+  font-weight: 500; /* Medium */
+}
+
+p {
+  font-weight: 400; /* Roman */
+}
+
+.light-text {
+  font-weight: 300; /* Light */
+}
+
+.ultralight-text {
+  font-weight: 100; /* UltraLight */
+}
+
 .h-screen {
   height: 35vh;
 }
