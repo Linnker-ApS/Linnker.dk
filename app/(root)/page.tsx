@@ -1,5 +1,6 @@
 import Hero from "@/components/home/Hero";
 import Searchbar from "@/components/common/Searchbar";
+import DetailedSearchbar from "@/components/common/DetailedSearchbar";
 
 //Components
 import ExperienceCard from "@/components/ExperiencesCard";
@@ -11,12 +12,16 @@ const Home = () => {
     <main className="flex min-h-screen flex-col">
       <div className="relative">
         <Hero />
-        {/* Searchbar Container */}
+        {/* Main Searchbar */}
         <div className="absolute left-0 right-0 bottom-0 transform translate-y-1/2 px-4">
           <div className="container mx-auto">
             <Searchbar />
           </div>
         </div>
+      </div>
+      {/* Detailed Searchbar Section */}
+      <div className="container mx-auto px-4 mt-40">
+        <DetailedSearchbar />
       </div>
       {/* Add padding to prevent content overlap */}
       <div className="mt-32">
