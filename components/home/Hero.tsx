@@ -2,7 +2,7 @@
 
 import React, { FC } from "react";
 import Image from "next/image";
-import Searchbar from "./Searchbar";
+import Searchbar from "../Searchbar";
 
 const Hero: FC = () => {
   return (
@@ -26,7 +26,6 @@ const Hero: FC = () => {
           </div>
         </div>
       </section>
-      <Searchbar />
     </div>
   );
 };
