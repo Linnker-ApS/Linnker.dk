@@ -34,10 +34,6 @@ p {
   font-weight: 100; /* UltraLight */
 }
 
-.h-screen {
-  height: 35vh;
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
