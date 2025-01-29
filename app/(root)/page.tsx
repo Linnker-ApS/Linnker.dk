@@ -1,6 +1,7 @@
 import Hero from "@/components/home/Hero";
 import Searchbar from "@/components/common/Searchbar";
 import DetailedSearchbar from "@/components/common/DetailedSearchbar";
+import TrendingHotels from "@/components/sections/TrendingHotels";
 
 //Components
 import ExperienceCard from "@/components/ExperiencesCard";
@@ -25,6 +26,7 @@ const Home = () => {
       </div>
       {/* Add padding to prevent content overlap */}
       <div className="mt-32">
+        <TrendingHotels />
         {/* Features Section */}
         <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-6 text-center">
