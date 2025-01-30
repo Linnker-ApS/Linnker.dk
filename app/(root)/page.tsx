@@ -19,7 +19,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {/* Adjust the margin-top since we removed DetailedSearchbar */}
       <div className="mt-20">
         <TrendingHotels />
         {/* Features Section */}

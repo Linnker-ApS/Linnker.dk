@@ -31,7 +31,7 @@ const Searchbar = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-2">
+    <div className="w-full max-w-4xl mx-auto bg-white rounded-full shadow-lg p-2">
       <div className="flex flex-col md:flex-row gap-2">
         {/* Destination Input */}
         <div className="flex-1 relative">
@@ -41,7 +41,7 @@ const Searchbar = () => {
             placeholder="Where are you going?"
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full pl-10 pr-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
 
@@ -50,7 +50,7 @@ const Searchbar = () => {
           <PopoverTrigger asChild>
             <Button
               variant="outline"
-              className="justify-start text-left font-normal w-[200px]"
+              className="justify-start text-left font-normal w-[200px] rounded-full"
             >
               <CalendarDays className="mr-2 h-4 w-4" />
               {date ? format(date, "MMM d, yyyy") : "Select date"}
@@ -72,7 +72,7 @@ const Searchbar = () => {
           <PopoverTrigger asChild>
             <Button
               variant="outline"
-              className="justify-start text-left font-normal w-[180px]"
+              className="justify-start text-left font-normal w-[180px] rounded-full"
             >
               <Users className="mr-2 h-4 w-4" />
               {`${guests.adults + guests.children} Guest${
@@ -143,7 +143,7 @@ const Searchbar = () => {
 
         {/* Search Button */}
         <Button 
-          className="md:w-auto w-full"
+          className="md:w-auto w-full rounded-full"
           onClick={handleSearch}
         >
           <Search className="mr-2 h-4 w-4" />

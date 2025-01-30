@@ -21,7 +21,7 @@ const mockHotels = [
 
 const TrendingHotels = () => {
   return (
-    <section className="py-12">
+    <section>
       <div className="container mx-auto px-4">
         <h2 className="text-2xl font-semibold mb-8">TRENDING HOTELS</h2>
         
