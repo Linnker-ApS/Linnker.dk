@@ -16,10 +16,10 @@ const TrendingHotels = () => {
 
   return (
     <section className="py-12">
-      <div className="container mx-auto px-12">
-        <h2 className="text-5xl font-thin mb-8 text-center">TRENDING HOTELS</h2>
+      <div className="container mx-auto px-16">
+        <h2 className="text-5xl font-light mb-8 text-center tracking-wider">TRENDING HOTELS</h2>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
           {hotels.slice(0, visibleHotels).map((hotel, index) => (
             <HotelCard
               key={index}
@@ -29,10 +29,10 @@ const TrendingHotels = () => {
         </div>
 
         {showLoadMoreButton && (
-          <div className="flex justify-center">
+          <div className="flex justify-center py-12">
             <Button 
               variant="outline"
-              className="bg-black text-white hover:bg-black/90 px-8"
+              className="bg-black text-white hover:bg-yellow-500 hover:text-black px-8"
               onClick={handleLoadMore}
             >
               Load more

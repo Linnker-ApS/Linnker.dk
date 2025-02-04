@@ -20,7 +20,7 @@ interface HotelCardProps {
 
 const HotelCard = ({ imageUrl, name, location, price, rating }: HotelCardProps) => {
   return (
-    <div className="group cursor-pointer max-w-[333px] mx-auto rounded-md overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-300">
+    <div className="group cursor-pointer max-w-[333px] mx-auto rounded-t-sm overflow-hidden bg-white hover:shadow-md transition-shadow duration-300">
       {/* Image Container */}
       <div className="relative w-[333px] h-[333px] overflow-hidden">
         <Image
@@ -32,9 +32,9 @@ const HotelCard = ({ imageUrl, name, location, price, rating }: HotelCardProps) 
       </div>
 
       {/* Content Container */}
-      <div className="p-3">
+      <div className="pt-1 p-1 pl-2">
         {/* Hotel Name */}
-        <h3 className="font-semibold text-base text-gray-900 mb-1">
+        <h3 className="font-medium text-base text-gray-900 mb-1">
           {name}
         </h3>
 

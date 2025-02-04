@@ -185,11 +185,11 @@ const Searchbar = () => {
                   >
                     -
                   </Button>
-                  <span className="w-6 text-center">{guests.rooms}</span>
+                  <span className="w-6 text-center ">{guests.rooms}</span>
                   <Button
                     variant="outline"
                     size="icon"
-                    className="h-8 w-8 rounded-full"
+                    className="h-8 w-8 rounded-full "
                     onClick={() => updateGuestCount('rooms', 'add')}
                     disabled={guests.rooms >= 10}
                   >
@@ -203,7 +203,7 @@ const Searchbar = () => {
 
         {/* Search Button */}
         <Button 
-          className="md:w-auto w-full rounded-full h-10 px-4"
+          className="md:w-auto w-full rounded-full h-10 pr-4 hover:bg-yellow-500 hover:text-black"
           onClick={handleSearch}
         >
           <Search className="mr-2 h-4 w-4" />
