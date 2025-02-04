@@ -6,7 +6,7 @@ import Image from "next/image";
 const Hero: FC = () => {
   return (
     <div>
-      <section className="relative h-[40vh]">
+      <section className="relative h-[45vh]">
         <div className="absolute inset-0">
           <Image
             src="/images/heroimage.jpg"
@@ -22,16 +22,17 @@ const Hero: FC = () => {
               <Image
                 src="/images/LogoWhite.png"
                 alt="Linnker Logo"
-                width={200}
-                height={60}
+                width={220}
+                height={80}
                 className="mx-auto"
               />
             </div>
-            <div className="space-y-4">
+            <div className="space-y-4 py-10">
               <h1 className="text-4xl md:text-6xl font-black text-white drop-shadow-xl">
                 Linking you to the correct inn.
               </h1>
-              <p className="text-lg md:text-xl font-black text-yellow-500">No booking fees, No middleman.</p>
+
+              <p className="text-lg md:text-xl font-black text-yellow-500">No middleman, no hidden fees.</p>
             </div>
           </div>
         </div>

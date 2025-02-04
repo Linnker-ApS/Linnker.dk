@@ -16,10 +16,10 @@ const TrendingHotels = () => {
 
   return (
     <section className="py-12">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-light mb-8 text-center">TRENDING HOTELS</h2>
+      <div className="container mx-auto px-12">
+        <h2 className="text-5xl font-thin mb-8 text-center">TRENDING HOTELS</h2>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {hotels.slice(0, visibleHotels).map((hotel, index) => (
             <HotelCard
               key={index}

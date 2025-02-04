@@ -20,9 +20,9 @@ interface HotelCardProps {
 
 const HotelCard = ({ imageUrl, name, location, price, rating }: HotelCardProps) => {
   return (
-    <div className="group cursor-pointer">
+    <div className="group cursor-pointer max-w-[333px] mx-auto rounded-md overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-300">
       {/* Image Container */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-t-xl">
+      <div className="relative w-[333px] h-[333px] overflow-hidden">
         <Image
           src={imageUrl}
           alt={name}
@@ -32,24 +32,24 @@ const HotelCard = ({ imageUrl, name, location, price, rating }: HotelCardProps) 
       </div>
 
       {/* Content Container */}
-      <div className="p-4 bg-white">
+      <div className="p-3">
         {/* Hotel Name */}
-        <h3 className="font-semibold text-lg text-gray-900 mb-1">
+        <h3 className="font-semibold text-base text-gray-900 mb-1">
           {name}
         </h3>
 
         {/* Location */}
-        <div className="text-sm text-gray-500 mb-2">
+        <div className="text-xs text-gray-500 mb-2">
           {location.city} · {location.country}
         </div>
 
         {/* Rating */}
         {rating && (
-          <div className="flex items-center gap-1 mb-3">
+          <div className="flex items-center gap-1 mb-2">
             {[...Array(5)].map((_, index) => (
               <Star
                 key={index}
-                className={`h-4 w-4 ${
+                className={`h-3 w-3 ${
                   index < rating 
                     ? "text-yellow-400 fill-yellow-400" 
                     : "text-gray-300"
@@ -61,10 +61,10 @@ const HotelCard = ({ imageUrl, name, location, price, rating }: HotelCardProps) 
 
         {/* Price */}
         <div className="flex items-baseline gap-1">
-          <span className="font-semibold text-lg">
+          <span className="font-semibold text-base">
             {price.currency} {price.amount}
           </span>
-          <span className="text-sm text-gray-500">
+          <span className="text-xs text-gray-500">
             per {price.per}
           </span>
         </div>
