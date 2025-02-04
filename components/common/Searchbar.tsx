@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Search, CalendarDays, Users } from "lucide-react";
 import { format } from "date-fns";
+import { DateRange } from "react-day-picker";
 
 interface GuestCount {
   adults: number;
@@ -14,11 +15,19 @@ interface GuestCount {
 
 const Searchbar = () => {
   const [destination, setDestination] = useState("");
-  const [date, setDate] = useState<Date>();
+  const [dateRange, setDateRange] = useState<DateRange | undefined>({
+    from: undefined,
+    to: undefined,
+  });
   const [guests, setGuests] = useState<GuestCount>({ adults: 1, children: 0 });
 
   const handleSearch = () => {
-    console.log({ destination, date, guests });
+    console.log({ 
+      destination, 
+      startDate: dateRange?.from, 
+      endDate: dateRange?.to, 
+      guests 
+    });
   };
 
   const updateGuestCount = (type: 'adults' | 'children', operation: 'add' | 'subtract') => {
@@ -45,7 +54,7 @@ const Searchbar = () => {
           />
         </div>
 
-        {/* Single Date Selector */}
+        {/* Date Range Selector */}
         <Popover>
           <PopoverTrigger asChild>
             <Button
@@ -53,15 +62,28 @@ const Searchbar = () => {
               className="justify-start text-left font-normal w-[200px] rounded-full h-10 px-4"
             >
               <CalendarDays className="mr-2 h-4 w-4" />
-              {date ? format(date, "MMM d, yyyy") : "Select date"}
+              {dateRange?.from ? (
+                dateRange.to ? (
+                  <>
+                    {format(dateRange.from, "MMM d")} -{" "}
+                    {format(dateRange.to, "MMM d")}
+                  </>
+                ) : (
+                  format(dateRange.from, "MMM d, yyyy")
+                )
+              ) : (
+                "Select dates"
+              )}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
             <Calendar
-              mode="single"
-              selected={date}
-              onSelect={setDate}
               initialFocus
+              mode="range"
+              defaultMonth={dateRange?.from}
+              selected={dateRange}
+              onSelect={setDateRange}
+              numberOfMonths={2}
               className="rounded-md border"
             />
           </PopoverContent>
