@@ -16,7 +16,7 @@ const Hero: FC = () => {
             className="object-cover"
           />
         </div>
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
           <div className="text-center text-white absolute top-1/2 -translate-y-1/2 w-full">
             <div className="absolute -top-36 left-1/2 -translate-x-1/2">
               <Image
