@@ -2,15 +2,14 @@
 
 import React, { FC } from "react";
 import Image from "next/image";
-import Searchbar from "../Searchbar";
 
 const Hero: FC = () => {
   return (
     <div>
-      <section className="relative h-[35vh]">
+      <section className="relative h-[40vh]">
         <div className="absolute inset-0">
           <Image
-            src="/images/158188.jpg"
+            src="/images/heroimage.jpg"
             alt="Hero background"
             fill
             priority
@@ -18,11 +17,22 @@ const Hero: FC = () => {
           />
         </div>
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="text-center text-white space-y-6 px-4">
-            <h1 className="text-4xl md:text-6xl font-bold text-white">
-              Linking You to the correct inn.
-            </h1>
-            <p className="text-lg md:text-xl">No booking fees, No middleman.</p>
+          <div className="text-center text-white absolute top-1/2 -translate-y-1/2 w-full">
+            <div className="absolute -top-36 left-1/2 -translate-x-1/2">
+              <Image
+                src="/images/LogoWhite.png"
+                alt="Linnker Logo"
+                width={200}
+                height={60}
+                className="mx-auto"
+              />
+            </div>
+            <div className="space-y-4">
+              <h1 className="text-4xl md:text-6xl font-black text-white drop-shadow-xl">
+                Linking you to the correct inn.
+              </h1>
+              <p className="text-lg md:text-xl font-black text-yellow-500">No booking fees, No middleman.</p>
+            </div>
           </div>
         </div>
       </section>
