@@ -41,7 +41,7 @@ const Searchbar = () => {
             placeholder="Where are you going?"
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full pl-10 pr-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-primary h-10"
           />
         </div>
 
@@ -50,7 +50,7 @@ const Searchbar = () => {
           <PopoverTrigger asChild>
             <Button
               variant="outline"
-              className="justify-start text-left font-normal w-[200px] rounded-full"
+              className="justify-start text-left font-normal w-[200px] rounded-full h-10 px-4"
             >
               <CalendarDays className="mr-2 h-4 w-4" />
               {date ? format(date, "MMM d, yyyy") : "Select date"}
@@ -72,7 +72,7 @@ const Searchbar = () => {
           <PopoverTrigger asChild>
             <Button
               variant="outline"
-              className="justify-start text-left font-normal w-[180px] rounded-full"
+              className="justify-start text-left font-normal w-[180px] rounded-full h-10 px-4"
             >
               <Users className="mr-2 h-4 w-4" />
               {`${guests.adults + guests.children} Guest${
@@ -143,7 +143,7 @@ const Searchbar = () => {
 
         {/* Search Button */}
         <Button 
-          className="md:w-auto w-full rounded-full"
+          className="md:w-auto w-full rounded-full h-10 px-4"
           onClick={handleSearch}
         >
           <Search className="mr-2 h-4 w-4" />
