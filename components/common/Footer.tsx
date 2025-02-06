@@ -6,14 +6,14 @@ import { Instagram, Facebook } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white py-8">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col items-center space-y-6">
+    <footer className="bg-black text-white max-h-[30vh]">
+      <div className="max-w-4xl mx-auto px-4">
+        <div className="flex flex-col items-center">
           {/* Logo */}
           <Image
             src="/images/LogoWhite.png"
             alt="Linnker Logo"
-            width={150}
+            width={300}
             height={50}
             className="mx-auto"
           />
