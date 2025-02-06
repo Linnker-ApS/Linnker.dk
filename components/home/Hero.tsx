@@ -9,7 +9,7 @@ const Hero: FC = () => {
       <section className="relative h-[45vh]">
         <div className="absolute inset-0">
           <Image
-            src="/images/hotel-2.jpg"
+            src="/images/hotel-7.jpg"
             alt="Hero background"
             fill
             priority

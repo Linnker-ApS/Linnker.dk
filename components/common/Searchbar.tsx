@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -8,6 +8,7 @@ import { Search, CalendarDays, Users } from "lucide-react";
 import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
+import { hotels } from "@/data/hotels";
 
 interface GuestCount {
   adults: number;
@@ -17,6 +18,7 @@ interface GuestCount {
 
 const Searchbar = () => {
   const [destination, setDestination] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
     from: undefined,
     to: undefined,
@@ -24,6 +26,34 @@ const Searchbar = () => {
   const [guests, setGuests] = useState<GuestCount>({ adults: 2, children: 0, rooms: 1 });
   const [isDateOpen, setIsDateOpen] = useState(false);
   const [isGuestOpen, setIsGuestOpen] = useState(false);
+
+  // Get unique locations from hotels data
+  const locations = useMemo(() => {
+    const uniqueLocations = new Set(
+      hotels.map(hotel => `${hotel.location.city}, ${hotel.location.country}`)
+    );
+    return Array.from(uniqueLocations);
+  }, []);
+
+  // Filter locations based on input and limit to 4 results
+  const filteredLocations = useMemo(() => {
+    if (!destination) return [];
+    return locations
+      .filter(location =>
+        location.toLowerCase().includes(destination.toLowerCase())
+      )
+      .slice(0, 4); // Limit to first 4 results
+  }, [locations, destination]);
+
+  const handleLocationSelect = (location: string) => {
+    setDestination(location);
+    setShowSuggestions(false);
+  };
+
+  const handleDestinationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDestination(e.target.value);
+    setShowSuggestions(true);
+  };
 
   const handleSearch = () => {
     console.log({ 
@@ -44,18 +74,34 @@ const Searchbar = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto bg-white rounded-full shadow-lg p-2">
+    <div className="w-full max-w-4xl mx-auto bg-white rounded-full shadow-lg p-2 relative">
       <div className="flex flex-col md:flex-row gap-2">
-        {/* Destination Input */}
+        {/* Destination Input with Autocomplete */}
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             placeholder="Where are you going?"
             value={destination}
-            onChange={(e) => setDestination(e.target.value)}
+            onChange={handleDestinationChange}
+            onFocus={() => setShowSuggestions(true)}
             className="w-full pl-10 pr-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#FFB700] h-10"
           />
+          
+          {/* Autocomplete Suggestions */}
+          {showSuggestions && filteredLocations.length > 0 && (
+            <div className="absolute z-50 w-full mt-1 bg-white border rounded-lg shadow-lg overflow-hidden">
+              {filteredLocations.map((location, index) => (
+                <div
+                  key={index}
+                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                  onClick={() => handleLocationSelect(location)}
+                >
+                  {location}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Date Range Selector */}

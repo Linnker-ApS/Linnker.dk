@@ -48,7 +48,7 @@ const HotelCard = ({ imageUrl, name, location, price, rating }: HotelCardProps) 
         <div className="flex justify-between items-center">
           {/* Price */}
           <div className="flex items-baseline gap-1">
-            <span className="font-semibold text-base">
+            <span className="font-semibold text-sm">
               from {price.currency} {price.amount}
             </span>
             <span className="text-xs text-gray-500">
