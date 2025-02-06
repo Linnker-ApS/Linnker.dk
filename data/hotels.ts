@@ -61,7 +61,7 @@ export const hotels = [
     imageUrl: "/images/hotels/hotel-5.jpg",
     name: "Harbor View Inn",
     location: {
-      city: "Esbjerg",
+      city: "Sønderbo",
       country: "Denmark"
     },
     price: {

@@ -35,7 +35,7 @@ const HotelCard = ({ imageUrl, name, location, price, rating }: HotelCardProps) 
       {/* Content Container */}
       <div className="pt-1">
         {/* Hotel Name */}
-        <h3 className="font-medium text-lg text-gray-900">
+        <h3 className="font-regular text-lg text-gray-900">
           {name.toUpperCase()}
         </h3>
 

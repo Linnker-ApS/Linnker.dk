@@ -25,8 +25,7 @@ const TrendingHotels = () => {
 
         <div className="flex justify-center">
           <Button 
-            variant="outline"
-            className="bg-black text-white hover:bg-black/90 px-8 disabled:opacity-50"
+            className="rounded-full h-10 px-8 bg-black text-white hover:bg-yellow-500 hover:text-black disabled:opacity-50 disabled:hover:bg-black disabled:hover:text-white"
             onClick={handleLoadMore}
             disabled={isAllHotelsVisible}
           >

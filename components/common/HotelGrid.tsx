@@ -12,7 +12,7 @@ const HotelGrid = ({ hotels, visibleHotels }: HotelGridProps) => {
   const displayedHotels = visibleHotels ? hotels.slice(0, visibleHotels) : hotels;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-12">
       {displayedHotels.map((hotel, index) => (
         <HotelCard
           key={index}
