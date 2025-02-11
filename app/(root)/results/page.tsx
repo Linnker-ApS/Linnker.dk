@@ -8,6 +8,7 @@ import Logo from "@/components/common/Logo";
 import { MapIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import HotelMap from "@/components/results/HotelMap";
 
 const SearchResults = () => {
   const searchParams = useSearchParams();
@@ -39,13 +40,13 @@ const SearchResults = () => {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex gap-8">
+      <div className="w-full pl-4">
+        <div className="flex gap-8 w-full pl-8">
           {/* Left side - Hotel listings */}
-          <div className="flex-1">
+          <div className="flex-[0.65]">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-semibold">Search Results</h1>
-              <button className="flex items-center gap-2 text-sm">
+              <button className="flex items-center gap-2 text-sm lg:hidden">
                 <MapIcon size={20} />
                 Show map
               </button>
@@ -73,10 +74,8 @@ const SearchResults = () => {
           </div>
 
           {/* Right side - Map */}
-          <div className="w-[400px] h-[calc(100vh-2rem)] sticky top-28 rounded-lg overflow-hidden hidden lg:block">
-            <div className="w-full h-full bg-gray-200">
-              {/* Map will go here */}
-            </div>
+          <div className="flex-[0.35] h-screen sticky top-[88px] rounded-lg overflow-hidden hidden lg:block">
+            <HotelMap hotels={hotels} />
           </div>
         </div>
       </div>
