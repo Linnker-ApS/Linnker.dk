@@ -8,8 +8,8 @@ const experiences = [
     title: "Culture"
   },
   {
-    imageUrl: "/images/experiences/nature.jpg",
-    title: "Nature"
+    imageUrl: "/images/experiences/hotels.jpg",
+    title: "Hotels"
   },
   {
     imageUrl: "/images/experiences/food.jpg",

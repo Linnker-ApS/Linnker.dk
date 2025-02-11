@@ -12,7 +12,6 @@ const Home = () => {
     <main className="flex min-h-screen flex-col">
       <div className="relative">
         <Hero />
-        {/* Main Searchbar */}
         <div className="absolute left-0 right-0 bottom-0 transform translate-y-1/2 px-4">
           <div className="container mx-auto">
             <Searchbar />
@@ -20,7 +19,6 @@ const Home = () => {
         </div>
       </div>
       <div className="mt-20">
-        {/* Main Searchbar */}
         <TrendingHotels />
         <Experiences />
         <Mission />
