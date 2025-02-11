@@ -4,7 +4,10 @@ import { useSearchParams } from "next/navigation";
 import { hotels } from "@/data/hotels";
 import SearchResultsGrid from "@/components/common/SearchResultsGrid";
 import Searchbar from "@/components/common/Searchbar";
+import Logo from "@/components/common/Logo";
 import { MapIcon } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 const SearchResults = () => {
   const searchParams = useSearchParams();
@@ -14,18 +17,25 @@ const SearchResults = () => {
   
   return (
     <main className="flex min-h-screen flex-col">
-      {/* Sticky Searchbar */}
-      <div className="sticky top-0 z-50 bg-white shadow-md py-4">
-        <Searchbar 
-          initialDestination={destination}
-          initialStartDate={startDate}
-          initialEndDate={endDate}
-          initialGuests={{
-            adults: Number(searchParams.get('adults')) || 2,
-            children: Number(searchParams.get('children')) || 0,
-            rooms: Number(searchParams.get('rooms')) || 1
-          }}
-        />
+      {/* Sticky Header with Logo and Searchbar */}
+      <div className="sticky top-0 z-50 bg-white shadow-md">
+        <div className="container mx-auto px-4 py-4 flex items-center gap-8">
+          <Logo variant="black" />
+          
+          {/* Searchbar */}
+          <div className="flex-1">
+            <Searchbar 
+              initialDestination={destination}
+              initialStartDate={startDate}
+              initialEndDate={endDate}
+              initialGuests={{
+                adults: Number(searchParams.get('adults')) || 2,
+                children: Number(searchParams.get('children')) || 0,
+                rooms: Number(searchParams.get('rooms')) || 1
+              }}
+            />
+          </div>
+        </div>
       </div>
 
       {/* Main Content */}

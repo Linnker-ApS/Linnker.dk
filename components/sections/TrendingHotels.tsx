@@ -9,7 +9,7 @@ const TrendingHotels = () => {
   const [visibleHotels, setVisibleHotels] = useState(8);
 
   const handleLoadMore = () => {
-    setVisibleHotels(prev => Math.min(prev + 4, hotels.length));
+    setVisibleHotels(prev => Math.min(prev + 8, hotels.length));
   };
 
   const isAllHotelsVisible = visibleHotels >= hotels.length;
