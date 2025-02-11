@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
 import { hotels } from "@/data/hotels";
+import { useRouter } from "next/navigation";
 
 interface GuestCount {
   adults: number;
@@ -16,14 +17,27 @@ interface GuestCount {
   rooms: number;
 }
 
-const Searchbar = () => {
-  const [destination, setDestination] = useState("");
+interface SearchbarProps {
+  initialDestination?: string;
+  initialStartDate?: Date;
+  initialEndDate?: Date;
+  initialGuests?: GuestCount;
+}
+
+const Searchbar = ({ 
+  initialDestination = "", 
+  initialStartDate,
+  initialEndDate,
+  initialGuests = { adults: 2, children: 0, rooms: 1 }
+}: SearchbarProps) => {
+  const router = useRouter();
+  const [destination, setDestination] = useState(initialDestination);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
-    from: undefined,
-    to: undefined,
+    from: initialStartDate,
+    to: initialEndDate,
   });
-  const [guests, setGuests] = useState<GuestCount>({ adults: 2, children: 0, rooms: 1 });
+  const [guests, setGuests] = useState<GuestCount>(initialGuests);
   const [isDateOpen, setIsDateOpen] = useState(false);
   const [isGuestOpen, setIsGuestOpen] = useState(false);
 
@@ -56,12 +70,16 @@ const Searchbar = () => {
   };
 
   const handleSearch = () => {
-    console.log({ 
-      destination, 
-      startDate: dateRange?.from, 
-      endDate: dateRange?.to, 
-      guests 
+    const params = new URLSearchParams({
+      destination,
+      startDate: dateRange?.from?.toISOString() || "",
+      endDate: dateRange?.to?.toISOString() || "",
+      adults: guests.adults.toString(),
+      children: guests.children.toString(),
+      rooms: guests.rooms.toString()
     });
+
+    router.push(`/results?${params.toString()}`);
   };
 
   const updateGuestCount = (type: 'adults' | 'children' | 'rooms', operation: 'add' | 'subtract') => {
