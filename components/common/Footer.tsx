@@ -2,42 +2,49 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Instagram, Facebook } from "lucide-react";
+import { Instagram, Facebook, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white max-h-[30vh]">
+    <footer className="bg-black text-white py-8">
       <div className="max-w-4xl mx-auto px-4">
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center space-y-4">
           {/* Logo */}
           <Image
             src="/images/LogoWhite.png"
             alt="Linnker Logo"
-            width={300}
+            width={250}
             height={50}
             className="mx-auto"
           />
 
           {/* Social Media Icons */}
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 space/">
             <Link 
               href="https://instagram.com" 
               target="_blank"
               className="hover:text-yellow-500 transition-colors"
             >
-              <Instagram size={24} />
+              <Instagram size={28} />
             </Link>
             <Link 
               href="https://facebook.com" 
               target="_blank"
               className="hover:text-yellow-500 transition-colors"
             >
-              <Facebook size={24} />
+              <Facebook size={28} />
+            </Link>
+            <Link 
+              href="https://linkedin.com" 
+              target="_blank"
+              className="hover:text-yellow-500 transition-colors"
+            >
+              <Linkedin size={28} />
             </Link>
           </div>
 
           {/* Links */}
-          <div className="flex space-x-6 text-sm">
+          <div className="flex space-x-6 text-sm mb-4">
             <Link href="/privacy-policy" className="hover:text-yellow-500 transition-colors">
               Privacy Policy
             </Link>
@@ -46,6 +53,9 @@ const Footer = () => {
             </Link>
             <Link href="/faq" className="hover:text-yellow-500 transition-colors">
               FAQ
+            </Link>
+            <Link href="/submit-property" className="hover:text-yellow-500 transition-colors">
+              Submit Property
             </Link>
           </div>
         </div>

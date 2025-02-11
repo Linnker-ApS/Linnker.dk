@@ -20,7 +20,7 @@ interface HotelCardProps {
 
 const HotelCard = ({ imageUrl, name, location, price, rating }: HotelCardProps) => {
   return (
-    <div className="group cursor-pointer max-w-[333px] mx-auto rounded-t-sm overflow-hidden bg-white">
+    <div className="group cursor-pointer max-w-[333px] mx-auto rounded-t-sm overflow-hidden bg-white mb-8">
       {/* Image Container */}
       <div className="relative w-[333px] h-[333px] overflow-hidden">
         <Image
@@ -48,7 +48,7 @@ const HotelCard = ({ imageUrl, name, location, price, rating }: HotelCardProps) 
         <div className="flex justify-between items-center">
           {/* Price */}
           <div className="flex items-baseline gap-1">
-            <span className="font-semibold text-sm">
+            <span className="font-semibold text-md">
               from {price.currency} {price.amount}
             </span>
             <span className="text-xs text-gray-500">

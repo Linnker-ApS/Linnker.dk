@@ -7,11 +7,9 @@ const Mission = () => {
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-4xl font-thin mb-8">- Our Mission -</h2>
           <p className="text-lg leading-relaxed">
-            Growing up in a hotel family and spending my career in hospitality,
-            I've always been passionate about creating genuine connections
-            between travelers and the hotels that fit their needs. That's why I
-            started Linnker—a platform that aims to simplify hotel bookings
-            and bring transparency back to the industry.
+          To make hotel booking more transparent.
+          We connect you directly with hotels, ensuring you get their own prices, better service,
+          and more flexible terms. No middlemen. No hidden fees. Just a smarter way to book hotels in Denmark.
           </p>
         </div>
       </div>

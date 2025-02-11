@@ -2,7 +2,6 @@
 
 import React, { FC } from "react";
 import Image from "next/image";
-import Searchbar from "@/components/common/Searchbar";
 
 const Hero: FC = () => {
   return (
@@ -26,16 +25,16 @@ const Hero: FC = () => {
               <Image
                 src="/images/LogoWhite.png"
                 alt="Linnker Logo"
-                width={220}
-                height={80}
+                width={270}
+                height={100}
                 className="mx-auto"
               />
             </div>
             <div className="space-y-4 py-10">
-              <h1 className="text-5xl md:text-7xl translate-y-10 font-black text-white drop-shadow-xl">
-                Linking you to the correct inn.
+              <h1 className="text-5xl md:text-7xl translate-y-10 font-bold text-white drop-shadow-xl">
+              Direct Booking. Real benefits.
               </h1>
-              <p className="text-lg md:text-xl translate-y-8 font-black text-yellow-500">No middleman, no hidden fees.</p>
+              <p className="text-lg md:text-xl translate-y-8 font-bold text-yellow-500">Direct prices, better service, flexible terms.</p>
             </div>
           </div>
         </div>

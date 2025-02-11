@@ -17,9 +17,9 @@ const TrendingHotels = () => {
   return (
     <section className="py-12">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-thin mb-8 text-center">TRENDING HOTELS</h2>
+        <h2 className="text-4xl font-bold mb-8 text-center">TRENDING HOTELS</h2>
         
-        <div className="mb-8">
+        <div className="mb-16">
           <HotelGrid hotels={hotels} visibleHotels={visibleHotels} />
         </div>
 
