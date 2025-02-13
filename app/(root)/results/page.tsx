@@ -6,8 +6,6 @@ import SearchResultsGrid from "@/components/common/SearchResultsGrid";
 import Searchbar from "@/components/common/Searchbar";
 import Logo from "@/components/common/Logo";
 import { MapIcon } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 import HotelMap from "@/components/results/HotelMap";
 
 const SearchResults = () => {
@@ -74,7 +72,7 @@ const SearchResults = () => {
           </div>
 
           {/* Right side - Map */}
-          <div className="flex-[0.35] h-screen sticky top-[88px] rounded-lg overflow-hidden hidden lg:block">
+          <div className="flex-[0.35] max-h-screen sticky top-[88px] rounded-lg overflow-hidden hidden lg:block">
             <HotelMap hotels={hotels} />
           </div>
         </div>
