@@ -15,9 +15,6 @@ const AMENITIES = ["Breakfast", "Free-Wifi", "Parking", "Pool", "Spa", "Gym"];
 const SearchResults = () => {
   const searchParams = useSearchParams();
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
-  const destination = searchParams.get('destination') || '';
-  const startDate = searchParams.get('startDate') ? new Date(searchParams.get('startDate')!) : undefined;
-  const endDate = searchParams.get('endDate') ? new Date(searchParams.get('endDate')!) : undefined;
   
   const handleFilterChange = (filter: string) => {
     setSelectedAmenities(prev => 
@@ -29,19 +26,15 @@ const SearchResults = () => {
 
   return (
     <main className="flex min-h-screen flex-col">
-      <div className="flex flex-col">
-      {/* Sticky Header with Logo and Searchbar */}
+      {/* Sticky Header */}
       <div className="sticky top-0 z-50 bg-white shadow-md py-[1.5vh]">
-        <div className="container mx-auto pr-24 flex items-center">
-          <Logo variant="black" width={120}
-                height={100}
-                className="mx-auto"/>
-          {/* Searchbar */}
+        <div className="container mx-auto px-4 flex items-center gap-8">
+          <Logo variant="black" width={120} height={100} className="mx-auto"/>
           <div className="flex-1">
             <Searchbar 
-              initialDestination={destination}
-              initialStartDate={startDate}
-              initialEndDate={endDate}
+              initialDestination={searchParams.get('destination') || ''}
+              initialStartDate={searchParams.get('startDate') ? new Date(searchParams.get('startDate')!) : undefined}
+              initialEndDate={searchParams.get('endDate') ? new Date(searchParams.get('endDate')!) : undefined}
               initialGuests={{
                 adults: Number(searchParams.get('adults')) || 2,
                 children: Number(searchParams.get('children')) || 0,
@@ -53,45 +46,39 @@ const SearchResults = () => {
       </div>
 
       {/* Main Content */}
-      <div className="w-full pl-4">
-        <div className="flex w-full relative">
-          {/* Left side - Hotel listings */}
-          <div className="flex-[0.65] pl-12 py-6">
-            {/* Amenities Filters */}
-            <AmenitiesFilter 
-              filters={AMENITIES}
-              selectedFilters={selectedAmenities}
-              onChange={handleFilterChange}
-              className="mb-6"
-            />
+      <div className="flex w-full h-[calc(100vh-84px)]">
+        {/* Left side - Hotel listings */}
+        <div className="w-[55%] overflow-y-auto pl-8 py-6 pr-6">
+          {/* Amenities Filters */}
+          <AmenitiesFilter 
+            filters={AMENITIES}
+            selectedFilters={selectedAmenities}
+            onChange={handleFilterChange}
+            className="mb-6"
+          />
 
-            <div className="flex justify-between items-center mb-4">
-              <h1 className="text-4xl font-semibold">Search Results</h1>
-              <button className="flex items-center gap-2 text-sm lg:hidden">
-                <MapIcon size={20} />
-                Show map
-              </button>
-            </div>
-            
-            
-
-            {/* Search Results Grid */}
-            <SearchResultsGrid 
-              hotels={hotels}
-              destination={destination}
-              startDate={startDate}
-              endDate={endDate}
-            />
+          <div className="flex justify-between items-center mb-4">
+            <h1 className="text-4xl font-semibold">Search Results</h1>
+            <button className="flex items-center gap-2 text-sm lg:hidden">
+              <MapIcon size={20} />
+              Show map
+            </button>
           </div>
 
-          {/* Right side - Map */}
-          <div className="flex-[0.35] fixed max-h-screen sticky right-0 top-[84px] bottom-0">
-            <div className="h-full w-full">
-              <HotelMap hotels={hotels} />
-            </div>
-          </div>
+          {/* Search Results Grid */}
+          <SearchResultsGrid 
+            hotels={hotels}
+            destination={searchParams.get('destination') || ''}
+            startDate={searchParams.get('startDate') ? new Date(searchParams.get('startDate')!) : undefined}
+            endDate={searchParams.get('endDate') ? new Date(searchParams.get('endDate')!) : undefined}
+          />
         </div>
-      </div></div>
+
+        {/* Right side - Map */}
+        <div className="w-[45%] h-full">
+          <HotelMap hotels={hotels} />
+        </div>
+      </div>
     </main>
   );
 };
