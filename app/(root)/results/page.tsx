@@ -28,7 +28,7 @@ const SearchResults = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Sticky Header */}
-      <div className="sticky top-0 z-50 bg-white shadow-md py-3">
+      <div className="sticky top-0 z-50 bg-white shadow-md py-[1.5vh]">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
             <div className="w-[120px] shrink-0"></div>
@@ -55,7 +55,7 @@ const SearchResults = () => {
       {/* Main Content */}
       <div className="flex flex-1 w-full">
         {/* Left side - Hotel listings */}
-        <div className="w-[55%] overflow-y-auto scrollbar-none pl-12 py-4">
+        <div className="w-[55%] pl-12 pt-4">
           {/* Amenities Filters */}
           <AmenitiesFilter 
             filters={AMENITIES}
@@ -72,15 +72,15 @@ const SearchResults = () => {
             </button>
           </div>
 
-          {/* Search Results Grid */}
-          <SearchResultsGrid 
-            hotels={hotels}
-            destination={searchParams.get('destination') || ''}
-            startDate={searchParams.get('startDate') ? new Date(searchParams.get('startDate')!) : undefined}
-            endDate={searchParams.get('endDate') ? new Date(searchParams.get('endDate')!) : undefined}
-          />
-
-          
+          {/* Search Results Grid with space for pagination */}
+          <div className="mb-6">
+            <SearchResultsGrid 
+              hotels={hotels}
+              destination={searchParams.get('destination') || ''}
+              startDate={searchParams.get('startDate') ? new Date(searchParams.get('startDate')!) : undefined}
+              endDate={searchParams.get('endDate') ? new Date(searchParams.get('endDate')!) : undefined}
+            />
+          </div>
         </div>
 
         {/* Right side - Map */}

@@ -84,7 +84,7 @@ const SearchResultsGrid = ({ hotels, destination, startDate, endDate }: SearchRe
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex justify-center items-center gap-2 mt-8">
+        <div className="flex justify-center items-center gap-2 pt-12 ">
           <button
             onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
             disabled={currentPage === 1}
