@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC } from "react";
-import Image from "next/image";
+import Logo from "@/components/common/Logo";
 
 const Hero: FC = () => {
   return (
@@ -21,10 +21,9 @@ const Hero: FC = () => {
         </div>
         <div className="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center">
           <div className="text-center text-white absolute top-1/2 -translate-y-1/2 w-full">
-            <div className="absolute -top-36 left-1/2 -translate-x-1/2">
-              <Image
-                src="/images/LogoWhite.png"
-                alt="Linnker Logo"
+            <div className="absolute -top-12 left-1/2 -translate-x-1/2 -translate-y-1/2">
+              <Logo 
+                variant="white"
                 width={270}
                 height={100}
                 className="mx-auto"
@@ -32,9 +31,11 @@ const Hero: FC = () => {
             </div>
             <div className="space-y-4 py-10">
               <h1 className="text-5xl md:text-7xl translate-y-10 font-bold text-white drop-shadow-xl">
-              Direct Booking. Real benefits.
+                Direct Booking. Real benefits.
               </h1>
-              <p className="text-lg md:text-xl translate-y-8 font-bold text-yellow-500">Direct prices, better service, flexible terms.</p>
+              <p className="text-lg md:text-xl translate-y-8 font-bold text-yellow-500">
+                Direct prices, better service, flexible terms.
+              </p>
             </div>
           </div>
         </div>

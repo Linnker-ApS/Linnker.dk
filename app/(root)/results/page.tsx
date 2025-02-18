@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { hotels } from "@/data/hotels";
 import SearchResultsGrid from "@/components/common/SearchResultsGrid";
@@ -7,19 +8,33 @@ import Searchbar from "@/components/common/Searchbar";
 import Logo from "@/components/common/Logo";
 import { MapIcon } from "lucide-react";
 import HotelMap from "@/components/results/HotelMap";
+import AmenitiesFilter from "@/components/common/AmenitiesFilter";
+
+const AMENITIES = ["breakfast", "free wifi", "parking", "pool", "spa", "gym"];
 
 const SearchResults = () => {
   const searchParams = useSearchParams();
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const destination = searchParams.get('destination') || '';
   const startDate = searchParams.get('startDate') ? new Date(searchParams.get('startDate')!) : undefined;
   const endDate = searchParams.get('endDate') ? new Date(searchParams.get('endDate')!) : undefined;
   
+  const handleFilterChange = (filter: string) => {
+    setSelectedAmenities(prev => 
+      prev.includes(filter) 
+        ? prev.filter(f => f !== filter)
+        : [...prev, filter]
+    );
+  };
+
   return (
     <main className="flex min-h-screen flex-col">
       {/* Sticky Header with Logo and Searchbar */}
-      <div className="sticky top-0 z-50 bg-white shadow-md">
-        <div className="container mx-auto px-2 flex items-center">
-          <Logo variant="black" />
+      <div className="sticky top-0 z-50 bg-white shadow-md py-[1.5vh]">
+        <div className="container mx-auto pr-24 flex items-center">
+          <Logo variant="black" width={120}
+                height={100}
+                className="mx-auto"/>
           {/* Searchbar */}
           <div className="flex-1">
             <Searchbar 
@@ -38,28 +53,26 @@ const SearchResults = () => {
 
       {/* Main Content */}
       <div className="w-full pl-4">
-        <div className="flex gap-8 w-full pl-8">
+        <div className="flex w-full">
           {/* Left side - Hotel listings */}
-          <div className="flex-[0.65]">
-            <div className="flex justify-between items-center mb-6">
-              <h1 className="text-2xl font-semibold">Search Results</h1>
+          <div className="flex-[0.65] pl-12 py-6">
+            {/* Amenities Filters */}
+            <AmenitiesFilter 
+              filters={AMENITIES}
+              selectedFilters={selectedAmenities}
+              onChange={handleFilterChange}
+              className="mb-6"
+            />
+
+            <div className="flex justify-between items-center mb-4">
+              <h1 className="text-4xl font-semibold">Search Results</h1>
               <button className="flex items-center gap-2 text-sm lg:hidden">
                 <MapIcon size={20} />
                 Show map
               </button>
             </div>
             
-            {/* Filters */}
-            <div className="flex gap-4 mb-6 overflow-x-auto py-2">
-              {["breakfast", "free wifi", "parking", "pool"].map((filter) => (
-                <button
-                  key={filter}
-                  className="px-4 py-2 border rounded-full text-sm whitespace-nowrap hover:bg-black hover:text-white transition-colors"
-                >
-                  {filter}
-                </button>
-              ))}
-            </div>
+            
 
             {/* Search Results Grid */}
             <SearchResultsGrid 
@@ -71,7 +84,7 @@ const SearchResults = () => {
           </div>
 
           {/* Right side - Map */}
-          <div className="flex-[0.35] max-h-screen sticky top-[88px] rounded-lg overflow-hidden hidden lg:block">
+          <div className="flex-[0.35] max-h-screen sticky top-[84px] overflow-hidden hidden lg:block">
             <HotelMap hotels={hotels} />
           </div>
         </div>

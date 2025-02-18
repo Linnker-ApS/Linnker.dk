@@ -20,7 +20,7 @@ interface HotelCardProps {
   className?: string;
   imageClassName?: string;
   onClick?: () => void;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'full';
   variant?: 'default' | 'compact' | 'featured';
 }
 
@@ -38,30 +38,34 @@ const HotelCard = ({
 }: HotelCardProps) => {
   const sizes = {
     sm: {
-      container: 'max-w-[200px]',
-      image: 'w-[200px] h-[200px]'
+      container: 'w-[200px]',
+      image: 'h-[200px]'
     },
     md: {
-      container: 'max-w-[300px]',
-      image: 'w-[300px] h-[300px]'
+      container: 'w-[300px]',
+      image: 'h-[250px]'
     },
     lg: {
-      container: 'max-w-[400px]',
-      image: 'w-[400px] h-[400px]'
+      container: 'w-[300x]',
+      image: 'h-[300px]'
+    },
+    full: {
+      container: 'w-full',
+      image: 'h-[320px]'
     }
   };
 
   const variants = {
     default: 'bg-white',
-    compact: 'bg-white p-2',
-    featured: 'bg-white shadow-lg border border-gray-100'
+    compact: 'bg-white',
+    featured: 'bg-white'
   };
 
   return (
     <div 
       onClick={onClick}
       className={cn(
-        "group cursor-pointer rounded-t-sm overflow-hidden mb-8 mx-auto",
+        "group cursor-pointer rounded-lg overflow-hidden",
         sizes[size].container,
         variants[variant],
         className
@@ -69,21 +73,21 @@ const HotelCard = ({
     >
       {/* Image Container */}
       <div className={cn(
-        "relative overflow-hidden",
+        "relative w-full overflow-hidden",
         sizes[size].image,
         imageClassName
       )}>
         <Image
           src={imageUrl}
           alt={name}
-          sizes="auto"
           fill
+          sizes={size === 'full' ? "100vw" : "auto"}
           className="object-cover transition-transform duration-300 group-hover:scale-110"
         />
       </div>
 
       {/* Content Container */}
-      <div className="pt-1">
+      <div className="pt-2">
         {/* Hotel Name */}
         <h3 className="font-regular text-lg text-gray-900">
           {name.toUpperCase()}
@@ -95,7 +99,7 @@ const HotelCard = ({
         </div>
 
         {/* Price and Rating Container */}
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mt-2">
           {/* Price */}
           <div className="flex items-baseline gap-1">
             <span className="font-semibold text-md">

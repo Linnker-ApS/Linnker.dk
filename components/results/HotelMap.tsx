@@ -19,7 +19,7 @@ const HotelMap = ({ hotels, center = { lat: 55.676098, lng: 12.568337 } }: Hotel
   if (!isLoaded) {
     return (
       <div className="w-full h-full flex items-center justify-center bg-gray-100">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900" />
+        <div className="animate-spin rounded-full w-8 h-8 border-b-2 border-gray-900" />
       </div>
     );
   }
@@ -28,7 +28,7 @@ const HotelMap = ({ hotels, center = { lat: 55.676098, lng: 12.568337 } }: Hotel
     <GoogleMap
       zoom={13}
       center={mapCenter}
-      mapContainerClassName="w-full h-full"
+      mapContainerClassName="w-full h-[91vh]"
       options={{
         disableDefaultUI: true,
         zoomControl: true,

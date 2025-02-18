@@ -31,13 +31,15 @@ const SearchResultsGrid = ({ hotels, destination, startDate, endDate }: SearchRe
       </div>
 
       {/* Grid of hotel cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pr-6">
         {filteredHotels.map((hotel, index) => (
           <div key={index} >
             <HotelCard 
               {...hotel}
-              size="md"
-              variant="default"
+              size="lg"
+              variant="featured"
+              className="w-full max-w-none"
+              imageClassName="aspect-[4/3] w-full h-[256px]"
               onClick={() => handleHotelClick(hotel)}
             />
           </div>
