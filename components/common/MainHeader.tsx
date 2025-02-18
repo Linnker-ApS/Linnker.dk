@@ -1,7 +1,7 @@
 "use client";
 
 import Logo from "@/components/common/Logo";
-import Searchbar from "@/components/common/Searchbar";
+import Searchbar from "@/components/ui/Searchbar";
 
 interface MainHeaderProps {
   isSticky?: boolean;

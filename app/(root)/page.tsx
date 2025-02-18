@@ -4,8 +4,9 @@ import { useEffect, useRef, useState } from "react";
 
 //Components
 import Hero from "@/components/home/Hero";
-import Searchbar from "@/components/common/Searchbar";
+import Searchbar from "@/components/ui/Searchbar";
 import TrendingHotels from "@/components/sections/TrendingHotels";
+import MainHeader from "@/components/common/MainHeader";
 import Experiences from "@/components/sections/Experiences";
 import Mission from "@/components/sections/Mission";
 import Footer from "@/components/common/Footer";
@@ -47,14 +48,13 @@ const Home = () => {
 
         {/* Sticky search bar */}
         <div 
-          className={`fixed top-0 left-0 right-0 bg-white shadow-md transition-transform duration-300 z-50
+          className={`fixed top-0 left-0 right-0 transition-transform duration-300 z-50
             ${isSticky ? 'translate-y-0' : '-translate-y-full'}`}
         >
-          <div className="container mx-auto px-4 py-4">
-            <Searchbar />
-          </div>
+          <MainHeader isSticky={true} />
         </div>
       </div>
+
       <div className="mt-20">
         <TrendingHotels />
         <Experiences />
