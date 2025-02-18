@@ -4,12 +4,11 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { hotels } from "@/data/hotels";
 import SearchResultsGrid from "@/components/common/SearchResultsGrid";
-import Searchbar from "@/components/common/Searchbar";
-import Logo from "@/components/common/Logo";
 import { MapIcon } from "lucide-react";
 import HotelMap from "@/components/results/HotelMap";
 import AmenitiesFilter from "@/components/common/AmenitiesFilter";
 import Footer from "@/components/common/Footer";
+import MainHeader from "@/components/common/MainHeader";
 
 const AMENITIES = ["Breakfast", "Free-Wifi", "Parking", "Pool", "Spa", "Gym"];
 
@@ -27,30 +26,17 @@ const SearchResults = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Sticky Header */}
-      <div className="sticky top-0 z-50 bg-white shadow-md py-[1.5vh]">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between">
-            <div className="w-[120px] shrink-0"></div>
-            <div className="flex-1 max-w-3xl mx-auto px-4 relative">
-              <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[140px]">
-                <Logo variant="black" width={120} height={40} className="shrink-0" />
-              </div>
-              <Searchbar 
-                initialDestination={searchParams.get('destination') || ''}
-                initialStartDate={searchParams.get('startDate') ? new Date(searchParams.get('startDate')!) : undefined}
-                initialEndDate={searchParams.get('endDate') ? new Date(searchParams.get('endDate')!) : undefined}
-                initialGuests={{
-                  adults: Number(searchParams.get('adults')) || 2,
-                  children: Number(searchParams.get('children')) || 0,
-                  rooms: Number(searchParams.get('rooms')) || 1
-                }}
-              />
-            </div>
-            <div className="w-[120px] shrink-0"></div>
-          </div>
-        </div>
-      </div>
+      <MainHeader 
+        isSticky={true}
+        initialDestination={searchParams.get('destination') || ''}
+        initialStartDate={searchParams.get('startDate') ? new Date(searchParams.get('startDate')!) : undefined}
+        initialEndDate={searchParams.get('endDate') ? new Date(searchParams.get('endDate')!) : undefined}
+        initialGuests={{
+          adults: Number(searchParams.get('adults')) || 2,
+          children: Number(searchParams.get('children')) || 0,
+          rooms: Number(searchParams.get('rooms')) || 1
+        }}
+      />
 
       {/* Main Content */}
       <div className="flex flex-1 w-full">
