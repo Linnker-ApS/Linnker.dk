@@ -48,7 +48,7 @@ const SearchResults = () => {
       {/* Main Content */}
       <div className="flex w-full h-[calc(100vh-84px)]">
         {/* Left side - Hotel listings */}
-        <div className="w-[55%] overflow-y-auto pl-8 py-6 pr-6">
+        <div className="w-[55%] overflow-y-auto scrollbar-none pl-8 py-6 pr-6">
           {/* Amenities Filters */}
           <AmenitiesFilter 
             filters={AMENITIES}
