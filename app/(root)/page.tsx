@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+
+//Components
 import Hero from "@/components/home/Hero";
 import Searchbar from "@/components/common/Searchbar";
 import TrendingHotels from "@/components/sections/TrendingHotels";
 import Experiences from "@/components/sections/Experiences";
 import Mission from "@/components/sections/Mission";
 import Footer from "@/components/common/Footer";
-
-//Components
 
 const Home = () => {
   const [isSticky, setIsSticky] = useState(false);

@@ -22,7 +22,7 @@ const SearchResultsGrid = ({ hotels, destination, startDate, endDate }: SearchRe
   });
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col">
       {/* Results count */}
       <div className="text-gray-600">
         Found {filteredHotels.length} hotels
@@ -31,10 +31,15 @@ const SearchResultsGrid = ({ hotels, destination, startDate, endDate }: SearchRe
       </div>
 
       {/* Grid of hotel cards */}
-      <div className="grid grid-cols-1 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-4">
         {filteredHotels.map((hotel, index) => (
-          <div key={index} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-            <HotelCard {...hotel} />
+          <div key={index} >
+            <HotelCard 
+              {...hotel}
+              size="md"
+              variant="default"
+              onClick={() => handleHotelClick(hotel)}
+            />
           </div>
         ))}
       </div>

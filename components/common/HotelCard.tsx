@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Star } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface HotelCardProps {
   imageUrl: string;
@@ -16,13 +17,62 @@ interface HotelCardProps {
     per: string;
   };
   rating?: number;
+  className?: string;
+  imageClassName?: string;
+  onClick?: () => void;
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'default' | 'compact' | 'featured';
 }
 
-const HotelCard = ({ imageUrl, name, location, price, rating }: HotelCardProps) => {
+const HotelCard = ({ 
+  imageUrl, 
+  name, 
+  location, 
+  price, 
+  rating,
+  className,
+  imageClassName,
+  onClick,
+  size = 'md',
+  variant = 'default'
+}: HotelCardProps) => {
+  const sizes = {
+    sm: {
+      container: 'max-w-[200px]',
+      image: 'w-[200px] h-[200px]'
+    },
+    md: {
+      container: 'max-w-[300px]',
+      image: 'w-[300px] h-[300px]'
+    },
+    lg: {
+      container: 'max-w-[400px]',
+      image: 'w-[400px] h-[400px]'
+    }
+  };
+
+  const variants = {
+    default: 'bg-white',
+    compact: 'bg-white p-2',
+    featured: 'bg-white shadow-lg border border-gray-100'
+  };
+
   return (
-    <div className="group cursor-pointer max-w-[300px] mx-auto rounded-t-sm overflow-hidden bg-white mb-8">
+    <div 
+      onClick={onClick}
+      className={cn(
+        "group cursor-pointer rounded-t-sm overflow-hidden mb-8 mx-auto",
+        sizes[size].container,
+        variants[variant],
+        className
+      )}
+    >
       {/* Image Container */}
-      <div className="relative w-[300px] h-[300px] overflow-hidden">
+      <div className={cn(
+        "relative overflow-hidden",
+        sizes[size].image,
+        imageClassName
+      )}>
         <Image
           src={imageUrl}
           alt={name}

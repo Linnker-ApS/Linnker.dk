@@ -18,9 +18,8 @@ const SearchResults = () => {
     <main className="flex min-h-screen flex-col">
       {/* Sticky Header with Logo and Searchbar */}
       <div className="sticky top-0 z-50 bg-white shadow-md">
-        <div className="container mx-auto px-4 py-4 flex items-center gap-8">
+        <div className="container mx-auto px-2 flex items-center">
           <Logo variant="black" />
-          
           {/* Searchbar */}
           <div className="flex-1">
             <Searchbar 
