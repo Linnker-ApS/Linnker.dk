@@ -10,7 +10,7 @@ import { MapIcon } from "lucide-react";
 import HotelMap from "@/components/results/HotelMap";
 import AmenitiesFilter from "@/components/common/AmenitiesFilter";
 
-const AMENITIES = ["breakfast", "free wifi", "parking", "pool", "spa", "gym"];
+const AMENITIES = ["Breakfast", "Free-Wifi", "Parking", "Pool", "Spa", "Gym"];
 
 const SearchResults = () => {
   const searchParams = useSearchParams();
@@ -29,6 +29,7 @@ const SearchResults = () => {
 
   return (
     <main className="flex min-h-screen flex-col">
+      <div className="flex flex-col">
       {/* Sticky Header with Logo and Searchbar */}
       <div className="sticky top-0 z-50 bg-white shadow-md py-[1.5vh]">
         <div className="container mx-auto pr-24 flex items-center">
@@ -53,7 +54,7 @@ const SearchResults = () => {
 
       {/* Main Content */}
       <div className="w-full pl-4">
-        <div className="flex w-full">
+        <div className="flex w-full relative">
           {/* Left side - Hotel listings */}
           <div className="flex-[0.65] pl-12 py-6">
             {/* Amenities Filters */}
@@ -84,11 +85,13 @@ const SearchResults = () => {
           </div>
 
           {/* Right side - Map */}
-          <div className="flex-[0.35] max-h-screen sticky top-[84px] overflow-hidden hidden lg:block">
-            <HotelMap hotels={hotels} />
+          <div className="flex-[0.35] fixed max-h-screen sticky right-0 top-[84px] bottom-0">
+            <div className="h-full w-full">
+              <HotelMap hotels={hotels} />
+            </div>
           </div>
         </div>
-      </div>
+      </div></div>
     </main>
   );
 };
