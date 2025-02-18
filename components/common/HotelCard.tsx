@@ -3,8 +3,10 @@
 import Image from "next/image";
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 interface HotelCardProps {
+  id: string;
   imageUrl: string;
   name: string;
   location: {
@@ -19,12 +21,12 @@ interface HotelCardProps {
   rating?: number;
   className?: string;
   imageClassName?: string;
-  onClick?: () => void;
   size?: 'sm' | 'md' | 'lg' | 'full';
   variant?: 'default' | 'compact' | 'featured';
 }
 
 const HotelCard = ({ 
+  id,
   imageUrl, 
   name, 
   location, 
@@ -32,10 +34,15 @@ const HotelCard = ({
   rating,
   className,
   imageClassName,
-  onClick,
   size = 'md',
   variant = 'default'
 }: HotelCardProps) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/hotel/${id}`);
+  };
+
   const sizes = {
     sm: {
       container: 'w-[200px]',
@@ -63,7 +70,7 @@ const HotelCard = ({
 
   return (
     <div 
-      onClick={onClick}
+      onClick={handleClick}
       className={cn(
         "group cursor-pointer rounded-lg overflow-hidden",
         sizes[size].container,

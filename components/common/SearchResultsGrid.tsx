@@ -76,7 +76,6 @@ const SearchResultsGrid = ({ hotels, destination, startDate, endDate }: SearchRe
               variant="featured"
               className="w-full max-w-none"
               imageClassName="aspect-[4/3] w-full h-[256px]"
-              onClick={() => handleHotelClick(hotel)}
             />
           </div>
         ))}
