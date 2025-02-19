@@ -72,7 +72,7 @@ const HotelCard = ({
     <div 
       onClick={handleClick}
       className={cn(
-        "group cursor-pointer rounded-lg overflow-hidden",
+        "group cursor-pointer rounded-lg overflow-hidden mb-4",
         sizes[size].container,
         variants[variant],
         className

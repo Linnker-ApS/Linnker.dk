@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { hotels } from "@/data/hotels";
-import SearchResultsGrid from "@/components/common/SearchResultsGrid";
+import SearchResultsGrid from "@/components/results/SearchResultsGrid";
 import { MapIcon } from "lucide-react";
 import HotelMap from "@/components/results/HotelMap";
 import AmenitiesFilter from "@/components/common/AmenitiesFilter";
