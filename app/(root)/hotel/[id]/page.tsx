@@ -17,7 +17,7 @@ const HotelProfile = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header */}
-      <MainHeader isSticky={true} />
+      <MainHeader isSticky={false} />
 
       {/* Main Content */}
       <div className="container mx-auto px-36 py-8">
