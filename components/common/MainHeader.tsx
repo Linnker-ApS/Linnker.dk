@@ -26,14 +26,16 @@ const MainHeader = ({
     rooms: 1
   }
 }: MainHeaderProps) => {
+  const headerClasses = `${isSticky ? 'sticky top-0' : ''} z-50 shadow-md py-[1.5vh] bg-site-background`;
+  
   return (
-    <div className={`${isSticky ? 'sticky top-0' : ''} z-50 shadow-md py-[1.5vh] bg-site-background`}>
+    <header className={headerClasses}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           <div className="w-[120px] shrink-0"></div>
           <div className="flex-1 max-w-3xl mx-auto px-4 relative">
             <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[140px]">
-              <Logo variant="blackYellow" width={120} height={40} className="shrink-0" />
+              <Logo variant="blackYellow" width={120} height={40} />
             </div>
             <Searchbar
               initialDestination={initialDestination}
@@ -45,8 +47,8 @@ const MainHeader = ({
           <div className="w-[120px] shrink-0"></div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 
-export default MainHeader; 
+export default MainHeader;
