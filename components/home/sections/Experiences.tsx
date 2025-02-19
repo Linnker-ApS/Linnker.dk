@@ -1,6 +1,6 @@
 "use client";
 
-import ExperienceGrid from "../home/ExperienceGrid";
+import ExperienceGrid from "../ExperienceGrid";
 
 const experiences = [
   {

@@ -80,7 +80,7 @@ const HotelCard = ({
     >
       {/* Image Container */}
       <div className={cn(
-        "relative w-full overflow-hidden",
+        "relative w-full overflow-hidden ",
         sizes[size].image,
         imageClassName
       )}>
@@ -94,7 +94,7 @@ const HotelCard = ({
       </div>
 
       {/* Content Container */}
-      <div className="pt-2">
+      <div className="pt-2 bg-site-background">
         {/* Hotel Name */}
         <h3 className="font-regular text-lg text-gray-900">
           {name.toUpperCase()}

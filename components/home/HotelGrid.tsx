@@ -1,7 +1,7 @@
 "use client";
 
 import { Hotel } from "@/data/hotels";
-import HotelCard from "./HotelCard";
+import HotelCard from "../common/HotelCard";
 
 interface HotelGridProps {
   hotels: Hotel[];

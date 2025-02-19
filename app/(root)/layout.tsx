@@ -5,7 +5,7 @@ import "../globals.css";
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={helvetica.variable}>
-      <body>{children}</body>
+      <body className="bg-site-background">{children}</body>
     </html>
   );
 }

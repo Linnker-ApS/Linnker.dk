@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { hotels } from "@/data/hotels";
 import { Button } from "@/components/ui/button";
-import HotelGrid from "@/components/common/HotelGrid";
+import HotelGrid from "@/components/home/HotelGrid";
 
 const TrendingHotels = () => {
   const [visibleHotels, setVisibleHotels] = useState(8);

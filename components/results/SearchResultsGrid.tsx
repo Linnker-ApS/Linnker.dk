@@ -3,7 +3,7 @@
 import { Hotel } from "@/data/hotels";
 import HotelCard from "../common/HotelCard";
 import { useState } from "react";
-import Pagination from "../common/Pagination";
+import Pagination from "./Pagination";
 
 interface SearchResultsGridProps {
   hotels: Hotel[];

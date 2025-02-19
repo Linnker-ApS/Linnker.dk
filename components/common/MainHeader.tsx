@@ -27,7 +27,7 @@ const MainHeader = ({
   }
 }: MainHeaderProps) => {
   return (
-    <div className={`${isSticky ? 'sticky top-0' : ''} z-50 bg-white shadow-md py-[1.5vh]`}>
+    <div className={`${isSticky ? 'sticky top-0' : ''} z-50 bg-white shadow-md py-[1.5vh] bg-site-background`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           <div className="w-[120px] shrink-0"></div>
@@ -35,7 +35,7 @@ const MainHeader = ({
             <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[140px]">
               <Logo variant="black" width={120} height={40} className="shrink-0" />
             </div>
-            <Searchbar 
+            <Searchbar
               initialDestination={initialDestination}
               initialStartDate={initialStartDate}
               initialEndDate={initialEndDate}
