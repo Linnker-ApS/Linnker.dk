@@ -31,12 +31,12 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
         disabled={currentPage === 1}
         className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 
           disabled:opacity-50 disabled:cursor-not-allowed 
-          hover:border-black hover:bg-black/5 group
+          hover:border-black hover:bg-black group
           transition-all duration-300 ease-in-out"
         aria-label="Previous page"
       >
         <ChevronLeft className="h-4 w-4 transition-all duration-300 
-          group-hover:text-black group-hover:-translate-x-0.5" />
+          group-hover:text-white group-hover:-translate-x-0.5" />
       </button>
       
       {getPageNumbers().map((pageNum, index) => (
@@ -49,7 +49,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
             ${typeof pageNum === 'number' 
               ? pageNum === currentPage
                 ? 'bg-black text-white font-medium shadow-md'
-                : 'hover:bg-black/5 hover:text-black hover:border-black border border-transparent'
+                : 'hover:bg-black/10 hover:text-black border border-transparent'
               : 'cursor-default'
             }`}
         >
@@ -62,12 +62,12 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
         disabled={currentPage === totalPages}
         className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 
           disabled:opacity-50 disabled:cursor-not-allowed 
-          hover:border-black hover:bg-black/5 group
+          hover:bg-black hover:border-black group
           transition-all duration-300 ease-in-out"
         aria-label="Next page"
       >
         <ChevronRight className="h-4 w-4 transition-all duration-300 
-          group-hover:text-black group-hover:translate-x-0.5" />
+          group-hover:text-white group-hover:translate-x-0.5" />
       </button>
     </div>
   );
