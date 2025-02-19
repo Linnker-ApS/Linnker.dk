@@ -1,16 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import { useParams } from "next/navigation";
-import Image from "next/image";
 import MainHeader from "@/components/common/MainHeader";
 import Footer from "@/components/common/Footer";
+import PhotoGallery from "@/components/hotel/PhotoGallery";
 import { hotels } from "@/data/hotels";
 
 const HotelProfile = () => {
   const { id } = useParams();
   const hotel = hotels.find(h => h.id === id);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   if (!hotel) {
     return <div>Hotel not found</div>;
@@ -22,7 +20,7 @@ const HotelProfile = () => {
       <MainHeader isSticky={true} />
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-36 py-8">
         {/* Hotel Name and Location */}
         <div className="mb-8">
           <h1 className="text-4xl font-semibold mb-2">{hotel.name}</h1>
@@ -32,38 +30,10 @@ const HotelProfile = () => {
         </div>
 
         {/* Photo Gallery */}
-        <div className="grid grid-cols-4 gap-4 mb-8 relative">
-          {/* Main large image */}
-          <div className="col-span-2 row-span-2 relative rounded-lg overflow-hidden h-[600px]">
-            <Image
-              src={hotel.images[selectedImageIndex]}
-              alt={`${hotel.name} - Main view`}
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          {/* Smaller images */}
-          {hotel.images.slice(1, 5).map((image, index) => (
-            <div 
-              key={index}
-              className="relative rounded-lg overflow-hidden cursor-pointer h-[280px]"
-              onClick={() => setSelectedImageIndex(index + 1)}
-            >
-              <Image
-                src={image}
-                alt={`${hotel.name} - View ${index + 1}`}
-                fill
-                className="object-cover hover:opacity-90 transition"
-              />
-            </div>
-          ))}
-
-          {/* View all photos button */}
-          <button className="absolute bottom-4 right-4 bg-white px-4 py-2 rounded-full text-sm font-medium shadow-md hover:bg-gray-50">
-            View all photos
-          </button>
-        </div>
+        <PhotoGallery 
+          images={hotel.images}
+          hotelName={hotel.name}
+        />
 
         {/* Hotel Details */}
         <div className="grid grid-cols-3 gap-8">

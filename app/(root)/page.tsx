@@ -13,7 +13,6 @@ import Footer from "@/components/common/Footer";
 
 const Home = () => {
   const [isSticky, setIsSticky] = useState(false);
-  const searchBarRef = useRef<HTMLDivElement>(null);
   const placeholderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
