@@ -34,7 +34,7 @@ export const hotels: Hotel[] = [
     ],
     name: "Grand Plaza Copenhagen",
     location: {
-      city: "Copenhagen",
+      city: "Sankt Peders Stræde 34, 1453 København",
       country: "Denmark"
     },
     price: {

@@ -3,7 +3,7 @@
 import { useParams } from "next/navigation";
 import MainHeader from "@/components/common/MainHeader";
 import Footer from "@/components/common/Footer";
-import PhotoGallery from "@/components/hotel/PhotoGallery";
+import HotelGallery from "@/components/hotel/HotelGallery";
 import { hotels } from "@/data/hotels";
 
 const HotelProfile = () => {
@@ -21,18 +21,11 @@ const HotelProfile = () => {
 
       {/* Main Content */}
       <div className="container mx-auto px-36 py-8">
-        {/* Hotel Name and Location */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-semibold mb-2">{hotel.name}</h1>
-          <p className="text-gray-600">
-            {hotel.location.city}, {hotel.location.country}
-          </p>
-        </div>
-
-        {/* Photo Gallery */}
-        <PhotoGallery 
+        {/* Hotel Gallery with Name and Photos */}
+        <HotelGallery 
           images={hotel.images}
           hotelName={hotel.name}
+          location={hotel.location}
         />
 
         {/* Hotel Details */}

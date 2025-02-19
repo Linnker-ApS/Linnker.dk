@@ -53,7 +53,7 @@ const HotelCard = ({
       image: 'h-[250px]'
     },
     lg: {
-      container: 'w-[300x]',
+      container: 'w-[300px]',
       image: 'h-[300px]'
     },
     full: {
@@ -63,9 +63,9 @@ const HotelCard = ({
   };
 
   const variants = {
-    default: 'bg-white',
-    compact: 'bg-white',
-    featured: 'bg-white'
+    default: 'bg-site-background',
+    compact: 'bg-site-background',
+    featured: 'bg-site-background'
   };
 
   return (
@@ -80,7 +80,7 @@ const HotelCard = ({
     >
       {/* Image Container */}
       <div className={cn(
-        "relative w-full overflow-hidden ",
+        "relative w-full overflow-hidden",
         sizes[size].image,
         imageClassName
       )}>
@@ -93,23 +93,25 @@ const HotelCard = ({
         />
       </div>
 
-      {/* Content Container */}
-      <div className="pt-2 bg-site-background">
-        {/* Hotel Name */}
-        <h3 className="font-regular text-lg text-gray-900">
-          {name.toUpperCase()}
-        </h3>
+      {/* Content Container - Fixed Height */}
+      <div className="pt-2 h-[100px] flex flex-col justify-between">
+        {/* Hotel Name - Truncate after 2 lines */}
+        <div>
+          <h3 className="font-regular text-md text-gray-900 line-clamp-2">
+            {name.toUpperCase()}
+          </h3>
 
-        {/* Location */}
-        <div className="text-md text-gray-500">
-          {location.city} · {location.country}
+          {/* Location - Truncate after 1 line */}
+          <div className="text-sm text-gray-500 truncate">
+            {location.city} · {location.country}
+          </div>
         </div>
 
-        {/* Price and Rating Container */}
-        <div className="flex justify-between items-center mt-2">
+        {/* Price and Rating Container - Fixed Position */}
+        <div className="flex justify-between items-center py-2">
           {/* Price */}
           <div className="flex items-baseline gap-1">
-            <span className="font-semibold text-md">
+            <span className="font-semibold text-sm whitespace-nowrap">
               from {price.currency} {price.amount}
             </span>
             <span className="text-xs text-gray-500">
@@ -119,8 +121,8 @@ const HotelCard = ({
 
           {/* Rating */}
           {rating && (
-            <div className="flex items-center gap-1">
-              <Star className="h-3 w-3 text-yellow-400 fill-yellow-400" />
+            <div className="flex items-center gap-1 shrink-0">
+              <Star className="h-3 w-3 text-black fill-black" />
               <span className="text-sm font-medium">{rating.toFixed(1)}</span>
             </div>
           )}

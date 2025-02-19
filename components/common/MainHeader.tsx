@@ -33,7 +33,7 @@ const MainHeader = ({
           <div className="w-[120px] shrink-0"></div>
           <div className="flex-1 max-w-3xl mx-auto px-4 relative">
             <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[140px]">
-              <Logo variant="black" width={120} height={40} className="shrink-0" />
+              <Logo variant="blackYellow" width={120} height={40} className="shrink-0" />
             </div>
             <Searchbar
               initialDestination={initialDestination}
