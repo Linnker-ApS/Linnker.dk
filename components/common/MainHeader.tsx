@@ -27,7 +27,7 @@ const MainHeader = ({
   }
 }: MainHeaderProps) => {
   return (
-    <div className={`${isSticky ? 'sticky top-0' : ''} z-50 bg-white shadow-md py-[1.5vh] bg-site-background`}>
+    <div className={`${isSticky ? 'sticky top-0' : ''} z-50 shadow-md py-[1.5vh] bg-site-background`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           <div className="w-[120px] shrink-0"></div>
