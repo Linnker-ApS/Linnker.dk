@@ -1,8 +1,9 @@
 "use client";
 
-import { useLoadScript, GoogleMap, MarkerF } from "@react-google-maps/api";
+import { useLoadScript, GoogleMap, MarkerF, InfoWindow, OverlayView } from "@react-google-maps/api";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { Hotel } from "@/data/hotels";
+import PriceMarker from "../results/PriceMarker";
 
 interface HotelMapProps {
   hotels: Hotel[];
@@ -70,14 +71,23 @@ const HotelMap = ({ hotels, destination, center = { lat: 55.676098, lng: 12.5683
       onLoad={onMapLoad}
     >
       {filteredHotels.map((hotel, index) => (
-        <MarkerF
+        <OverlayView
           key={index}
           position={{
             lat: hotel.location.coordinates.latitude,
             lng: hotel.location.coordinates.longitude,
           }}
-          title={hotel.name}
-        />
+          mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+          getPixelPositionOffset={(width, height) => ({
+            x: -(width / 2),
+            y: -height,
+          })}
+        >
+          <PriceMarker
+            price={hotel.price.amount}
+            currency={hotel.price.currency}
+          />
+        </OverlayView>
       ))}
     </GoogleMap>
   );
