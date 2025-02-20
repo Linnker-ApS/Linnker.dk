@@ -1,18 +1,50 @@
 "use client";
 
 import { useLoadScript, GoogleMap, MarkerF } from "@react-google-maps/api";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { Hotel } from "@/data/hotels";
 
 interface HotelMapProps {
   hotels: Hotel[];
+  destination?: string;
   center?: { lat: number; lng: number };
 }
 
-const HotelMap = ({ hotels, center = { lat: 55.676098, lng: 12.568337 } }: HotelMapProps) => {
+const HotelMap = ({ hotels, destination, center = { lat: 55.676098, lng: 12.568337 } }: HotelMapProps) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
   });
+  const mapRef = useRef<google.maps.Map | null>(null);
+  const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
+
+  const onMapLoad = (map: google.maps.Map) => {
+    mapRef.current = map;
+  };
+
+  // Filter hotels using the same logic as SearchResultsGrid
+  const filteredHotels = hotels.filter(hotel => {
+    if (destination) {
+      const searchLocation = destination.toLowerCase();
+      const hotelLocation = `${hotel.location.city}, ${hotel.location.country}`.toLowerCase();
+      return hotelLocation.includes(searchLocation);
+    }
+    return true;
+  });
+
+  // Update map bounds when filtered hotels change
+  useEffect(() => {
+    if (!isLoaded || filteredHotels.length === 0) return;
+    
+    const bounds = new google.maps.LatLngBounds();
+    filteredHotels.forEach((hotel) => {
+      bounds.extend({
+        lat: hotel.location.coordinates.latitude,
+        lng: hotel.location.coordinates.longitude,
+      });
+    });
+
+    mapRef.current?.fitBounds(bounds);
+  }, [filteredHotels, isLoaded]);
 
   const mapCenter = useMemo(() => center, [center]);
 
@@ -35,13 +67,14 @@ const HotelMap = ({ hotels, center = { lat: 55.676098, lng: 12.568337 } }: Hotel
         scrollwheel: true,
         fullscreenControl: true,
       }}
+      onLoad={onMapLoad}
     >
-      {hotels.map((hotel, index) => (
+      {filteredHotels.map((hotel, index) => (
         <MarkerF
           key={index}
           position={{
-            lat: 0, // You'll need to add latitude to your hotel data
-            lng: 0, // You'll need to add longitude to your hotel data
+            lat: hotel.location.coordinates.latitude,
+            lng: hotel.location.coordinates.longitude,
           }}
           title={hotel.name}
         />

@@ -326,8 +326,8 @@ export const hotels: Hotel[] = [
   // Kolding
   {
     id: "hotel-koldingfjord",
-    imageUrl: "/images/hotels/hotel-13.jpg",
-    images: ["/images/hotels/hotel-13.jpg"],
+    imageUrl: "/images/hotels/hotel-1.jpg",
+    images: ["/images/hotels/hotel-1.jpg"],
     name: "Hotel Koldingfjord",
     location: {
       address: "Fjordvej 154",
@@ -351,8 +351,8 @@ export const hotels: Hotel[] = [
   // Vejle
   {
     id: "munkebjerg-hotel",
-    imageUrl: "/images/hotels/hotel-14.jpg",
-    images: ["/images/hotels/hotel-14.jpg"],
+    imageUrl: "/images/hotels/hotel-2.jpg",
+    images: ["/images/hotels/hotel-2.jpg"],
     name: "Munkebjerg Hotel",
     location: {
       address: "Munkebjergvej 125",
@@ -376,8 +376,8 @@ export const hotels: Hotel[] = [
   // Silkeborg
   {
     id: "radisson-blu-papirfabrikken",
-    imageUrl: "/images/hotels/hotel-15.jpg",
-    images: ["/images/hotels/hotel-15.jpg"],
+    imageUrl: "/images/hotels/hotel-3.jpg",
+    images: ["/images/hotels/hotel-3.jpg"],
     name: "Radisson Blu Papirfabrikken",
     location: {
       address: "Papirfabrikken 12",
@@ -401,8 +401,8 @@ export const hotels: Hotel[] = [
   // Horsens
   {
     id: "scandic-bygholm-park",
-    imageUrl: "/images/hotels/hotel-16.jpg",
-    images: ["/images/hotels/hotel-16.jpg"],
+    imageUrl: "/images/hotels/hotel-4.jpg",
+    images: ["/images/hotels/hotel-4.jpg"],
     name: "Scandic Bygholm Park",
     location: {
       address: "Schüttesvej 6",
@@ -426,8 +426,8 @@ export const hotels: Hotel[] = [
   // Copenhagen - Nyhavn
   {
     id: "copenhagen-strand",
-    imageUrl: "/images/hotels/hotel-17.jpg",
-    images: ["/images/hotels/hotel-17.jpg"],
+    imageUrl: "/images/hotels/hotel-5.jpg",
+    images: ["/images/hotels/hotel-5.jpg"],
     name: "Copenhagen Strand",
     location: {
       address: "Havnegade 37",
@@ -451,8 +451,8 @@ export const hotels: Hotel[] = [
   // Copenhagen - Islands Brygge
   {
     id: "stay-copenhagen",
-    imageUrl: "/images/hotels/hotel-18.jpg",
-    images: ["/images/hotels/hotel-18.jpg"],
+    imageUrl: "/images/hotels/hotel-6.jpg",
+    images: ["/images/hotels/hotel-6.jpg"],
     name: "STAY Copenhagen",
     location: {
       address: "Islands Brygge 79A",
@@ -476,8 +476,8 @@ export const hotels: Hotel[] = [
   // Copenhagen - Christianshavn
   {
     id: "canal-house",
-    imageUrl: "/images/hotels/hotel-19.jpg",
-    images: ["/images/hotels/hotel-19.jpg"],
+    imageUrl: "/images/hotels/hotel-7.jpg",
+    images: ["/images/hotels/hotel-7.jpg"],
     name: "Copenhagen Canal House",
     location: {
       address: "Overgaden Oven Vandet 48",
@@ -501,8 +501,8 @@ export const hotels: Hotel[] = [
   // Copenhagen - Frederiksstaden
   {
     id: "phoenix-copenhagen",
-    imageUrl: "/images/hotels/hotel-20.jpg",
-    images: ["/images/hotels/hotel-20.jpg"],
+    imageUrl: "/images/hotels/hotel-8.jpg",
+    images: ["/images/hotels/hotel-8.jpg"],
     name: "Phoenix Copenhagen",
     location: {
       address: "Bredgade 37",
@@ -526,8 +526,8 @@ export const hotels: Hotel[] = [
   // Copenhagen - Sydhavnen
   {
     id: "scandic-sydhavnen",
-    imageUrl: "/images/hotels/hotel-21.jpg",
-    images: ["/images/hotels/hotel-21.jpg"],
+    imageUrl: "/images/hotels/hotel-9.jpg",
+    images: ["/images/hotels/hotel-9.jpg"],
     name: "Scandic Sydhavnen",
     location: {
       address: "Sydhavns Plads 15",
@@ -551,8 +551,8 @@ export const hotels: Hotel[] = [
   // Copenhagen - Amager Øst
   {
     id: "copenhagen-go",
-    imageUrl: "/images/hotels/hotel-22.jpg",
-    images: ["/images/hotels/hotel-22.jpg"],
+    imageUrl: "/images/hotels/hotel-10.jpg",
+    images: ["/images/hotels/hotel-10.jpg"],
     name: "Copenhagen GO Hotel",
     location: {
       address: "Gemmas Allé 203",
@@ -576,8 +576,8 @@ export const hotels: Hotel[] = [
   // Copenhagen - Østerbro
   {
     id: "charlottehaven",
-    imageUrl: "/images/hotels/hotel-25.jpg",
-    images: ["/images/hotels/hotel-25.jpg"],
+    imageUrl: "/images/hotels/hotel-11.jpg",
+    images: ["/images/hotels/hotel-11.jpg"],
     name: "Charlottehaven",
     location: {
       address: "Hjørringgade 12C",
@@ -601,8 +601,8 @@ export const hotels: Hotel[] = [
   // Copenhagen - Refshaleøen
   {
     id: "copenhagen-house",
-    imageUrl: "/images/hotels/hotel-26.jpg",
-    images: ["/images/hotels/hotel-26.jpg"],
+    imageUrl: "/images/hotels/hotel-12.jpg",
+    images: ["/images/hotels/hotel-12.jpg"],
     name: "Copenhagen House",
     location: {
       address: "Refshalevej 163A",
@@ -626,8 +626,8 @@ export const hotels: Hotel[] = [
   // Copenhagen - Nørrebro
   {
     id: "manon-les-suites",
-    imageUrl: "/images/hotels/hotel-27.jpg",
-    images: ["/images/hotels/hotel-27.jpg"],
+    imageUrl: "/images/hotels/hotel-1.jpg",
+    images: ["/images/hotels/hotel-1.jpg"],
     name: "Manon Les Suites",
     location: {
       address: "Gyldenløvesgade 19",
@@ -651,8 +651,8 @@ export const hotels: Hotel[] = [
   // Copenhagen - Vesterbro
   {
     id: "axel-guldsmeden",
-    imageUrl: "/images/hotels/hotel-28.jpg",
-    images: ["/images/hotels/hotel-28.jpg"],
+    imageUrl: "/images/hotels/hotel-2.jpg",
+    images: ["/images/hotels/hotel-2.jpg"],
     name: "Axel Guldsmeden",
     location: {
       address: "Helgolandsgade 11",
@@ -676,8 +676,8 @@ export const hotels: Hotel[] = [
   // Copenhagen - Frederiksberg
   {
     id: "frederiksberg-palace",
-    imageUrl: "/images/hotels/hotel-29.jpg",
-    images: ["/images/hotels/hotel-29.jpg"],
+    imageUrl: "/images/hotels/hotel-3.jpg",
+    images: ["/images/hotels/hotel-3.jpg"],
     name: "Frederiksberg Palace Hotel",
     location: {
       address: "Smallegade 4",
@@ -701,8 +701,8 @@ export const hotels: Hotel[] = [
   // Copenhagen - Amager Strand
   {
     id: "nordic-park",
-    imageUrl: "/images/hotels/hotel-30.jpg",
-    images: ["/images/hotels/hotel-30.jpg"],
+    imageUrl: "/images/hotels/hotel-4.jpg",
+    images: ["/images/hotels/hotel-4.jpg"],
     name: "Nordic Park Hotel",
     location: {
       address: "Amager Strandvej 401",
@@ -726,8 +726,8 @@ export const hotels: Hotel[] = [
   // Copenhagen - Ørestad
   {
     id: "ac-bella-sky",
-    imageUrl: "/images/hotels/hotel-31.jpg",
-    images: ["/images/hotels/hotel-31.jpg"],
+    imageUrl: "/images/hotels/hotel-5.jpg",
+    images: ["/images/hotels/hotel-5.jpg"],
     name: "AC Bella Sky",
     location: {
       address: "Center Boulevard 5",
@@ -751,8 +751,8 @@ export const hotels: Hotel[] = [
   // Copenhagen - Valby
   {
     id: "valby-park",
-    imageUrl: "/images/hotels/hotel-32.jpg",
-    images: ["/images/hotels/hotel-32.jpg"],
+    imageUrl: "/images/hotels/hotel-6.jpg",
+    images: ["/images/hotels/hotel-6.jpg"],
     name: "Valby Park Hotel",
     location: {
       address: "Valby Langgade 70",
@@ -776,8 +776,8 @@ export const hotels: Hotel[] = [
   // Copenhagen - Kastrup
   {
     id: "quality-airport",
-    imageUrl: "/images/hotels/hotel-33.jpg",
-    images: ["/images/hotels/hotel-33.jpg"],
+    imageUrl: "/images/hotels/hotel-7.jpg",
+    images: ["/images/hotels/hotel-7.jpg"],
     name: "Quality Airport Hotel",
     location: {
       address: "Lufthavnsboulevarden 2",
@@ -801,8 +801,8 @@ export const hotels: Hotel[] = [
   // Copenhagen - Brønshøj
   {
     id: "bella-vista",
-    imageUrl: "/images/hotels/hotel-34.jpg",
-    images: ["/images/hotels/hotel-34.jpg"],
+    imageUrl: "/images/hotels/hotel-8.jpg",
+    images: ["/images/hotels/hotel-8.jpg"],
     name: "Bella Vista Hotel",
     location: {
       address: "Frederikssundsvej 184",
@@ -826,8 +826,8 @@ export const hotels: Hotel[] = [
   // Copenhagen - Nordhavn
   {
     id: "the-silo",
-    imageUrl: "/images/hotels/hotel-23.jpg",
-    images: ["/images/hotels/hotel-23.jpg"],
+    imageUrl: "/images/hotels/hotel-9.jpg",
+    images: ["/images/hotels/hotel-9.jpg"],
     name: "The Silo",
     location: {
       address: "Helsinkigade 29",
@@ -851,8 +851,8 @@ export const hotels: Hotel[] = [
   // Copenhagen - Carlsberg City
   {
     id: "hotel-ottilia",
-    imageUrl: "/images/hotels/hotel-24.jpg",
-    images: ["/images/hotels/hotel-24.jpg"],
+    imageUrl: "/images/hotels/hotel-10.jpg",
+    images: ["/images/hotels/hotel-10.jpg"],
     name: "Hotel Ottilia",
     location: {
       address: "Bryggernes Plads 7",

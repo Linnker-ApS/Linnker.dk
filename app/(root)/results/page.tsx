@@ -16,6 +16,10 @@ const SearchResults = () => {
   const searchParams = useSearchParams();
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   
+  const destination = searchParams.get('destination') || '';
+  const startDate = searchParams.get('startDate') ? new Date(searchParams.get('startDate')!) : undefined;
+  const endDate = searchParams.get('endDate') ? new Date(searchParams.get('endDate')!) : undefined;
+
   const handleFilterChange = (filter: string) => {
     setSelectedAmenities(prev => 
       prev.includes(filter) 
@@ -28,9 +32,9 @@ const SearchResults = () => {
     <div className="flex flex-col min-h-screen">
       <MainHeader 
         isSticky={true}
-        initialDestination={searchParams.get('destination') || ''}
-        initialStartDate={searchParams.get('startDate') ? new Date(searchParams.get('startDate')!) : undefined}
-        initialEndDate={searchParams.get('endDate') ? new Date(searchParams.get('endDate')!) : undefined}
+        initialDestination={destination}
+        initialStartDate={startDate}
+        initialEndDate={endDate}
         initialGuests={{
           adults: Number(searchParams.get('adults')) || 2,
           children: Number(searchParams.get('children')) || 0,
@@ -62,16 +66,19 @@ const SearchResults = () => {
           <div className="mb-6">
             <SearchResultsGrid 
               hotels={hotels}
-              destination={searchParams.get('destination') || ''}
-              startDate={searchParams.get('startDate') ? new Date(searchParams.get('startDate')!) : undefined}
-              endDate={searchParams.get('endDate') ? new Date(searchParams.get('endDate')!) : undefined}
+              destination={destination}
+              startDate={startDate}
+              endDate={endDate}
             />
           </div>
         </div>
 
         {/* Right side - Map */}
         <div className="w-[45%] sticky top-[84px] h-[calc(100vh-82px)]">
-          <HotelMap hotels={hotels} />
+          <HotelMap 
+            hotels={hotels}
+            destination={destination}
+          />
         </div>
       </div>
       {/* Footer */}

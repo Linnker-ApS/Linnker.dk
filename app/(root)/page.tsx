@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 //Components
 import Hero from "@/components/home/Hero";
-import Searchbar from "@/components/ui/Searchbar";
+import Searchbar from "@/components/common/Searchbar";
 import TrendingHotels from "@/components/home/sections/TrendingHotels";
 import MainHeader from "@/components/common/MainHeader";
 import Experiences from "@/components/home/sections/Experiences";
