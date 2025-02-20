@@ -1,3 +1,5 @@
+import  helvetica  from '@/fonts'
+
 export default function RootLayout({
   children,
 }: {

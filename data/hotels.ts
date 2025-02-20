@@ -9,6 +9,10 @@ export type Hotel = {
     address: string;
     city: string;
     country: string;
+    coordinates: {
+      latitude: number;
+      longitude: number;
+    };
   };
   price: {
     amount: number;
@@ -30,7 +34,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Bernstorffsgade 5",
       city: "København K",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6731,
+        longitude: 12.5683
+      }
     },
     price: {
       amount: 4200,
@@ -49,7 +57,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Tordenskjoldsgade 15",
       city: "København K",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6794,
+        longitude: 12.5875
+      }
     },
     price: {
       amount: 3800,
@@ -70,7 +82,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Helgolandsgade 12",
       city: "København V",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6721,
+        longitude: 12.5577
+      }
     },
     price: {
       amount: 1650,
@@ -91,7 +107,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Bredgade 78",
       city: "København K",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6847,
+        longitude: 12.5891
+      }
     },
     price: {
       amount: 1450,
@@ -112,7 +132,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Amerika Plads 7",
       city: "København Ø",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6969,
+        longitude: 12.5953
+      }
     },
     price: {
       amount: 1750,
@@ -133,7 +157,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Falkoner Allé 9",
       city: "Frederiksberg",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6789,
+        longitude: 12.5340
+      }
     },
     price: {
       amount: 1550,
@@ -154,7 +182,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Store Torv 4",
       city: "Aarhus C",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 56.1572,
+        longitude: 10.2107
+      }
     },
     price: {
       amount: 2100,
@@ -175,7 +207,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Vesterbro 2",
       city: "Aalborg",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 57.0488,
+        longitude: 9.9217
+      }
     },
     price: {
       amount: 1450,
@@ -196,7 +232,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Jernbanegade 18",
       city: "Odense C",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.4038,
+        longitude: 10.3886
+      }
     },
     price: {
       amount: 1350,
@@ -217,7 +257,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Ndr Strandvej 2",
       city: "Helsingør",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 56.0394,
+        longitude: 12.6163
+      }
     },
     price: {
       amount: 2300,
@@ -238,7 +282,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Københavnsvej 65",
       city: "Roskilde",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6417,
+        longitude: 12.0803
+      }
     },
     price: {
       amount: 1250,
@@ -259,7 +307,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Torvegade 24",
       city: "Esbjerg",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.4668,
+        longitude: 8.4519
+      }
     },
     price: {
       amount: 1450,
@@ -280,7 +332,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Fjordvej 154",
       city: "Kolding",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.5043,
+        longitude: 9.4797
+      }
     },
     price: {
       amount: 1850,
@@ -301,7 +357,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Munkebjergvej 125",
       city: "Vejle",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6867,
+        longitude: 9.5793
+      }
     },
     price: {
       amount: 1650,
@@ -322,7 +382,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Papirfabrikken 12",
       city: "Silkeborg",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 56.1697,
+        longitude: 9.5469
+      }
     },
     price: {
       amount: 1550,
@@ -343,7 +407,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Schüttesvej 6",
       city: "Horsens",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.8581,
+        longitude: 9.8480
+      }
     },
     price: {
       amount: 1350,
@@ -364,7 +432,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Havnegade 37",
       city: "København K",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6778,
+        longitude: 12.5953
+      }
     },
     price: {
       amount: 1950,
@@ -385,7 +457,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Islands Brygge 79A",
       city: "København S",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6561,
+        longitude: 12.5789
+      }
     },
     price: {
       amount: 1850,
@@ -406,7 +482,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Overgaden Oven Vandet 48",
       city: "København K",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6725,
+        longitude: 12.5883
+      }
     },
     price: {
       amount: 2200,
@@ -427,7 +507,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Bredgade 37",
       city: "København K",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6841,
+        longitude: 12.5872
+      }
     },
     price: {
       amount: 2400,
@@ -448,7 +532,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Sydhavns Plads 15",
       city: "København SV",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6498,
+        longitude: 12.5397
+      }
     },
     price: {
       amount: 1350,
@@ -469,7 +557,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Gemmas Allé 203",
       city: "København S",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6508,
+        longitude: 12.6205
+      }
     },
     price: {
       amount: 995,
@@ -481,6 +573,106 @@ export const hotels: Hotel[] = [
     amenities: ["Free Parking", "24/7 Reception", "Shared Kitchen", "Lounge", "Free Wi-Fi"]
   },
 
+  // Copenhagen - Østerbro
+  {
+    id: "charlottehaven",
+    imageUrl: "/images/hotels/hotel-25.jpg",
+    images: ["/images/hotels/hotel-25.jpg"],
+    name: "Charlottehaven",
+    location: {
+      address: "Hjørringgade 12C",
+      city: "København Ø",
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.7089,
+        longitude: 12.5847
+      }
+    },
+    price: {
+      amount: 2100,
+      currency: "DKK",
+      per: "night"
+    },
+    rating: 4.6,
+    description: "Modern apartment hotel with extensive wellness facilities.",
+    amenities: ["Fitness Center", "Café", "Garden", "Conference Facilities", "Apartments"]
+  },
+
+  // Copenhagen - Refshaleøen
+  {
+    id: "copenhagen-house",
+    imageUrl: "/images/hotels/hotel-26.jpg",
+    images: ["/images/hotels/hotel-26.jpg"],
+    name: "Copenhagen House",
+    location: {
+      address: "Refshalevej 163A",
+      city: "København K",
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6897,
+        longitude: 12.6136
+      }
+    },
+    price: {
+      amount: 1890,
+      currency: "DKK",
+      per: "night"
+    },
+    rating: 4.4,
+    description: "Industrial-chic hotel in Copenhagen's creative district.",
+    amenities: ["Waterfront Views", "Restaurant", "Creative Spaces", "Bike Rental", "Bar"]
+  },
+
+  // Copenhagen - Nørrebro
+  {
+    id: "manon-les-suites",
+    imageUrl: "/images/hotels/hotel-27.jpg",
+    images: ["/images/hotels/hotel-27.jpg"],
+    name: "Manon Les Suites",
+    location: {
+      address: "Gyldenløvesgade 19",
+      city: "København N",
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6827,
+        longitude: 12.5617
+      }
+    },
+    price: {
+      amount: 2400,
+      currency: "DKK",
+      per: "night"
+    },
+    rating: 4.7,
+    description: "Tropical-inspired suite hotel with stunning rooftop pool.",
+    amenities: ["Rooftop Pool", "Fitness Center", "Café", "Lounge", "Suites"]
+  },
+
+  // Copenhagen - Vesterbro
+  {
+    id: "axel-guldsmeden",
+    imageUrl: "/images/hotels/hotel-28.jpg",
+    images: ["/images/hotels/hotel-28.jpg"],
+    name: "Axel Guldsmeden",
+    location: {
+      address: "Helgolandsgade 11",
+      city: "København V",
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6719,
+        longitude: 12.5576
+      }
+    },
+    price: {
+      amount: 1650,
+      currency: "DKK",
+      per: "night"
+    },
+    rating: 4.4,
+    description: "Eco-conscious boutique hotel with Balinese-inspired design.",
+    amenities: ["Organic Breakfast", "Spa", "Garden", "Sustainable Practices", "Bike Rental"]
+  },
+
   // Copenhagen - Frederiksberg
   {
     id: "frederiksberg-palace",
@@ -490,7 +682,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Smallegade 4",
       city: "Frederiksberg",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6789,
+        longitude: 12.5340
+      }
     },
     price: {
       amount: 2800,
@@ -511,7 +707,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Amager Strandvej 401",
       city: "København S",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6503,
+        longitude: 12.6462
+      }
     },
     price: {
       amount: 1450,
@@ -532,7 +732,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Center Boulevard 5",
       city: "København S",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6372,
+        longitude: 12.5716
+      }
     },
     price: {
       amount: 1950,
@@ -553,7 +757,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Valby Langgade 70",
       city: "København V",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6665,
+        longitude: 12.5142
+      }
     },
     price: {
       amount: 1350,
@@ -574,7 +782,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Lufthavnsboulevarden 2",
       city: "Kastrup",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6276,
+        longitude: 12.6498
+      }
     },
     price: {
       amount: 1250,
@@ -595,7 +807,11 @@ export const hotels: Hotel[] = [
     location: {
       address: "Frederikssundsvej 184",
       city: "København NV",
-      country: "Denmark"
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.7052,
+        longitude: 12.4989
+      }
     },
     price: {
       amount: 1150,
@@ -605,5 +821,55 @@ export const hotels: Hotel[] = [
     rating: 4.0,
     description: "Comfortable hotel in peaceful suburban setting.",
     amenities: ["Free Parking", "Restaurant", "Garden", "Business Center", "Family Rooms"]
+  },
+
+  // Copenhagen - Nordhavn
+  {
+    id: "the-silo",
+    imageUrl: "/images/hotels/hotel-23.jpg",
+    images: ["/images/hotels/hotel-23.jpg"],
+    name: "The Silo",
+    location: {
+      address: "Helsinkigade 29",
+      city: "København Ø",
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.7057,
+        longitude: 12.5983
+      }
+    },
+    price: {
+      amount: 3200,
+      currency: "DKK",
+      per: "night"
+    },
+    rating: 4.8,
+    description: "Luxury hotel in converted grain silo with stunning harbor views.",
+    amenities: ["Rooftop Restaurant", "Bar", "Harbor Views", "Design Interiors", "Concierge"]
+  },
+
+  // Copenhagen - Carlsberg City
+  {
+    id: "hotel-ottilia",
+    imageUrl: "/images/hotels/hotel-24.jpg",
+    images: ["/images/hotels/hotel-24.jpg"],
+    name: "Hotel Ottilia",
+    location: {
+      address: "Bryggernes Plads 7",
+      city: "København V",
+      country: "Denmark",
+      coordinates: {
+        latitude: 55.6673,
+        longitude: 12.5305
+      }
+    },
+    price: {
+      amount: 1750,
+      currency: "DKK",
+      per: "night"
+    },
+    rating: 4.5,
+    description: "Boutique hotel in historic Carlsberg Brewery buildings.",
+    amenities: ["Rooftop Bar", "Italian Restaurant", "Fitness Room", "Meeting Rooms", "Bike Rental"]
   }
 ]; 

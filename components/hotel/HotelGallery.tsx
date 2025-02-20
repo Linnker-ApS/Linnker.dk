@@ -17,7 +17,7 @@ const HotelGallery = ({ images, hotelName, location }: HotelGalleryProps) => {
   const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
 
   // Fallback image URL
-  const fallbackImage = "/images/placeholder-hotel.jpg";
+  const fallbackImage = "/images/hotels/placeholder-hotel.jpg";
 
   // Handle image load error
   const handleImageError = (index: number) => {
