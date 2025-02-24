@@ -39,7 +39,7 @@ const MapCard = ({
   };
 
   return (
-    <div style={{ fontFamily: "var(--font-helvetica)" }} className="group cursor-pointer overflow-hidden w-[300px] rounded-lg">
+    <div style={{ fontFamily: "var(--font-helvetica)" }} className="group cursor-pointer overflow-hidden w-[300px] rounded-lg text-base">
       {/* Image Container with Close Button */}
       <div className="relative w-full h-[200px] overflow-hidden">
         <Image
@@ -61,7 +61,7 @@ const MapCard = ({
 
       {/* Content */}
       <div className="px-2 py-2 bg-white rounded-b-lg" onClick={handleClick}>
-        <h3 className="font-regular text-md text-gray-900 line-clamp-1">
+        <h3 className="font-regular text-base text-gray-900 line-clamp-1">
           {name.toUpperCase()}
         </h3>
 
