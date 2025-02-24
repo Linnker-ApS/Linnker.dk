@@ -1,4 +1,4 @@
-import helvetica from "@/app/(root)/fonts";
+import helvetica from "@/lib/fonts";
 
 interface PriceMarkerProps {
   price: number;

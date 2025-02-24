@@ -5,7 +5,7 @@ import { useMemo, useState, useEffect, useRef, useCallback } from "react";
 import { Hotel } from "@/data/hotels";
 import PriceMarker from "../results/PriceMarker";
 import HotelCard from "../common/HotelCard";
-import helvetica from "@/app/(root)/fonts";
+import helvetica from "@/lib/fonts";
 import MapCard from "../results/MapCard";
 
 interface HotelMapProps {

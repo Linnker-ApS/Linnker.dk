@@ -3,42 +3,42 @@ import localFont from "next/font/local";
 const helvetica = localFont({
   src: [
     {
-      path: "../../src/fonts/HelveticaNeueUltraLight.otf",
+      path: "../public/fonts/HelveticaNeueUltraLight.otf",
       weight: "100",
       style: "normal",
     },
     {
-      path: "../../src/fonts/HelveticaNeueThin.otf",
+      path: "../public/fonts/HelveticaNeueThin.otf",
       weight: "200",
       style: "normal",
     },
     {
-      path: "../../src/fonts/HelveticaNeueLight.otf",
+      path: "../public/fonts/HelveticaNeueLight.otf",
       weight: "300",
       style: "normal",
     },
     {
-      path: "../../src/fonts/HelveticaNeueRoman.otf",
+      path: "../public/fonts/HelveticaNeueRoman.otf",
       weight: "400",
       style: "normal",
     },
     {
-      path: "../../src/fonts/HelveticaNeueMedium.otf",
+      path: "../public/fonts/HelveticaNeueMedium.otf",
       weight: "500",
       style: "normal",
     },
     {
-      path: "../../src/fonts/HelveticaNeueBold.otf",
+      path: "../public/fonts/HelveticaNeueBold.otf",
       weight: "700",
       style: "normal",
     },
     {
-      path: "../../src/fonts/HelveticaNeueHeavy.otf",
+      path: "../public/fonts/HelveticaNeueHeavy.otf",
       weight: "800",
       style: "normal",
     },
     {
-      path: "../../src/fonts/HelveticaNeueBlack.otf",
+      path: "../public/fonts/HelveticaNeueBlack.otf",
       weight: "900",
       style: "normal",
     },
@@ -46,4 +46,4 @@ const helvetica = localFont({
   variable: "--font-helvetica",
 });
 
-export default helvetica;
+export default helvetica; 

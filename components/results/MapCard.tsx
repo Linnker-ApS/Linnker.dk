@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Star, X } from "lucide-react";
 import { useRouter } from "next/navigation";
-import helvetica from "@/app/(root)/fonts";
+import helvetica from "@/lib/fonts";
 
 
 interface MapCardProps {
