@@ -10,7 +10,6 @@ import { DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
 import { hotels } from "@/data/hotels";
 import { useRouter } from "next/navigation";
-import { addDays } from "date-fns";
 
 interface GuestCount {
   adults: number;
@@ -24,14 +23,16 @@ interface SearchbarProps {
   initialEndDate?: Date;
   initialGuests?: GuestCount;
   showInitialSuggestions?: boolean;
+  disableAutocomplete?: boolean;
 }
 
 const Searchbar = ({ 
   initialDestination = "", 
-  initialStartDate = new Date(),
-  initialEndDate = addDays(new Date(), 1),
+  initialStartDate = undefined,
+  initialEndDate = undefined,
   initialGuests = { adults: 2, children: 0, rooms: 1 },
-  showInitialSuggestions = false
+  showInitialSuggestions = false,
+  disableAutocomplete = false
 }: SearchbarProps) => {
   const router = useRouter();
   const [destination, setDestination] = useState(initialDestination);
@@ -54,20 +55,18 @@ const Searchbar = ({
 
   // Filter locations based on input or show first 4 if enabled
   const filteredLocations = useMemo(() => {
-    if (!showSuggestions) return [];
+    if (disableAutocomplete || !showSuggestions) return [];
     
     if (!destination.trim() && showInitialSuggestions) {
-      // Show first 4 locations when no input (only if enabled)
       return locations.slice(0, 4);
     }
 
-    // Filter by input when typing
     return locations
       .filter(location =>
         location.toLowerCase().includes(destination.toLowerCase())
       )
       .slice(0, 4);
-  }, [locations, destination, showSuggestions, showInitialSuggestions]);
+  }, [locations, destination, showSuggestions, showInitialSuggestions, disableAutocomplete]);
 
   const handleLocationSelect = (location: string) => {
     setDestination(location);

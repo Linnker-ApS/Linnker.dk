@@ -46,6 +46,8 @@ const MainHeader = ({
               initialStartDate={initialStartDate}
               initialEndDate={initialEndDate}
               initialGuests={initialGuests}
+              showInitialSuggestions={false}
+              disableAutocomplete={true}
             />
           </div>
           <div className="w-[120px] shrink-0"></div>
