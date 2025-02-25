@@ -5,7 +5,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { CustomButton } from "@/components/ui/CustomButton";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Search, CalendarDays, Users } from "lucide-react";
-import { format } from "date-fns";
+import { format, addDays } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
 import { hotels } from "@/data/hotels";
@@ -85,10 +85,17 @@ const Searchbar = ({
       return;
     }
 
+    // Adjust dates to start of day in local timezone
+    const startDate = new Date(dateRange.from);
+    startDate.setHours(12, 0, 0, 0);
+
+    const endDate = new Date(dateRange.to);
+    endDate.setHours(12, 0, 0, 0);
+
     const params = new URLSearchParams({
       destination,
-      startDate: dateRange.from.toISOString(),
-      endDate: dateRange.to.toISOString(),
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
       adults: guests.adults.toString(),
       children: guests.children.toString(),
       rooms: guests.rooms.toString()
@@ -171,6 +178,7 @@ const Searchbar = ({
               selected={dateRange}
               onSelect={setDateRange}
               numberOfMonths={2}
+              disabled={{ before: new Date() }}
               className="rounded-md border"
             />
           </PopoverContent>
