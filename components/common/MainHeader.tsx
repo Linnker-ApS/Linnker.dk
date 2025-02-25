@@ -2,6 +2,7 @@
 
 import Logo from "@/components/common/Logo";
 import Searchbar from "@/components/common/Searchbar";
+import { cn } from "@/lib/utils";
 
 interface MainHeaderProps {
   isSticky?: boolean;
@@ -26,7 +27,10 @@ const MainHeader = ({
     rooms: 1
   }
 }: MainHeaderProps) => {
-  const headerClasses = `${isSticky ? 'sticky top-0' : ''} z-50 shadow-md py-[1.5vh] bg-site-background`;
+  const headerClasses = cn(
+    "z-50 shadow-md py-[1.5vh] bg-site-background",
+    isSticky && "sticky top-0"
+  );
   
   return (
     <header className={headerClasses}>

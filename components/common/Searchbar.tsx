@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import { Calendar } from "@/components/ui/calendar";
-import { Button } from "@/components/ui/button";
+import { CustomButton } from "@/components/ui/CustomButton";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Search, CalendarDays, Users } from "lucide-react";
 import { format } from "date-fns";
@@ -10,6 +10,7 @@ import { DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
 import { hotels } from "@/data/hotels";
 import { useRouter } from "next/navigation";
+import { addDays } from "date-fns";
 
 interface GuestCount {
   adults: number;
@@ -22,13 +23,15 @@ interface SearchbarProps {
   initialStartDate?: Date;
   initialEndDate?: Date;
   initialGuests?: GuestCount;
+  showInitialSuggestions?: boolean;
 }
 
 const Searchbar = ({ 
   initialDestination = "", 
-  initialStartDate,
-  initialEndDate,
-  initialGuests = { adults: 2, children: 0, rooms: 1 }
+  initialStartDate = new Date(),
+  initialEndDate = addDays(new Date(), 1),
+  initialGuests = { adults: 2, children: 0, rooms: 1 },
+  showInitialSuggestions = false
 }: SearchbarProps) => {
   const router = useRouter();
   const [destination, setDestination] = useState(initialDestination);
@@ -49,15 +52,22 @@ const Searchbar = ({
     return Array.from(uniqueLocations);
   }, []);
 
-  // Filter locations based on input and limit to 4 results
+  // Filter locations based on input or show first 4 if enabled
   const filteredLocations = useMemo(() => {
-    if (!destination) return [];
+    if (!showSuggestions) return [];
+    
+    if (!destination.trim() && showInitialSuggestions) {
+      // Show first 4 locations when no input (only if enabled)
+      return locations.slice(0, 4);
+    }
+
+    // Filter by input when typing
     return locations
       .filter(location =>
         location.toLowerCase().includes(destination.toLowerCase())
       )
-      .slice(0, 4); // Limit to first 4 results
-  }, [locations, destination]);
+      .slice(0, 4);
+  }, [locations, destination, showSuggestions, showInitialSuggestions]);
 
   const handleLocationSelect = (location: string) => {
     setDestination(location);
@@ -70,10 +80,16 @@ const Searchbar = ({
   };
 
   const handleSearch = () => {
+    // Validate date range
+    if (!dateRange?.from || !dateRange?.to) {
+      alert("Please select check-in and check-out dates");
+      return;
+    }
+
     const params = new URLSearchParams({
       destination,
-      startDate: dateRange?.from?.toISOString() || "",
-      endDate: dateRange?.to?.toISOString() || "",
+      startDate: dateRange.from.toISOString(),
+      endDate: dateRange.to.toISOString(),
       adults: guests.adults.toString(),
       children: guests.children.toString(),
       rooms: guests.rooms.toString()
@@ -103,6 +119,7 @@ const Searchbar = ({
             value={destination}
             onChange={handleDestinationChange}
             onFocus={() => setShowSuggestions(true)}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
             className="w-full pl-10 pr-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#FFB700] h-10"
           />
           
@@ -125,14 +142,14 @@ const Searchbar = ({
         {/* Date Range Selector */}
         <Popover open={isDateOpen} onOpenChange={setIsDateOpen}>
           <PopoverTrigger asChild>
-            <Button
-              variant="outline"
+            <CustomButton
+              variant="white"
               className={cn(
-                "justify-start text-left font-normal w-[200px] rounded-full h-10 px-4 border hover:bg-transparent",
-                isDateOpen ? "ring-2 ring-[#FFB700]" : "focus:ring-2 focus:ring-[#FFB700] focus:outline-none"
+                "justify-start text-left font-normal w-[200px] h-10",
+                isDateOpen ? "ring-2 ring-[#FFB700]" : ""
               )}
             >
-              <CalendarDays className="mr-2 h-4 w-4" />
+              <CalendarDays className="mr-2 h-5 w-5" />
               {dateRange?.from ? (
                 dateRange.to ? (
                   <>
@@ -145,7 +162,7 @@ const Searchbar = ({
               ) : (
                 "Select dates"
               )}
-            </Button>
+            </CustomButton>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
             <Calendar
@@ -160,119 +177,66 @@ const Searchbar = ({
           </PopoverContent>
         </Popover>
 
-        {/* Enhanced Guests Selector */}
+        {/* Guests Selector */}
         <Popover open={isGuestOpen} onOpenChange={setIsGuestOpen}>
           <PopoverTrigger asChild>
-            <Button
-              variant="outline"
+            <CustomButton
+              variant="white"
               className={cn(
-                "justify-start text-left font-normal w-[180px] rounded-full h-10 px-4 border hover:bg-transparent",
-                isGuestOpen ? "ring-2 ring-[#FFB700]" : "focus:ring-2 focus:ring-[#FFB700] focus:outline-none"
+                "justify-start text-left font-normal w-[180px] h-10",
+                isGuestOpen ? "ring-2 ring-[#FFB700]" : ""
               )}
             >
-              <Users className="mr-2 h-4 w-4" />
+              <Users className="mr-2 h-5 w-5" />
               {`${guests.adults + guests.children} Guest${
                 guests.adults + guests.children !== 1 ? "s" : ""
               }`}
-            </Button>
+            </CustomButton>
           </PopoverTrigger>
           <PopoverContent className="w-80">
             <div className="p-4 space-y-4">
-              {/* Adults Counter */}
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <h4 className="font-medium">Adults</h4>
-                  <p className="text-xs text-gray-500">Ages 13 or above</p>
+              {/* Guest counter buttons */}
+              {["adults", "children", "rooms"].map((type) => (
+                <div key={type} className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <h4 className="font-medium">{type.charAt(0).toUpperCase() + type.slice(1)}</h4>
+                    <p className="text-xs text-gray-500">{type === 'adults' ? 'Ages 13 or above' : type === 'children' ? 'Ages 0-12' : ''}</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CustomButton
+                      variant="white"
+                      size="icon"
+                      onClick={() => updateGuestCount(type as any, 'subtract')}
+                      disabled={guests[type as keyof typeof guests] <= (type === 'adults' ? 1 : 0)}
+                    >
+                      -
+                    </CustomButton>
+                    <span className="w-6 text-center">{guests[type as keyof typeof guests]}</span>
+                    <CustomButton
+                      variant="white"
+                      size="icon"
+                      onClick={() => updateGuestCount(type as any, 'add')}
+                      disabled={type === 'rooms' && guests.rooms >= 10}
+                    >
+                      +
+                    </CustomButton>
+                  </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="h-8 w-8 rounded-full"
-                    onClick={() => updateGuestCount('adults', 'subtract')}
-                    disabled={guests.adults <= 1}
-                  >
-                    -
-                  </Button>
-                  <span className="w-6 text-center">{guests.adults}</span>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="h-8 w-8 rounded-full"
-                    onClick={() => updateGuestCount('adults', 'add')}
-                  >
-                    +
-                  </Button>
-                </div>
-              </div>
-
-              {/* Children Counter */}
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <h4 className="font-medium">Children</h4>
-                  <p className="text-xs text-gray-500">Ages 0-12</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="h-8 w-8 rounded-full"
-                    onClick={() => updateGuestCount('children', 'subtract')}
-                    disabled={guests.children <= 0}
-                  >
-                    -
-                  </Button>
-                  <span className="w-6 text-center">{guests.children}</span>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="h-8 w-8 rounded-full"
-                    onClick={() => updateGuestCount('children', 'add')}
-                  >
-                    +
-                  </Button>
-                </div>
-              </div>
-
-              {/* Rooms Counter */}
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <h4 className="font-medium">Rooms</h4>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="h-8 w-8 rounded-full"
-                    onClick={() => updateGuestCount('rooms', 'subtract')}
-                    disabled={guests.rooms <= 1}
-                  >
-                    -
-                  </Button>
-                  <span className="w-6 text-center ">{guests.rooms}</span>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="h-8 w-8 rounded-full "
-                    onClick={() => updateGuestCount('rooms', 'add')}
-                    disabled={guests.rooms >= 10}
-                  >
-                    +
-                  </Button>
-                </div>
-              </div>
+              ))}
             </div>
           </PopoverContent>
         </Popover>
 
         {/* Search Button */}
-        <Button 
-          className="md:w-auto w-full rounded-full h-10 pr-4 hover:bg-yellow-500 hover:text-black"
+        <CustomButton 
+          variant="primary"
+          className="md:w-auto w-full h-10"
           onClick={handleSearch}
+          disabled={!dateRange?.from || !dateRange?.to}
         >
-          <Search className="mr-2 h-4 w-4" />
+          <Search className="mr-1 h-5 w-5" />
           Search
-        </Button>
+        </CustomButton>
       </div>
     </div>
   );

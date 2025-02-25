@@ -22,15 +22,31 @@ export type Hotel = {
   rating: number;
   description: string;
   amenities: string[];
+  highlights?: string[];
+  rooms: {
+    name: string;
+    description: string;
+    size: string;
+    occupancy: string;
+    amenities: string[];
+    imageUrl: string;
+  }[];
+  bookingUrl: string;
 };
 
 export const hotels: Hotel[] = [
   // Copenhagen Inner City (K)
   {
-    id: "nimb-hotel",
+    id: "sp34-hotel",
     imageUrl: "/images/hotels/hotel-1.jpg",
-    images: ["/images/hotels/hotel-1.jpg"],
-    name: "Nimb Hotel",
+    images: [
+            "/images/hotels/hotel-1.jpg",
+            "/images/hotels/hotel-13.jpg",
+            "/images/hotels/hotel-14.jpg",
+              "/images/hotels/hotel-15.jpg",
+              "/images/hotels/hotel-16.jpg"
+            ],
+    name: "Hotel SP34 - By Brøchner Hotels",
     location: {
       address: "Bernstorffsgade 5",
       city: "København K",
@@ -41,13 +57,24 @@ export const hotels: Hotel[] = [
       }
     },
     price: {
-      amount: 4200,
+      amount: 1750,
       currency: "DKK",
       per: "night"
     },
     rating: 4.9,
     description: "Luxury boutique hotel in Tivoli Gardens with unique Moorish architecture.",
-    amenities: ["Michelin Restaurant", "Bar", "Spa", "Fitness Center", "Concierge", "Free Wi-Fi"]
+    amenities: ["Michelin Restaurant", "Bar", "Spa", "Fitness Center", "Concierge", "Free Wi-Fi"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://booking.brochner-hotels.dk/booking?siteid=1491&checkin=25-02-2025&nights=1&adults0=2&hotelsel=hotelsp34&lng=da&bsid=40687981"
   },
   {
     id: "hotel-sanders",
@@ -70,7 +97,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.8,
     description: "Intimate luxury hotel with theatrical flair in the heart of Copenhagen.",
-    amenities: ["Rooftop Terrace", "Restaurant", "Cocktail Bar", "Concierge", "Bike Rental"]
+    amenities: ["Rooftop Terrace", "Restaurant", "Cocktail Bar", "Concierge", "Bike Rental"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Vesterbro
@@ -95,7 +133,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.5,
     description: "Colorful boutique hotel in vibrant Vesterbro district.",
-    amenities: ["Organic Breakfast", "Free Wi-Fi", "Bike Rental", "24/7 Reception"]
+    amenities: ["Organic Breakfast", "Free Wi-Fi", "Bike Rental", "24/7 Reception"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Nørrebro
@@ -120,7 +169,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.3,
     description: "Eco-friendly hotel with Balinese-inspired decor.",
-    amenities: ["Organic Breakfast", "Garden", "Bike Rental", "Sustainable Practices"]
+    amenities: ["Organic Breakfast", "Garden", "Bike Rental", "Sustainable Practices"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Østerbro
@@ -145,7 +205,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.6,
     description: "Modern apartment hotel near the Little Mermaid statue.",
-    amenities: ["Fully Equipped Kitchen", "Indoor Pool", "Gym", "Business Center", "Laundry"]
+    amenities: ["Fully Equipped Kitchen", "Indoor Pool", "Gym", "Business Center", "Laundry"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Frederiksberg
@@ -170,7 +241,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.4,
     description: "Newly renovated hotel in the heart of Frederiksberg.",
-    amenities: ["Conference Center", "Restaurant", "Bar", "Fitness Room", "Bike Rental"]
+    amenities: ["Conference Center", "Restaurant", "Bar", "Fitness Room", "Bike Rental"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Aarhus Center
@@ -195,7 +277,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.7,
     description: "Historic hotel in the heart of Aarhus, close to ARoS Art Museum.",
-    amenities: ["Fine Dining", "Wine Cellar", "Meeting Rooms", "Room Service", "Valet Parking"]
+    amenities: ["Fine Dining", "Wine Cellar", "Meeting Rooms", "Room Service", "Valet Parking"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Aalborg
@@ -220,7 +313,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.3,
     description: "Modern high-rise hotel with panoramic views of Aalborg.",
-    amenities: ["Skybar", "Conference Facilities", "Restaurant", "Fitness Center"]
+    amenities: ["Skybar", "Conference Facilities", "Restaurant", "Fitness Center"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Odense
@@ -245,7 +349,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.2,
     description: "Classic hotel near Hans Christian Andersen Museum.",
-    amenities: ["Restaurant", "Bar", "Meeting Rooms", "Free Wi-Fi", "Parking"]
+    amenities: ["Restaurant", "Bar", "Meeting Rooms", "Free Wi-Fi", "Parking"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Helsingør
@@ -270,7 +385,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.8,
     description: "Luxury beach resort with views of Sweden and Kronborg Castle.",
-    amenities: ["Private Beach", "Casino", "Spa", "Indoor Pool", "Tennis Courts"]
+    amenities: ["Private Beach", "Casino", "Spa", "Indoor Pool", "Tennis Courts"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Roskilde
@@ -295,7 +421,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.1,
     description: "Modern hotel near Roskilde Cathedral and Viking Ship Museum.",
-    amenities: ["Free Parking", "Breakfast Buffet", "Free Wi-Fi", "Business Center"]
+    amenities: ["Free Parking", "Breakfast Buffet", "Free Wi-Fi", "Business Center"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Esbjerg
@@ -320,7 +457,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.3,
     description: "Historic hotel in the heart of Esbjerg's maritime district.",
-    amenities: ["Restaurant", "Bar", "Meeting Rooms", "Free Wi-Fi", "Fitness Room"]
+    amenities: ["Restaurant", "Bar", "Meeting Rooms", "Free Wi-Fi", "Fitness Room"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Kolding
@@ -345,7 +493,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.6,
     description: "Scenic hotel overlooking Kolding Fjord, set in historic surroundings.",
-    amenities: ["Private Beach", "Spa", "Restaurant", "Conference Facilities", "Tennis Court"]
+    amenities: ["Private Beach", "Spa", "Restaurant", "Conference Facilities", "Tennis Court"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Vejle
@@ -370,7 +529,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.5,
     description: "Forest hotel with panoramic views of Vejle Fjord.",
-    amenities: ["Casino", "Golf Course", "Spa", "Indoor Pool", "Restaurant"]
+    amenities: ["Casino", "Golf Course", "Spa", "Indoor Pool", "Restaurant"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Silkeborg
@@ -395,7 +565,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.4,
     description: "Contemporary hotel in historic paper mill by Silkeborg's lakes.",
-    amenities: ["Riverside Restaurant", "Bar", "Fitness Center", "Meeting Rooms", "Bike Rental"]
+    amenities: ["Riverside Restaurant", "Bar", "Fitness Center", "Meeting Rooms", "Bike Rental"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Horsens
@@ -420,7 +601,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.2,
     description: "Elegant hotel set in beautiful Bygholm Park.",
-    amenities: ["Park Views", "Restaurant", "Conference Center", "Free Parking", "Bike Rental"]
+    amenities: ["Park Views", "Restaurant", "Conference Center", "Free Parking", "Bike Rental"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Copenhagen - Nyhavn
@@ -445,7 +637,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.4,
     description: "Maritime-themed hotel in historic warehouse along Copenhagen's waterfront.",
-    amenities: ["Harbor Views", "Breakfast Buffet", "Business Center", "Bike Rental", "Bar"]
+    amenities: ["Harbor Views", "Breakfast Buffet", "Business Center", "Bike Rental", "Bar"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Copenhagen - Islands Brygge
@@ -470,7 +673,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.5,
     description: "Modern apartment hotel with harbor views and minimalist Nordic design.",
-    amenities: ["Full Kitchen", "Washer/Dryer", "Gym", "Terrace", "Parking"]
+    amenities: ["Full Kitchen", "Washer/Dryer", "Gym", "Terrace", "Parking"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Copenhagen - Christianshavn
@@ -495,7 +709,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.7,
     description: "Boutique hotel in historic canal house with authentic Danish charm.",
-    amenities: ["Canal Views", "Garden", "Free Breakfast", "Bike Rental", "Library"]
+    amenities: ["Canal Views", "Garden", "Free Breakfast", "Bike Rental", "Library"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Copenhagen - Frederiksstaden
@@ -520,7 +745,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.6,
     description: "Elegant hotel in historic building near Amalienborg Palace.",
-    amenities: ["English Bar", "Restaurant", "Meeting Rooms", "Concierge", "Room Service"]
+    amenities: ["English Bar", "Restaurant", "Meeting Rooms", "Concierge", "Room Service"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Copenhagen - Sydhavnen
@@ -545,7 +781,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.2,
     description: "Modern business hotel with easy access to city center and airport.",
-    amenities: ["Restaurant", "Fitness Center", "Conference Rooms", "Parking", "Bar"]
+    amenities: ["Restaurant", "Fitness Center", "Conference Rooms", "Parking", "Bar"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Copenhagen - Amager Øst
@@ -570,7 +817,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.0,
     description: "Budget-friendly hotel near metro with modern amenities.",
-    amenities: ["Free Parking", "24/7 Reception", "Shared Kitchen", "Lounge", "Free Wi-Fi"]
+    amenities: ["Free Parking", "24/7 Reception", "Shared Kitchen", "Lounge", "Free Wi-Fi"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Copenhagen - Østerbro
@@ -595,7 +853,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.6,
     description: "Modern apartment hotel with extensive wellness facilities.",
-    amenities: ["Fitness Center", "Café", "Garden", "Conference Facilities", "Apartments"]
+    amenities: ["Fitness Center", "Café", "Garden", "Conference Facilities", "Apartments"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Copenhagen - Refshaleøen
@@ -620,7 +889,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.4,
     description: "Industrial-chic hotel in Copenhagen's creative district.",
-    amenities: ["Waterfront Views", "Restaurant", "Creative Spaces", "Bike Rental", "Bar"]
+    amenities: ["Waterfront Views", "Restaurant", "Creative Spaces", "Bike Rental", "Bar"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Copenhagen - Nørrebro
@@ -645,7 +925,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.7,
     description: "Tropical-inspired suite hotel with stunning rooftop pool.",
-    amenities: ["Rooftop Pool", "Fitness Center", "Café", "Lounge", "Suites"]
+    amenities: ["Rooftop Pool", "Fitness Center", "Café", "Lounge", "Suites"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Copenhagen - Vesterbro
@@ -670,7 +961,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.4,
     description: "Eco-conscious boutique hotel with Balinese-inspired design.",
-    amenities: ["Organic Breakfast", "Spa", "Garden", "Sustainable Practices", "Bike Rental"]
+    amenities: ["Organic Breakfast", "Spa", "Garden", "Sustainable Practices", "Bike Rental"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Copenhagen - Frederiksberg
@@ -695,7 +997,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.7,
     description: "Elegant hotel in a restored palace building with garden views.",
-    amenities: ["Garden Access", "Luxury Spa", "Fine Dining", "Afternoon Tea", "Concierge"]
+    amenities: ["Garden Access", "Luxury Spa", "Fine Dining", "Afternoon Tea", "Concierge"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Copenhagen - Amager Strand
@@ -720,7 +1033,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.3,
     description: "Beachfront hotel with views of Øresund strait.",
-    amenities: ["Beach Access", "Water Sports", "Restaurant", "Parking", "Bike Rental"]
+    amenities: ["Beach Access", "Water Sports", "Restaurant", "Parking", "Bike Rental"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Copenhagen - Ørestad
@@ -745,7 +1069,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.6,
     description: "Modern architectural landmark with stunning city views.",
-    amenities: ["Skybar", "Spa", "Fitness Center", "Multiple Restaurants", "Conference Center"]
+    amenities: ["Skybar", "Spa", "Fitness Center", "Multiple Restaurants", "Conference Center"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Copenhagen - Valby
@@ -770,7 +1105,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.2,
     description: "Charming hotel in quiet residential area near Valby Park.",
-    amenities: ["Garden", "Breakfast Buffet", "Free Parking", "Bike Rental", "Family Rooms"]
+    amenities: ["Garden", "Breakfast Buffet", "Free Parking", "Bike Rental", "Family Rooms"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Copenhagen - Kastrup
@@ -795,7 +1141,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.1,
     description: "Convenient airport hotel with 24-hour shuttle service.",
-    amenities: ["Airport Shuttle", "Restaurant", "Conference Rooms", "Parking", "24/7 Reception"]
+    amenities: ["Airport Shuttle", "Restaurant", "Conference Rooms", "Parking", "24/7 Reception"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Copenhagen - Brønshøj
@@ -820,7 +1177,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.0,
     description: "Comfortable hotel in peaceful suburban setting.",
-    amenities: ["Free Parking", "Restaurant", "Garden", "Business Center", "Family Rooms"]
+    amenities: ["Free Parking", "Restaurant", "Garden", "Business Center", "Family Rooms"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Copenhagen - Nordhavn
@@ -845,7 +1213,18 @@ export const hotels: Hotel[] = [
     },
     rating: 4.8,
     description: "Luxury hotel in converted grain silo with stunning harbor views.",
-    amenities: ["Rooftop Restaurant", "Bar", "Harbor Views", "Design Interiors", "Concierge"]
+    amenities: ["Rooftop Restaurant", "Bar", "Harbor Views", "Design Interiors", "Concierge"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   },
 
   // Copenhagen - Carlsberg City
@@ -870,6 +1249,17 @@ export const hotels: Hotel[] = [
     },
     rating: 4.5,
     description: "Boutique hotel in historic Carlsberg Brewery buildings.",
-    amenities: ["Rooftop Bar", "Italian Restaurant", "Fitness Room", "Meeting Rooms", "Bike Rental"]
+    amenities: ["Rooftop Bar", "Italian Restaurant", "Fitness Room", "Meeting Rooms", "Bike Rental"],
+    rooms: [
+      {
+        name: "Standard Room",
+        description: "Comfortable room with modern amenities",
+        size: "25m²",
+        occupancy: "2 adults",
+        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+        imageUrl: "/images/hotels/room-1.jpg"
+      }
+    ],
+    bookingUrl: "https://example.com/book"
   }
 ]; 

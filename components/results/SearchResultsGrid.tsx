@@ -4,6 +4,7 @@ import { Hotel } from "@/data/hotels";
 import HotelCard from "../common/HotelCard";
 import { useState } from "react";
 import Pagination from "./Pagination";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface SearchResultsGridProps {
   hotels: Hotel[];
@@ -16,6 +17,8 @@ const HOTELS_PER_PAGE = 18;
 
 const SearchResultsGrid = ({ hotels, destination, startDate, endDate }: SearchResultsGridProps) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   // Filter hotels based on search criteria
   const filteredHotels = hotels.filter(hotel => {
@@ -41,6 +44,14 @@ const SearchResultsGrid = ({ hotels, destination, startDate, endDate }: SearchRe
   const startIndex = (currentPage - 1) * HOTELS_PER_PAGE;
   const displayedHotels = filteredHotels.slice(startIndex, startIndex + HOTELS_PER_PAGE);
 
+  const handleHotelClick = (hotelId: string) => {
+    // Preserve current search parameters
+    const currentParams = new URLSearchParams(searchParams.toString());
+    
+    // Navigate to hotel page with all search parameters
+    router.push(`/hotel/${hotelId}?${currentParams.toString()}`);
+  };
+
   return (
     <div className="flex flex-col space-y-6">
       {/* Results count */}
@@ -53,7 +64,11 @@ const SearchResultsGrid = ({ hotels, destination, startDate, endDate }: SearchRe
       {/* Grid of hotel cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pr-6">
         {displayedHotels.map((hotel, index) => (
-          <div key={index}>
+          <div 
+            key={index}
+            onClick={() => handleHotelClick(hotel.id)}
+            className="cursor-pointer"
+          >
             <HotelCard 
               {...hotel}
               size="lg"

@@ -5,19 +5,23 @@ import HotelCard from "../common/HotelCard";
 
 interface HotelGridProps {
   hotels: Hotel[];
-  visibleHotels?: number;
+  visibleHotels: number;
+  onHotelClick: (hotelId: string) => void;
 }
 
-const HotelGrid = ({ hotels, visibleHotels }: HotelGridProps) => {
-  const displayedHotels = visibleHotels ? hotels.slice(0, visibleHotels) : hotels;
-
+const HotelGrid = ({ hotels, visibleHotels, onHotelClick }: HotelGridProps) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 px-24">
-      {displayedHotels.map((hotel, index) => (
-        <HotelCard
-          key={index}
-          {...hotel}
-        />
+      {hotels.slice(0, visibleHotels).map((hotel) => (
+        <div 
+          key={hotel.id}
+          onClick={() => onHotelClick(hotel.id)}
+          className="cursor-pointer"
+        >
+          <HotelCard
+            {...hotel}
+          />
+        </div>
       ))}
     </div>
   );

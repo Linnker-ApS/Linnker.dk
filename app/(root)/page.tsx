@@ -11,6 +11,7 @@ import Experiences from "@/components/home/sections/Experiences";
 import Mission from "@/components/home/sections/Mission";
 import Footer from "@/components/common/Footer";
 
+
 const Home = () => {
   const [isSticky, setIsSticky] = useState(false);
   const placeholderRef = useRef<HTMLDivElement>(null);
@@ -41,7 +42,7 @@ const Home = () => {
         <div className={`absolute left-0 right-0 bottom-0 transform translate-y-1/2 px-4 
           ${isSticky ? 'invisible' : 'visible'}`}>
           <div className="container mx-auto">
-            <Searchbar />
+            <Searchbar showInitialSuggestions={true} />
           </div>
         </div>
 
