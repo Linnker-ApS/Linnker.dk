@@ -5,6 +5,7 @@ import MainHeader from "@/components/common/MainHeader";
 import Footer from "@/components/common/Footer";
 import HotelGallery from "@/components/hotel/HotelGallery";
 import { hotels } from "@/data/hotels";
+import BookingFooter from "@/components/hotel/BookingFooter";
 
 const HotelProfile = () => {
   const { id } = useParams();
@@ -13,6 +14,11 @@ const HotelProfile = () => {
   if (!hotel) {
     return <div>Hotel not found</div>;
   }
+
+  const handleViewOffer = () => {
+    // Add your booking logic here
+    console.log("View offer clicked");
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -61,6 +67,12 @@ const HotelProfile = () => {
           </div>
         </div>
       </div>
+
+      {/* Booking Footer */}
+      <BookingFooter 
+        hotel={hotel}
+        onViewOffer={handleViewOffer}
+      />
 
       <Footer />
     </div>

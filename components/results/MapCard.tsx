@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Star, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import helvetica from "@/lib/fonts";
-
+import { Button } from "@/components/ui/button";
 
 interface MapCardProps {
   id: string;

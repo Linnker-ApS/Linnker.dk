@@ -73,6 +73,13 @@ const HotelMap = ({ hotels, destination, center = { lat: 55.676098, lng: 12.5683
     });
   }, [hotels, destination]);
 
+  // Effect to recenter map when destination or filtered hotels change
+  useEffect(() => {
+    if (isLoaded && mapRef.current) {
+      centerMap();
+    }
+  }, [destination, filteredHotels, isLoaded]);
+
   // Center map on filtered hotels
   const centerMap = useCallback(() => {
     if (!mapRef.current || filteredHotels.length === 0) return;
@@ -139,11 +146,11 @@ const HotelMap = ({ hotels, destination, center = { lat: 55.676098, lng: 12.5683
     }
   }, [centerMap, isInitialLoad]);
 
-  // Memoize the markers
+  // Memoize the markers with hover state
   const markers = useMemo(() => 
     filteredHotels.map((hotel, index) => (
       <OverlayView
-        key={hotel.id} // Use hotel.id instead of index
+        key={hotel.id}
         position={{
           lat: hotel.location.coordinates.latitude,
           lng: hotel.location.coordinates.longitude,
@@ -154,14 +161,18 @@ const HotelMap = ({ hotels, destination, center = { lat: 55.676098, lng: 12.5683
           y: -height,
         })}
       >
-        <div onClick={() => handleMarkerClick(hotel)}>
+        <div 
+          onClick={() => handleMarkerClick(hotel)}
+          className="transition-[z-index] hover:z-[1000]"
+          style={{ position: 'relative', zIndex: selectedHotel?.id === hotel.id ? 999 : 1 }}
+        >
           <PriceMarker
             price={hotel.price.amount}
             currency={hotel.price.currency}
           />
         </div>
       </OverlayView>
-    )), [filteredHotels, handleMarkerClick]);
+    )), [filteredHotels, handleMarkerClick, selectedHotel]);
 
   if (!isLoaded) {
     return (
