@@ -8,12 +8,11 @@ import { hotels } from "@/data/hotels";
 import BookingFooter from "@/components/hotel/BookingFooter";
 import HotelAmenities from "@/components/hotel/HotelAmenities";
 import HotelAbout from "@/components/hotel/HotelAbout";
-import HotelRooms from "@/components/hotel/HotelRooms";
+import HotelRooms from "@/components/hotel/HotelRoomsGrid";
 import { format } from "date-fns";
 import BookingCard from "@/components/hotel/BookingCard";
 import { DateRange } from "react-day-picker";
 import { GuestCount } from "@/types";
-import { Hotel } from "@/types";
 
 const HotelProfile = () => {
   const searchParams = useSearchParams();
@@ -85,47 +84,56 @@ const HotelProfile = () => {
             location={hotel.location}
           />
 
+          {/* Decorative Divider */}
+          <div className="my-12">
+            <div className="w-full border-t border-gray-400" />
+            <div className="flex justify-center -mt-3">
+              <div className="bg-white px-4">
+              </div>
+            </div>
+          </div>
+
           {/* Hotel Details */}
-          <div className="grid grid-cols-3 gap-8">
-            {/* Left column - Description and Amenities */}
-            <div className="col-span-2 space-y-12">
-              <HotelAbout 
-                description={hotel.description}
-                highlights={hotel.highlights}
-              />
+          <div className="space-y-12">
+            {/* Top Section: About, Amenities, and Booking Card */}
+            <div className="grid grid-cols-3 gap-8">
+              {/* Left column */}
+              <div className="col-span-2 space-y-12">
+                <HotelAbout 
+                  description={hotel.description}
+                  highlights={hotel.highlights}
+                />
+                <HotelAmenities 
+                  amenities={hotel.amenities}
+                />
+              </div>
 
-              <HotelAmenities 
-                amenities={hotel.amenities}
-              />
-
-              <HotelRooms 
-                rooms={hotel.rooms}
-              />
-              <HotelRooms 
-                rooms={hotel.rooms}
-              />
+              {/* Right column - Booking Card */}
+              <div className="sticky top-24">
+                <BookingCard
+                  price={hotel.price}
+                  onViewOffer={handleViewOffer}
+                  initialDates={
+                    searchParams.get('startDate') && searchParams.get('endDate')
+                      ? {
+                          from: new Date(searchParams.get('startDate')!),
+                          to: new Date(searchParams.get('endDate')!)
+                        }
+                      : undefined
+                  }
+                  initialGuests={{
+                    adults: Number(searchParams.get('adults')) || 2,
+                    children: Number(searchParams.get('children')) || 0,
+                    rooms: Number(searchParams.get('rooms')) || 1
+                  }}
+                />
+              </div>
             </div>
 
-            {/* Right column - Map and Contact */}
-            <div className="sticky top-24 space-y-6">
-              <BookingCard
-                price={hotel.price}
-                onViewOffer={handleViewOffer}
-                initialDates={
-                  searchParams.get('startDate') && searchParams.get('endDate')
-                    ? {
-                        from: new Date(searchParams.get('startDate')!),
-                        to: new Date(searchParams.get('endDate')!)
-                      }
-                    : undefined
-                }
-                initialGuests={{
-                  adults: Number(searchParams.get('adults')) || 2,
-                  children: Number(searchParams.get('children')) || 0,
-                  rooms: Number(searchParams.get('rooms')) || 1
-                }}
-              />
-            </div>
+            {/* Room Types Section - Full Width */}
+            <HotelRooms 
+              rooms={hotel.rooms}
+            />
           </div>
         </div>
 

@@ -34,6 +34,74 @@ export type Hotel = {
   bookingUrl: string;
 };
 
+const standardRooms = [
+  {
+    name: "Standard Single Room",
+    description: "Standard single room with modern amenities",
+    size: "25m²",
+    occupancy: "2 adults",
+    amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
+    imageUrl: "/images/hotels/Superior_Single_Room.jpg",
+  },
+  {
+    name: "Suite",
+    description: "Comfortable suite with modern amenities",
+    size: "35m²",
+    occupancy: "2 adults",
+    amenities: ["Free Wi-Fi", "Air Conditioning", "TV", "Breakfast"],
+    imageUrl: "/images/hotels/Suite.jpg",
+  },
+  {
+    name: "Superior Double Room",
+    description: "Comfortable room with modern amenities",
+    size: "30m²",
+    occupancy: "2 adults",
+    amenities: ["Free Wi-Fi", "Air Conditioning", "TV", "Breakfast", "Spa"],
+    imageUrl: "/images/hotels/Superior_Double_Room.jpg",
+  },
+  {
+    name: "Family Room",
+    description: "Comfortable room with modern amenities",
+    size: "50m²",
+    occupancy: "2 adults, 2 children",
+    amenities: ["Free Wi-Fi", "Air Conditioning", "TV", "Breakfast"],
+    imageUrl: "/images/hotels/Family_Room.jpg",
+  },
+  {
+    name: "Penthouse Suite",
+    description: "Comfortable room with modern amenities",
+    size: "50m²",
+    occupancy: "2 adults",
+    amenities: ["Free Wi-Fi", "Air Conditioning", "TV", "Breakfast", "Spa"],
+    imageUrl: "/images/hotels/Penthouse_Suite.jpg",
+  }
+];
+
+export const HOTEL_AMENITIES = {
+  WIFI: "Free Wi-Fi",
+  TV: "TV",
+  BREAKFAST: "Breakfast",
+  RESTAURANT: "Restaurant",
+  PARKING: "Parking",
+  BAR: "Bar",
+  FITNESS: "Fitness Center",
+  SAUNA: "Sauna",
+  BIKE_RENTAL: "Bike Rental",
+  ROOM_SERVICE: "Room Service",
+  AIR_CONDITIONING: "Air Conditioning",
+  CITY_VIEW: "City View"
+} as const;
+
+export type HotelAmenity = typeof HOTEL_AMENITIES[keyof typeof HOTEL_AMENITIES];
+
+// Helper function to get random amenities
+const getRandomAmenities = () => {
+  const amenitiesArray = Object.values(HOTEL_AMENITIES);
+  const numberOfAmenities = 4 + Math.floor(Math.random() * 4); // Random 4-7 amenities
+  const shuffled = [...amenitiesArray].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, numberOfAmenities);
+};
+
 export const hotels: Hotel[] = [
   // Copenhagen Inner City (K)
   {
@@ -62,18 +130,26 @@ export const hotels: Hotel[] = [
       per: "night"
     },
     rating: 4.9,
-    description: "Luxury boutique hotel in Tivoli Gardens with unique Moorish architecture.",
-    amenities: ["Michelin Restaurant", "Bar", "Spa", "Fitness Center", "Concierge", "Free Wi-Fi"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
+    description: "Hotel SP34 is Brøchner Hotels' exclusive 4+ star boutique hotel in Copenhagen's trendy Latin Quarter. " +
+    "Located in three connecting townhouses, each with its own distinct architecture and character, the hotel offers an authentic Copenhagen experience.\n\n" +
+    "The hotel features 118 unique rooms and suites, furnished with tailormade pieces and unique Danish designs. All rooms have soft, welcoming light. " +
+    "Additional amenities include 3 restaurants, 4 bars, a cosy urban terrace, conference facilities, and an exclusive 24-seat private cinema.\n\n" +
+    "Start your day with a delicious organic breakfast buffet, featuring freshly baked bread, cereals, yoghurt with homemade toppings, fruits, and juices. " +
+    "With its unique design and custom-made interior, Hotel SP34 is the perfect choice for design enthusiasts seeking a distinctive experience.",
+    amenities: [
+      HOTEL_AMENITIES.RESTAURANT,
+      HOTEL_AMENITIES.BAR,
+      HOTEL_AMENITIES.FITNESS,
+      HOTEL_AMENITIES.PARKING,
+      HOTEL_AMENITIES.WIFI,
+      HOTEL_AMENITIES.AIR_CONDITIONING,
+      HOTEL_AMENITIES.CITY_VIEW,
+      HOTEL_AMENITIES.BREAKFAST,
+      HOTEL_AMENITIES.ROOM_SERVICE,
+      HOTEL_AMENITIES.SAUNA,
+      HOTEL_AMENITIES.BIKE_RENTAL,
     ],
+    rooms: standardRooms,
     bookingUrl: "https://booking.brochner-hotels.dk/booking?siteid=1491&checkin=25-02-2025&nights=1&adults0=2&hotelsel=hotelsp34&lng=da&bsid=40687981"
   },
   {
@@ -97,17 +173,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.8,
     description: "Intimate luxury hotel with theatrical flair in the heart of Copenhagen.",
-    amenities: ["Rooftop Terrace", "Restaurant", "Cocktail Bar", "Concierge", "Bike Rental"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -133,17 +200,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.5,
     description: "Colorful boutique hotel in vibrant Vesterbro district.",
-    amenities: ["Organic Breakfast", "Free Wi-Fi", "Bike Rental", "24/7 Reception"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -169,17 +227,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.3,
     description: "Eco-friendly hotel with Balinese-inspired decor.",
-    amenities: ["Organic Breakfast", "Garden", "Bike Rental", "Sustainable Practices"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -205,17 +254,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.6,
     description: "Modern apartment hotel near the Little Mermaid statue.",
-    amenities: ["Fully Equipped Kitchen", "Indoor Pool", "Gym", "Business Center", "Laundry"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -241,17 +281,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.4,
     description: "Newly renovated hotel in the heart of Frederiksberg.",
-    amenities: ["Conference Center", "Restaurant", "Bar", "Fitness Room", "Bike Rental"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -277,17 +308,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.7,
     description: "Historic hotel in the heart of Aarhus, close to ARoS Art Museum.",
-    amenities: ["Fine Dining", "Wine Cellar", "Meeting Rooms", "Room Service", "Valet Parking"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -313,17 +335,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.3,
     description: "Modern high-rise hotel with panoramic views of Aalborg.",
-    amenities: ["Skybar", "Conference Facilities", "Restaurant", "Fitness Center"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -349,17 +362,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.2,
     description: "Classic hotel near Hans Christian Andersen Museum.",
-    amenities: ["Restaurant", "Bar", "Meeting Rooms", "Free Wi-Fi", "Parking"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -385,17 +389,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.8,
     description: "Luxury beach resort with views of Sweden and Kronborg Castle.",
-    amenities: ["Private Beach", "Casino", "Spa", "Indoor Pool", "Tennis Courts"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -421,17 +416,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.1,
     description: "Modern hotel near Roskilde Cathedral and Viking Ship Museum.",
-    amenities: ["Free Parking", "Breakfast Buffet", "Free Wi-Fi", "Business Center"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -457,17 +443,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.3,
     description: "Historic hotel in the heart of Esbjerg's maritime district.",
-    amenities: ["Restaurant", "Bar", "Meeting Rooms", "Free Wi-Fi", "Fitness Room"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -493,17 +470,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.6,
     description: "Scenic hotel overlooking Kolding Fjord, set in historic surroundings.",
-    amenities: ["Private Beach", "Spa", "Restaurant", "Conference Facilities", "Tennis Court"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -529,17 +497,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.5,
     description: "Forest hotel with panoramic views of Vejle Fjord.",
-    amenities: ["Casino", "Golf Course", "Spa", "Indoor Pool", "Restaurant"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -565,17 +524,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.4,
     description: "Contemporary hotel in historic paper mill by Silkeborg's lakes.",
-    amenities: ["Riverside Restaurant", "Bar", "Fitness Center", "Meeting Rooms", "Bike Rental"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -601,17 +551,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.2,
     description: "Elegant hotel set in beautiful Bygholm Park.",
-    amenities: ["Park Views", "Restaurant", "Conference Center", "Free Parking", "Bike Rental"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -637,17 +578,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.4,
     description: "Maritime-themed hotel in historic warehouse along Copenhagen's waterfront.",
-    amenities: ["Harbor Views", "Breakfast Buffet", "Business Center", "Bike Rental", "Bar"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -673,17 +605,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.5,
     description: "Modern apartment hotel with harbor views and minimalist Nordic design.",
-    amenities: ["Full Kitchen", "Washer/Dryer", "Gym", "Terrace", "Parking"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -709,17 +632,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.7,
     description: "Boutique hotel in historic canal house with authentic Danish charm.",
-    amenities: ["Canal Views", "Garden", "Free Breakfast", "Bike Rental", "Library"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -745,17 +659,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.6,
     description: "Elegant hotel in historic building near Amalienborg Palace.",
-    amenities: ["English Bar", "Restaurant", "Meeting Rooms", "Concierge", "Room Service"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -781,17 +686,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.2,
     description: "Modern business hotel with easy access to city center and airport.",
-    amenities: ["Restaurant", "Fitness Center", "Conference Rooms", "Parking", "Bar"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -817,17 +713,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.0,
     description: "Budget-friendly hotel near metro with modern amenities.",
-    amenities: ["Free Parking", "24/7 Reception", "Shared Kitchen", "Lounge", "Free Wi-Fi"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -853,17 +740,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.6,
     description: "Modern apartment hotel with extensive wellness facilities.",
-    amenities: ["Fitness Center", "Café", "Garden", "Conference Facilities", "Apartments"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -889,17 +767,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.4,
     description: "Industrial-chic hotel in Copenhagen's creative district.",
-    amenities: ["Waterfront Views", "Restaurant", "Creative Spaces", "Bike Rental", "Bar"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -925,17 +794,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.7,
     description: "Tropical-inspired suite hotel with stunning rooftop pool.",
-    amenities: ["Rooftop Pool", "Fitness Center", "Café", "Lounge", "Suites"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -961,17 +821,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.4,
     description: "Eco-conscious boutique hotel with Balinese-inspired design.",
-    amenities: ["Organic Breakfast", "Spa", "Garden", "Sustainable Practices", "Bike Rental"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -997,17 +848,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.7,
     description: "Elegant hotel in a restored palace building with garden views.",
-    amenities: ["Garden Access", "Luxury Spa", "Fine Dining", "Afternoon Tea", "Concierge"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -1033,17 +875,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.3,
     description: "Beachfront hotel with views of Øresund strait.",
-    amenities: ["Beach Access", "Water Sports", "Restaurant", "Parking", "Bike Rental"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -1069,17 +902,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.6,
     description: "Modern architectural landmark with stunning city views.",
-    amenities: ["Skybar", "Spa", "Fitness Center", "Multiple Restaurants", "Conference Center"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -1105,17 +929,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.2,
     description: "Charming hotel in quiet residential area near Valby Park.",
-    amenities: ["Garden", "Breakfast Buffet", "Free Parking", "Bike Rental", "Family Rooms"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -1141,17 +956,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.1,
     description: "Convenient airport hotel with 24-hour shuttle service.",
-    amenities: ["Airport Shuttle", "Restaurant", "Conference Rooms", "Parking", "24/7 Reception"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -1177,17 +983,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.0,
     description: "Comfortable hotel in peaceful suburban setting.",
-    amenities: ["Free Parking", "Restaurant", "Garden", "Business Center", "Family Rooms"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -1213,17 +1010,8 @@ export const hotels: Hotel[] = [
     },
     rating: 4.8,
     description: "Luxury hotel in converted grain silo with stunning harbor views.",
-    amenities: ["Rooftop Restaurant", "Bar", "Harbor Views", "Design Interiors", "Concierge"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   },
 
@@ -1249,17 +1037,11 @@ export const hotels: Hotel[] = [
     },
     rating: 4.5,
     description: "Boutique hotel in historic Carlsberg Brewery buildings.",
-    amenities: ["Rooftop Bar", "Italian Restaurant", "Fitness Room", "Meeting Rooms", "Bike Rental"],
-    rooms: [
-      {
-        name: "Standard Room",
-        description: "Comfortable room with modern amenities",
-        size: "25m²",
-        occupancy: "2 adults",
-        amenities: ["Free Wi-Fi", "Air Conditioning", "TV"],
-        imageUrl: "/images/hotels/room-1.jpg"
-      }
-    ],
+    amenities: getRandomAmenities(),
+    rooms: standardRooms,
     bookingUrl: "https://example.com/book"
   }
-]; 
+].map(hotel => ({
+  ...hotel,
+  rooms: hotel.rooms || standardRooms
+})); 
