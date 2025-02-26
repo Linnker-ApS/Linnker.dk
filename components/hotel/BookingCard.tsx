@@ -31,11 +31,16 @@ const BookingCard = ({
   };
 
   const handleViewOffer = () => {
-    if (!dateRange?.from || !dateRange?.to) {
-      alert("Please select dates");
-      return;
+    try {
+      if (!dateRange?.from || !dateRange?.to) {
+        throw new Error("Please select dates");
+      }
+      onViewOffer(dateRange, guests);
+    } catch (error) {
+      // Add proper error handling
+      console.error(error);
+      alert(error instanceof Error ? error.message : "An error occurred");
     }
-    onViewOffer(dateRange, guests);
   };
 
   return (

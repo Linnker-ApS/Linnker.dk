@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { CustomButton } from "@/components/ui/CustomButton";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -90,14 +90,14 @@ const Searchbar = ({
     router.push(`/results?${params.toString()}`);
   };
 
-  const updateGuestCount = (type: 'adults' | 'children' | 'rooms', operation: 'add' | 'subtract') => {
+  const updateGuestCount = useCallback((type: keyof GuestCount, operation: 'add' | 'subtract') => {
     setGuests(prev => ({
       ...prev,
       [type]: operation === 'add' 
         ? type === 'rooms' ? Math.min(10, prev[type] + 1) : prev[type] + 1
-        : Math.max(type === 'adults' ? 1 : 0, type === 'rooms' ? 1 : prev[type] - 1)
+        : Math.max(type === 'adults' ? 1 : 0, prev[type] - 1)
     }));
-  };
+  }, []);
 
   return (
     <div className="w-full max-w-4xl mx-auto bg-white rounded-full shadow-lg p-2 relative">
@@ -199,7 +199,7 @@ const Searchbar = ({
                     <CustomButton
                       variant="white"
                       size="icon"
-                      onClick={() => updateGuestCount(type as any, 'subtract')}
+                      onClick={() => updateGuestCount(type as keyof typeof guests, 'subtract')}
                       disabled={guests[type as keyof typeof guests] <= (type === 'adults' ? 1 : 0)}
                     >
                       -
@@ -208,7 +208,7 @@ const Searchbar = ({
                     <CustomButton
                       variant="white"
                       size="icon"
-                      onClick={() => updateGuestCount(type as any, 'add')}
+                      onClick={() => updateGuestCount(type as keyof typeof guests, 'add')}
                       disabled={type === 'rooms' && guests.rooms >= 10}
                     >
                       +
@@ -236,3 +236,11 @@ const Searchbar = ({
 };
 
 export default Searchbar;
+
+// Extract date management logic
+export const useDateRange = (initialDates?: DateRange) => {
+  const [dateRange, setDateRange] = useState<DateRange | undefined>(initialDates);
+  const [isDateOpen, setIsDateOpen] = useState(false);
+
+  return { dateRange, setDateRange, isDateOpen, setIsDateOpen };
+};
