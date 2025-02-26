@@ -49,7 +49,7 @@ const HotelGallery = ({ images, hotelName, location }: HotelGalleryProps) => {
   return (
     <div>
       {/* Hotel Name and Location */}
-      <div className="mb-8">
+      <div className="mb-4">
         <h1 className="text-4xl font-semibold mb-2">{hotelName}</h1>
         <p className="text-gray-600">
           {location.city}, {location.country}
@@ -61,7 +61,7 @@ const HotelGallery = ({ images, hotelName, location }: HotelGalleryProps) => {
         {/* Smaller image left */}
         <div className="col-span-1">
           <div 
-            className="rounded-tl-lg rounded-bl-lg relative overflow-hidden cursor-pointer h-[520px] w-auto"
+            className="rounded-tl-xl rounded-bl-xl relative overflow-hidden cursor-pointer h-[520px] w-auto"
             onClick={() => setSelectedImageIndex(1)}
           >
             <Image
@@ -93,7 +93,7 @@ const HotelGallery = ({ images, hotelName, location }: HotelGalleryProps) => {
             <div 
               key={index}
               className={`relative overflow-hidden cursor-pointer h-[254px] 
-                ${index === 0 ? 'rounded-tr-lg' : ''}`}
+                ${index === 0 ? 'rounded-tr-xl' : 'rounded-br-xl'}`}
               onClick={() => setSelectedImageIndex(index + 3)}
             >
               <Image
