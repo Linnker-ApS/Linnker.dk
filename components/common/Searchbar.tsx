@@ -10,24 +10,10 @@ import { DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
 import { hotels } from "@/data/hotels";
 import { useRouter } from "next/navigation";
-
-interface GuestCount {
-  adults: number;
-  children: number;
-  rooms: number;
-}
-
-interface SearchbarProps {
-  initialDestination?: string;
-  initialStartDate?: Date;
-  initialEndDate?: Date;
-  initialGuests?: GuestCount;
-  showInitialSuggestions?: boolean;
-  disableAutocomplete?: boolean;
-}
+import { SearchbarProps, GuestCount } from "@/types";
 
 const Searchbar = ({ 
-  initialDestination = "", 
+  initialDestination = "",
   initialStartDate = undefined,
   initialEndDate = undefined,
   initialGuests = { adults: 2, children: 0, rooms: 1 },

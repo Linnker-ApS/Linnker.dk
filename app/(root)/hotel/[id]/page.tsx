@@ -12,26 +12,29 @@ import HotelRooms from "@/components/hotel/HotelRooms";
 import { format } from "date-fns";
 import BookingCard from "@/components/hotel/BookingCard";
 import { DateRange } from "react-day-picker";
+import { GuestCount } from "@/types";
+import { Hotel } from "@/types";
 
 const HotelProfile = () => {
   const searchParams = useSearchParams();
   const { id } = useParams();
   const hotel = hotels.find(h => h.id === id);
 
-  const handleViewOffer = (dateRange: DateRange, guests: number) => {
-    if (!hotel) return;
+  const handleViewOffer = (dates: DateRange, guests: GuestCount) => {
+    if (!hotel || !dates.from || !dates.to) return;
 
     const isbrochner = hotel.bookingUrl.includes('brochner-hotels');
     
     const params = new URLSearchParams({
       [isbrochner ? 'checkin' : 'check_in']: isbrochner 
-        ? format(dateRange.from!, 'dd-MM-yyyy')
-        : dateRange.from!.toISOString().split('T')[0],
+        ? format(dates.from, 'dd-MM-yyyy')
+        : dates.from.toISOString().split('T')[0],
       [isbrochner ? 'checkout' : 'check_out']: isbrochner
-        ? format(dateRange.to!, 'dd-MM-yyyy')
-        : dateRange.to!.toISOString().split('T')[0],
-      [isbrochner ? 'adults0' : 'adults']: guests.toString(),
-      'rooms': '1'
+        ? format(dates.to, 'dd-MM-yyyy')
+        : dates.to.toISOString().split('T')[0],
+      [isbrochner ? 'adults0' : 'adults']: guests.adults.toString(),
+      [isbrochner ? 'children0' : 'children']: guests.children.toString(),
+      'rooms': guests.rooms.toString()
     });
 
     window.open(`${hotel.bookingUrl}?${params.toString()}`, '_blank');
@@ -100,38 +103,35 @@ const HotelProfile = () => {
               />
               <HotelRooms 
                 rooms={hotel.rooms}
-              /><HotelRooms 
-              rooms={hotel.rooms}
-            /><HotelRooms 
-            rooms={hotel.rooms}
-          /><HotelRooms 
-          rooms={hotel.rooms}
-        />
+              />
             </div>
 
             {/* Right column - Map and Contact */}
             <div className="sticky top-24 space-y-6">
-      <BookingCard
-        price={hotel.price}
-        onViewOffer={handleViewOffer}
-        initialDates={
-          searchParams.get('startDate') && searchParams.get('endDate')
-            ? {
-                startDate: new Date(searchParams.get('startDate')!),
-                endDate: new Date(searchParams.get('endDate')!)
-              }
-            : undefined
-        }
-        initialGuests={Number(searchParams.get('adults')) || 1}
-      />
-    </div>
+              <BookingCard
+                price={hotel.price}
+                onViewOffer={handleViewOffer}
+                initialDates={
+                  searchParams.get('startDate') && searchParams.get('endDate')
+                    ? {
+                        from: new Date(searchParams.get('startDate')!),
+                        to: new Date(searchParams.get('endDate')!)
+                      }
+                    : undefined
+                }
+                initialGuests={{
+                  adults: Number(searchParams.get('adults')) || 2,
+                  children: Number(searchParams.get('children')) || 0,
+                  rooms: Number(searchParams.get('rooms')) || 1
+                }}
+              />
+            </div>
           </div>
         </div>
 
         {/* Booking Footer */}
         <BookingFooter 
           hotel={hotel}
-  
         />
       </div>
 

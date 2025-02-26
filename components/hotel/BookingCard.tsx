@@ -3,41 +3,32 @@
 import { CustomButton } from "@/components/ui/CustomButton";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarDays, Users } from "lucide-react";
+import { CalendarDays, Users, X } from "lucide-react";
 import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-
-interface BookingCardProps {
-  price: {
-    amount: number;
-    currency: string;
-    per: string;
-  };
-  onViewOffer: (dates: DateRange, guests: number) => void;
-  initialDates?: {
-    startDate: Date;
-    endDate: Date;
-  };
-  initialGuests?: number;
-}
+import { BookingCardProps, GuestCount } from "@/types";
 
 const BookingCard = ({ 
   price, 
   onViewOffer,
   initialDates,
-  initialGuests = 1
+  initialGuests = { adults: 2, children: 0, rooms: 1 }
 }: BookingCardProps) => {
-  const [dateRange, setDateRange] = useState<DateRange | undefined>(
-    initialDates ? {
-      from: initialDates.startDate,
-      to: initialDates.endDate
-    } : undefined
-  );
-  const [guests, setGuests] = useState(initialGuests);
+  const [dateRange, setDateRange] = useState<DateRange | undefined>(initialDates);
+  const [guests, setGuests] = useState<GuestCount>(initialGuests);
   const [isDateOpen, setIsDateOpen] = useState(false);
   const [isGuestOpen, setIsGuestOpen] = useState(false);
+
+  const updateGuestCount = (type: 'adults' | 'children' | 'rooms', operation: 'add' | 'subtract') => {
+    setGuests(prev => ({
+      ...prev,
+      [type]: operation === 'add' 
+        ? type === 'rooms' ? Math.min(10, prev[type] + 1) : prev[type] + 1
+        : Math.max(type === 'adults' ? 1 : 0, prev[type] - 1)
+    }));
+  };
 
   const handleViewOffer = () => {
     if (!dateRange?.from || !dateRange?.to) {
@@ -82,15 +73,26 @@ const BookingCard = ({
           </CustomButton>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
-          <Calendar
-            initialFocus
-            mode="range"
-            defaultMonth={dateRange?.from}
-            selected={dateRange}
-            onSelect={setDateRange}
-            numberOfMonths={2}
-            disabled={{ before: new Date() }}
-          />
+          <div className="relative">
+            <Calendar
+              initialFocus
+              mode="range"
+              defaultMonth={dateRange?.from}
+              selected={dateRange}
+              onSelect={setDateRange}
+              numberOfMonths={2}
+              disabled={{ before: new Date() }}
+            />
+            <div className="p-1 border-t flex justify-end">
+              <CustomButton
+                variant="white"
+                size="icon"
+                onClick={() => setIsDateOpen(false)}
+              >
+                <X className="h-4 w-4" />
+              </CustomButton>
+            </div>
+          </div>
         </PopoverContent>
       </Popover>
 
@@ -105,31 +107,40 @@ const BookingCard = ({
             )}
           >
             <Users className="mr-2 h-4 w-4" />
-            {guests} {guests === 1 ? "guest" : "guests"}
+            {`${guests.adults + guests.children} Guest${
+              guests.adults + guests.children !== 1 ? "s" : ""
+            }`}
           </CustomButton>
         </PopoverTrigger>
-        <PopoverContent className="w-60">
-          <div className="p-2">
-            <div className="flex items-center justify-between">
-              <span>Guests</span>
-              <div className="flex items-center gap-2">
-                <CustomButton
-                  variant="white"
-                  size="icon"
-                  onClick={() => setGuests(prev => Math.max(1, prev - 1))}
-                >
-                  -
-                </CustomButton>
-                <span className="w-8 text-center">{guests}</span>
-                <CustomButton
-                  variant="white"
-                  size="icon"
-                  onClick={() => setGuests(prev => Math.min(10, prev + 1))}
-                >
-                  +
-                </CustomButton>
+        <PopoverContent className="w-80">
+          <div className="p-4 space-y-4">
+            {["adults", "children", "rooms"].map((type) => (
+              <div key={type} className="flex items-center justify-between">
+                <div className="space-y-1">
+                  <h4 className="font-medium">{type.charAt(0).toUpperCase() + type.slice(1)}</h4>
+                  <p className="text-xs text-gray-500">{type === 'adults' ? 'Ages 13 or above' : type === 'children' ? 'Ages 0-12' : ''}</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <CustomButton
+                    variant="white"
+                    size="icon"
+                    onClick={() => updateGuestCount(type as any, 'subtract')}
+                    disabled={guests[type as keyof typeof guests] <= (type === 'adults' ? 1 : 0)}
+                  >
+                    -
+                  </CustomButton>
+                  <span className="w-6 text-center">{guests[type as keyof typeof guests]}</span>
+                  <CustomButton
+                    variant="white"
+                    size="icon"
+                    onClick={() => updateGuestCount(type as any, 'add')}
+                    disabled={type === 'rooms' && guests.rooms >= 10}
+                  >
+                    +
+                  </CustomButton>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </PopoverContent>
       </Popover>
