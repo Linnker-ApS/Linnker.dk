@@ -18,7 +18,7 @@ const TrendingHotels = () => {
 
     // Create default search parameters
     const defaultParams = new URLSearchParams({
-      destination: 'Denmark',
+      destination: '',
       startDate: today.toISOString(),
       endDate: tomorrow.toISOString(),
       adults: '2',
