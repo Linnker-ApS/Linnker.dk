@@ -5,12 +5,12 @@ import { cn } from "@/lib/utils"
 import { Search } from "lucide-react"
 
 const mobileButtonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 w-full py-3",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap my-2 rounded-lg text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 w-full py-3",
   {
     variants: {
       variant: {
-        primary: "bg-black hover:bg-[#FFB700] text-white hover:text-black",
-        secondary: "bg-[#FFB700] text-black hover:bg-black hover:text-white",
+        primary: "bg-[#FFB700] hover:bg-[black] text-black hover:text-white",
+        secondary: "bg-black text-white hover:bg-black hover:text-white",
         white: "bg-white hover:bg-gray-50 text-black border border-gray-200",
       },
       size: {

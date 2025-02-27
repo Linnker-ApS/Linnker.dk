@@ -150,7 +150,7 @@ const MobileSearchbar = ({
                   autoFocus
                 />
               </div>
-              <MobileButton type="submit">
+              <MobileButton className="my-3" variant="primary" type="submit">
                 Search
               </MobileButton>
             </form>
@@ -192,7 +192,7 @@ const MobileSearchbar = ({
                 disabled={{ before: new Date() }}
               />
               {dateRange?.from && dateRange?.to && (
-                <MobileButton type="submit" onClick={handleDateSearch}>
+                <MobileButton className="my-3" type="submit" onClick={handleDateSearch}>
                   Search
                 </MobileButton>
               )}
