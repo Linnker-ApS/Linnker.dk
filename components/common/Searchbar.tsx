@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { hotels } from "@/data/hotels";
 import { useRouter } from "next/navigation";
 import { SearchbarProps, GuestCount } from "@/types";
+import MobileSearchbar from "../mobile-components/common/MobileSearchbar";
 
 const Searchbar = ({ 
   initialDestination = "",
@@ -118,9 +119,23 @@ const Searchbar = ({
     showSuggestions;
 
   return (
-    <div className="w-full max-w-4xl mx-auto bg-white rounded-full shadow-lg p-2 relative">
-      <div className="flex flex-col md:flex-row gap-2 ">
-        {/* Destination Input with Autocomplete */}
+    <div className="w-full max-w-4xl mx-auto">
+      {/* Mobile View */}
+      <div className="md:hidden">
+        <MobileSearchbar
+          destination={destination}
+          dateRange={dateRange}
+          guests={guests}
+          onDestinationChange={handleDestinationChange}
+          onDateChange={setDateRange}
+          onGuestChange={updateGuestCount}
+          onSearch={handleSearch}
+          // ... other props
+        />
+      </div>
+
+      {/* Desktop View - Unchanged */}
+      <div className="hidden md:flex bg-white rounded-full shadow-lg p-2 gap-2 relative">
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <input
