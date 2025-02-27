@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Search, CalendarDays, Users, MapPin, X } from "lucide-react";
+import { Search, CalendarDays, Users, MapPin, X, ChevronRight } from "lucide-react";
 import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { MobileSearchbarProps } from "@/types";
@@ -62,57 +62,30 @@ const MobileSearchbar = ({
     onSearch();
   };
 
+  // Format date range for display
+  const getFormattedDateRange = () => {
+    if (!dateRange?.from) return "Select dates";
+    if (!dateRange.to) return format(dateRange.from, "MMM d, yyyy");
+    return `${format(dateRange.from, "MMM d")} - ${format(dateRange.to, "MMM d")}`;
+  };
+
+  // Format guests for display
+  const getFormattedGuests = () => {
+    const totalGuests = guests.adults + guests.children;
+    return `${totalGuests} guest${totalGuests !== 1 ? 's' : ''}${guests.rooms > 1 ? `, ${guests.rooms} rooms` : ''}`;
+  };
+
   return (
     <div className="flex flex-col gap-3 p-4 bg-white rounded-lg shadow-sm md:hidden">
-      {/* Destination Input */}
-      <button 
-        className="flex items-center border rounded-lg p-3"
+      {/* Single Search Button */}
+      <CustomButton 
+        variant="secondary"
+        className="flex items-center gap-3 p-3 border rounded-lg w-full"
         onClick={() => setIsDestinationOpen(true)}
       >
-        <Search className="w-5 h-5 text-gray-400 mr-2" />
-        <span className="text-left text-gray-600">
-          {destination || "Where in Denmark?"}
-        </span>
-      </button>
-
-      {/* Date Button */}
-      <button 
-        className="flex items-center border rounded-lg p-3"
-        onClick={() => setIsDateOpen(true)}
-      >
-        <CalendarDays className="w-5 h-5 text-gray-400 mr-2" />
-        <span className="text-gray-600">
-          {dateRange?.from ? (
-            dateRange.to ? (
-              <>
-                {format(dateRange.from, "MMM d")} - {format(dateRange.to, "MMM d")}
-              </>
-            ) : (
-              format(dateRange.from, "MMM d, yyyy")
-            )
-          ) : (
-            "Select dates"
-          )}
-        </span>
-      </button>
-
-      {/* Guests Button */}
-      <button 
-        className="flex items-center border rounded-lg p-3"
-        onClick={() => setIsGuestOpen(true)}
-      >
-        <Users className="w-5 h-5 text-gray-400 mr-2" />
-        <span className="text-gray-600">
-          {`${guests.adults + guests.children} Guest${
-            guests.adults + guests.children !== 1 ? "s" : ""
-          }`}
-        </span>
-      </button>
-
-      {/* Search Button */}
-      <MobileButton type="submit" onClick={onSearch}>
-        Search
-      </MobileButton>
+        <Search className="w-5 h-5 text-gray-400" />
+        <span className="text-gray-600">Start your search</span>
+      </CustomButton>
 
       {/* Destination Sheet */}
       <Sheet open={isDestinationOpen} onOpenChange={setIsDestinationOpen}>
@@ -138,20 +111,67 @@ const MobileSearchbar = ({
               </div>
               <DialogTitle className="sr-only">Select Destination</DialogTitle>
             </SheetHeader>
-            <form onSubmit={handleDestinationSearch} className="p-4 flex-1 overflow-y-auto">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Where in Denmark?"
-                  value={destination}
-                  onChange={onDestinationChange}
-                  className="w-full pl-10 pr-4 py-3 border rounded-lg outline-none"
-                  autoFocus
-                />
+            <form onSubmit={handleDestinationSearch} className="p-4 flex-1">
+              <div className="space-y-4">
+                {/* Active Input */}
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Where in Denmark?"
+                    value={destination}
+                    onChange={onDestinationChange}
+                    className="w-full pl-10 pr-4 py-3 border rounded-lg outline-none bg-white focus:ring-2 focus:ring-[#FFB700]"
+                    autoFocus
+                  />
+                </div>
+
+                {/* Date Selection - Show actual dates if selected */}
+                <button 
+                  type="button"
+                  onClick={() => {
+                    if (destination) {
+                      setIsDestinationOpen(false);
+                      setIsDateOpen(true);
+                    }
+                  }}
+                  className={`w-full flex items-center justify-between px-4 py-3 border rounded-lg ${dateRange?.from ? 'bg-white text-black' : 'bg-gray-50 text-gray-400'}`}
+                  disabled={!destination}
+                >
+                  <div className="flex items-center gap-2">
+                    <CalendarDays className="w-5 h-5" />
+                    <span>{getFormattedDateRange()}</span>
+                  </div>
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+
+                {/* Guest Selection - Show actual guest count if selected */}
+                <button 
+                  type="button"
+                  onClick={() => {
+                    if (destination && dateRange?.from && dateRange?.to) {
+                      setIsDestinationOpen(false);
+                      setIsGuestOpen(true);
+                    }
+                  }}
+                  className={`w-full flex items-center justify-between px-4 py-3 border rounded-lg ${guests.adults > 1 || guests.children > 0 ? 'bg-white text-black' : 'bg-gray-50 text-gray-400'}`}
+                  disabled={!destination || !dateRange?.from || !dateRange?.to}
+                >
+                  <div className="flex items-center gap-2">
+                    <Users className="w-5 h-5" />
+                    <span>{guests.adults > 1 || guests.children > 0 ? getFormattedGuests() : "Add guests"}</span>
+                  </div>
+                  <ChevronRight className="w-5 h-5" />
+                </button>
               </div>
-              <MobileButton className="my-3" variant="primary" type="submit">
-                Search
+
+              <MobileButton 
+                type="submit" 
+                variant="primary"
+                className="mt-6"
+                disabled={!destination}
+              >
+                Next
               </MobileButton>
             </form>
           </div>
@@ -181,7 +201,23 @@ const MobileSearchbar = ({
               </div>
               <DialogTitle className="sr-only">Select Dates</DialogTitle>
             </SheetHeader>
-            <div className="p-4 flex-1 flex flex-col">
+            <div className="p-4 space-y-4">
+              {/* Destination Selection */}
+              <button 
+                onClick={() => {
+                  setIsDateOpen(false);
+                  setIsDestinationOpen(true);
+                }}
+                className="w-full flex items-center justify-between px-4 py-3 border rounded-lg"
+              >
+                <div className="flex items-center gap-2">
+                  <Search className="w-5 h-5 text-gray-400" />
+                  <span>{destination}</span>
+                </div>
+                <ChevronRight className="w-5 h-5 text-gray-400" />
+              </button>
+
+              {/* Calendar */}
               <Calendar
                 initialFocus
                 mode="range"
@@ -191,11 +227,32 @@ const MobileSearchbar = ({
                 numberOfMonths={1}
                 disabled={{ before: new Date() }}
               />
-              {dateRange?.from && dateRange?.to && (
-                <MobileButton className="my-3" type="submit" onClick={handleDateSearch}>
-                  Search
-                </MobileButton>
-              )}
+
+              {/* Guest Selection - Show actual guest count if selected */}
+              <button 
+                onClick={() => {
+                  if (dateRange?.from && dateRange?.to) {
+                    setIsDateOpen(false);
+                    setIsGuestOpen(true);
+                  }
+                }}
+                className={`w-full flex items-center justify-between px-4 py-3 border rounded-lg ${guests.adults > 1 || guests.children > 0 ? 'bg-white text-black' : 'bg-gray-50 text-gray-400'}`}
+                disabled={!dateRange?.from || !dateRange?.to}
+              >
+                <div className="flex items-center gap-2">
+                  <Users className="w-5 h-5" />
+                  <span>{guests.adults > 1 || guests.children > 0 ? getFormattedGuests() : "Add guests"}</span>
+                </div>
+                <ChevronRight className="w-5 h-5" />
+              </button>
+
+              <MobileButton 
+                onClick={handleDateSearch}
+                disabled={!dateRange?.from || !dateRange?.to}
+                variant="primary"
+              >
+                Next
+              </MobileButton>
             </div>
           </div>
         </SheetContent>
@@ -225,6 +282,36 @@ const MobileSearchbar = ({
               <DialogTitle className="sr-only">Select Number of Guests</DialogTitle>
             </SheetHeader>
             <div className="p-4 space-y-4">
+              {/* Previous Selections */}
+              <button 
+                onClick={() => {
+                  setIsGuestOpen(false);
+                  setIsDestinationOpen(true);
+                }}
+                className="w-full flex items-center justify-between px-4 py-3 border rounded-lg"
+              >
+                <div className="flex items-center gap-2">
+                  <Search className="w-5 h-5 text-gray-400" />
+                  <span>{destination}</span>
+                </div>
+                <ChevronRight className="w-5 h-5 text-gray-400" />
+              </button>
+
+              <button 
+                onClick={() => {
+                  setIsGuestOpen(false);
+                  setIsDateOpen(true);
+                }}
+                className="w-full flex items-center justify-between px-4 py-3 border rounded-lg"
+              >
+                <div className="flex items-center gap-2">
+                  <CalendarDays className="w-5 h-5 text-gray-400" />
+                  <span>{getFormattedDateRange()}</span>
+                </div>
+                <ChevronRight className="w-5 h-5 text-gray-400" />
+              </button>
+
+              {/* Guest Controls */}
               {["adults", "children", "rooms"].map((type) => (
                 <div key={type} className="flex items-center justify-between">
                   <div>
@@ -242,17 +329,21 @@ const MobileSearchbar = ({
                       -
                     </button>
                     <span>{guests[type as keyof typeof guests]}</span>
-                    <Button
+                    <button
                       onClick={() => onGuestChange(type as keyof typeof guests, 'add')}
                       disabled={type === 'rooms' && guests.rooms >= 10}
                       className="w-8 h-8 flex items-center justify-center border rounded-full disabled:opacity-50"
                     >
                       +
-                    </Button>
+                    </button>
                   </div>
                 </div>
               ))}
-              <MobileButton type="submit" onClick={handleGuestSearch}>
+
+              <MobileButton 
+                onClick={handleGuestSearch}
+                variant="primary"
+              >
                 Search
               </MobileButton>
             </div>
