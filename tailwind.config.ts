@@ -60,7 +60,7 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		fontFamily: {
-  			helvetica: ['var(--font-helvetica)'],
+  			helvetica: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
   		},
   	}
   },

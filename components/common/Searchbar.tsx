@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { CustomButton } from "@/components/ui/CustomButton";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Search, CalendarDays, Users } from "lucide-react";
+import { Search, CalendarDays, Users, MapPin } from "lucide-react";
 import { format, addDays } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
@@ -17,12 +17,12 @@ const Searchbar = ({
   initialStartDate = undefined,
   initialEndDate = undefined,
   initialGuests = { adults: 2, children: 0, rooms: 1 },
-  showInitialSuggestions = false,
+  showInitialSuggestions = true,
   disableAutocomplete = false
 }: SearchbarProps) => {
   const router = useRouter();
   const [destination, setDestination] = useState(initialDestination);
-  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(true);
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
     from: initialStartDate,
     to: initialEndDate,
@@ -30,6 +30,7 @@ const Searchbar = ({
   const [guests, setGuests] = useState<GuestCount>(initialGuests);
   const [isDateOpen, setIsDateOpen] = useState(false);
   const [isGuestOpen, setIsGuestOpen] = useState(false);
+  const [isDestinationFocused, setIsDestinationFocused] = useState(false);
 
   // Get unique locations from hotels data
   const locations = useMemo(() => {
@@ -54,14 +55,32 @@ const Searchbar = ({
       .slice(0, 4);
   }, [locations, destination, showSuggestions, showInitialSuggestions, disableAutocomplete]);
 
-  const handleLocationSelect = (location: string) => {
-    setDestination(location);
-    setShowSuggestions(false);
-  };
+  // Update the onBlur handler to use a ref for cleanup
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Update the onBlur handler
   const handleDestinationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDestination(e.target.value);
     setShowSuggestions(true);
+  };
+
+  // Add cleanup in useEffect
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Update the handleLocationSelect
+  const handleLocationSelect = (location: string) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    setDestination(location);
+    setShowSuggestions(false);
+    setIsDestinationFocused(false);
   };
 
   const handleSearch = () => {
@@ -99,9 +118,131 @@ const Searchbar = ({
     }));
   }, []);
 
+  const shouldShowSuggestions = !disableAutocomplete && 
+    showSuggestions &&
+    isDestinationFocused && 
+    ((destination.length > 0) || showInitialSuggestions);
+
   return (
-    <div className="w-full max-w-4xl mx-auto bg-white rounded-full shadow-lg p-2 relative">
-      <div className="flex flex-col md:flex-row gap-2">
+    <div className="w-full max-w-4xl mx-auto">
+      {/* Mobile View */}
+      <div className="flex flex-col md:hidden gap-2 p-2">
+        {/* Destination Input */}
+        <div className="relative w-full">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <input
+            type="text"
+            placeholder="Where in Denmark?"
+            value={destination}
+            onChange={handleDestinationChange}
+            onFocus={() => {
+              setShowSuggestions(true);
+              setIsDestinationFocused(true);
+            }}
+            onBlur={() => {
+              timeoutRef.current = setTimeout(() => {
+                setShowSuggestions(false);
+                setIsDestinationFocused(false);
+              }, 200);
+            }}
+            className="w-full pl-10 pr-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FFB700] placeholder:font-helvetica"
+          />
+        </div>
+
+        {/* Date Range Button */}
+        <Popover open={isDateOpen} onOpenChange={setIsDateOpen}>
+          <PopoverTrigger asChild>
+            <CustomButton
+              variant="white"
+              className="w-full justify-start text-left font-normal py-3 rounded-xl"
+            >
+              <CalendarDays className="mr-2 h-5 w-5" />
+              {dateRange?.from ? (
+                dateRange.to ? (
+                  <>
+                    {format(dateRange.from, "MMM d")} - {format(dateRange.to, "MMM d")}
+                  </>
+                ) : (
+                  format(dateRange.from, "MMM d, yyyy")
+                )
+              ) : (
+                "Select dates"
+              )}
+            </CustomButton>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              initialFocus
+              mode="range"
+              defaultMonth={dateRange?.from}
+              selected={dateRange}
+              onSelect={setDateRange}
+              numberOfMonths={1}
+              disabled={{ before: new Date() }}
+            />
+          </PopoverContent>
+        </Popover>
+
+        {/* Guests Button */}
+        <Popover open={isGuestOpen} onOpenChange={setIsGuestOpen}>
+          <PopoverTrigger asChild>
+            <CustomButton
+              variant="white"
+              className="w-full justify-start text-left font-normal py-3 rounded-xl"
+            >
+              <Users className="mr-2 h-5 w-5" />
+              {`${guests.adults + guests.children} Guest${
+                guests.adults + guests.children !== 1 ? "s" : ""
+              }`}
+            </CustomButton>
+          </PopoverTrigger>
+          <PopoverContent className="w-80">
+            <div className="p-4 space-y-4">
+              {/* Guest counter buttons */}
+              {["adults", "children", "rooms"].map((type) => (
+                <div key={type} className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <h4 className="font-medium">{type.charAt(0).toUpperCase() + type.slice(1)}</h4>
+                    <p className="text-xs text-gray-500">{type === 'adults' ? 'Ages 13 or above' : type === 'children' ? 'Ages 0-12' : ''}</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CustomButton
+                      variant="white"
+                      size="icon"
+                      onClick={() => updateGuestCount(type as keyof typeof guests, 'subtract')}
+                      disabled={guests[type as keyof typeof guests] <= (type === 'adults' ? 1 : 0)}
+                    >
+                      -
+                    </CustomButton>
+                    <span className="w-6 text-center">{guests[type as keyof typeof guests]}</span>
+                    <CustomButton
+                      variant="white"
+                      size="icon"
+                      onClick={() => updateGuestCount(type as keyof typeof guests, 'add')}
+                      disabled={type === 'rooms' && guests.rooms >= 10}
+                    >
+                      +
+                    </CustomButton>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </PopoverContent>
+        </Popover>
+
+        {/* Search Button */}
+        <CustomButton 
+          variant="primary"
+          className="w-full py-3 rounded-xl"
+          onClick={handleSearch}
+        >
+          <Search className="mr-2 h-5 w-5" />
+          Search
+        </CustomButton>
+      </div>
+
+      {/* Desktop View */}
+      <div className="hidden md:flex bg-white rounded-full shadow-lg p-2 gap-2">
         {/* Destination Input with Autocomplete */}
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -110,22 +251,31 @@ const Searchbar = ({
             placeholder="Where in Denmark?"
             value={destination}
             onChange={handleDestinationChange}
-            onFocus={() => setShowSuggestions(true)}
-            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-            className="w-full pl-10 pr-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#FFB700] h-10"
+            onFocus={() => {
+              setShowSuggestions(true);
+              setIsDestinationFocused(true);
+            }}
+            onBlur={() => {
+              timeoutRef.current = setTimeout(() => {
+                setShowSuggestions(false);
+                setIsDestinationFocused(false);
+              }, 200);
+            }}
+            className="w-full pl-10 pr-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#FFB700] h-10 placeholder:font-helvetica"
           />
           
           {/* Autocomplete Suggestions */}
-          {showSuggestions && filteredLocations.length > 0 && (
-            <div className="absolute z-50 w-full mt-1 bg-white border rounded-lg shadow-lg overflow-hidden">
+          {shouldShowSuggestions && (
+            <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-lg max-h-[300px] overflow-y-auto">
               {filteredLocations.map((location, index) => (
-                <div
+                <button
                   key={index}
-                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                  className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center gap-3"
                   onClick={() => handleLocationSelect(location)}
                 >
-                  {location}
-                </div>
+                  <MapPin className="w-4 h-4 text-gray-400" />
+                  <span>{location}</span>
+                </button>
               ))}
             </div>
           )}
@@ -231,6 +381,22 @@ const Searchbar = ({
           Search
         </CustomButton>
       </div>
+
+      {/* Suggestions Dropdown - Shared between mobile and desktop */}
+      {shouldShowSuggestions && (
+        <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-lg z-50 max-h-[300px] overflow-y-auto">
+          {filteredLocations.map((location, index) => (
+            <button
+              key={index}
+              className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3"
+              onClick={() => handleLocationSelect(location)}
+            >
+              <MapPin className="w-4 h-4 text-gray-400" />
+              <span>{location}</span>
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
