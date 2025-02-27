@@ -9,6 +9,9 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { Calendar } from "@/components/ui/calendar";
 import Image from "next/image";
 import { DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { CustomButton } from "@/components/ui/CustomButton";
+import {MobileButton} from "../ui/MobileButton";
 
 const MobileSearchbar = ({
   destination,
@@ -40,6 +43,24 @@ const MobileSearchbar = ({
       document.body.style.touchAction = '';
     }
   }, [isDestinationOpen, isDateOpen, isGuestOpen]);
+
+  const handleDestinationSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsDestinationOpen(false);
+    setIsDateOpen(true);
+  };
+
+  const handleDateSearch = () => {
+    if (dateRange?.from && dateRange?.to) {
+      setIsDateOpen(false);
+      setIsGuestOpen(true);
+    }
+  };
+
+  const handleGuestSearch = () => {
+    setIsGuestOpen(false);
+    onSearch();
+  };
 
   return (
     <div className="flex flex-col gap-3 p-4 bg-white rounded-lg shadow-sm md:hidden">
@@ -89,13 +110,9 @@ const MobileSearchbar = ({
       </button>
 
       {/* Search Button */}
-      <button
-        onClick={onSearch}
-        className="w-full bg-[#FFB700] text-white py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-[#E6A500] transition-colors"
-      >
-        <Search className="w-5 h-5" />
+      <MobileButton type="submit" onClick={onSearch}>
         Search
-      </button>
+      </MobileButton>
 
       {/* Destination Sheet */}
       <Sheet open={isDestinationOpen} onOpenChange={setIsDestinationOpen}>
@@ -105,8 +122,9 @@ const MobileSearchbar = ({
           style={{ 
             position: 'fixed',
             bottom: 0,
-            height: '90vh',
-            transform: 'translateY(0)',
+            height: 'calc(var(--vh, 1vh) * 90)',
+            maxHeight: '90vh',
+            overscrollBehavior: 'contain',
             WebkitTransform: 'translateY(0)'
           }}
         >
@@ -120,7 +138,7 @@ const MobileSearchbar = ({
               </div>
               <DialogTitle className="sr-only">Select Destination</DialogTitle>
             </SheetHeader>
-            <div className="p-4 flex-1 overflow-y-auto">
+            <form onSubmit={handleDestinationSearch} className="p-4 flex-1 overflow-y-auto">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <input
@@ -132,7 +150,10 @@ const MobileSearchbar = ({
                   autoFocus
                 />
               </div>
-            </div>
+              <MobileButton type="submit">
+                Search
+              </MobileButton>
+            </form>
           </div>
         </SheetContent>
       </Sheet>
@@ -151,7 +172,7 @@ const MobileSearchbar = ({
           }}
         >
           <div className="flex flex-col h-full">
-            <SheetHeader className="p-4 border-b">
+            <SheetHeader className="sticky top-0 z-10 bg-white p-4 border-b">
               <div className="flex justify-between items-center">
                 <Image src="/images/linnker/LogoBlackYellow.png" alt="Linnker" width={120} height={40} />
                 <button onClick={() => setIsDateOpen(false)}>
@@ -160,21 +181,21 @@ const MobileSearchbar = ({
               </div>
               <DialogTitle className="sr-only">Select Dates</DialogTitle>
             </SheetHeader>
-            <div className="p-4 flex justify-center">
+            <div className="p-4 flex-1 flex flex-col">
               <Calendar
                 initialFocus
                 mode="range"
                 defaultMonth={dateRange?.from}
                 selected={dateRange}
-                onSelect={(range) => {
-                  onDateChange(range);
-                  if (range?.from && range?.to) {
-                    setIsDateOpen(false);
-                  }
-                }}
+                onSelect={onDateChange}
                 numberOfMonths={1}
                 disabled={{ before: new Date() }}
               />
+              {dateRange?.from && dateRange?.to && (
+                <MobileButton type="submit" onClick={handleDateSearch}>
+                  Search
+                </MobileButton>
+              )}
             </div>
           </div>
         </SheetContent>
@@ -194,7 +215,7 @@ const MobileSearchbar = ({
           }}
         >
           <div className="flex flex-col h-full">
-            <SheetHeader className="p-4 border-b">
+            <SheetHeader className="sticky top-0 z-10 bg-white p-4 border-b">
               <div className="flex justify-between items-center">
                 <Image src="/images/linnker/LogoBlackYellow.png" alt="Linnker" width={120} height={40} />
                 <button onClick={() => setIsGuestOpen(false)}>
@@ -221,16 +242,19 @@ const MobileSearchbar = ({
                       -
                     </button>
                     <span>{guests[type as keyof typeof guests]}</span>
-                    <button
+                    <Button
                       onClick={() => onGuestChange(type as keyof typeof guests, 'add')}
                       disabled={type === 'rooms' && guests.rooms >= 10}
                       className="w-8 h-8 flex items-center justify-center border rounded-full disabled:opacity-50"
                     >
                       +
-                    </button>
+                    </Button>
                   </div>
                 </div>
               ))}
+              <MobileButton type="submit" onClick={handleGuestSearch}>
+                Search
+              </MobileButton>
             </div>
           </div>
         </SheetContent>
