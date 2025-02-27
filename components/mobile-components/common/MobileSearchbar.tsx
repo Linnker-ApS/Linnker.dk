@@ -126,17 +126,14 @@ const MobileSearchbar = ({
                   />
                 </div>
 
-                {/* Date Selection - Show actual dates if selected */}
+                {/* Date Selection - Always interactive */}
                 <button 
                   type="button"
                   onClick={() => {
-                    if (destination) {
-                      setIsDestinationOpen(false);
-                      setIsDateOpen(true);
-                    }
+                    setIsDestinationOpen(false);
+                    setIsDateOpen(true);
                   }}
-                  className={`w-full flex items-center justify-between px-4 py-3 border rounded-lg ${dateRange?.from ? 'bg-white text-black' : 'bg-gray-50 text-gray-400'}`}
-                  disabled={!destination}
+                  className={`w-full flex items-center justify-between px-4 py-3 border rounded-lg ${dateRange?.from ? 'bg-white text-black' : 'bg-white text-gray-600'}`}
                 >
                   <div className="flex items-center gap-2">
                     <CalendarDays className="w-5 h-5" />
@@ -145,17 +142,14 @@ const MobileSearchbar = ({
                   <ChevronRight className="w-5 h-5" />
                 </button>
 
-                {/* Guest Selection - Show actual guest count if selected */}
+                {/* Guest Selection - Always interactive */}
                 <button 
                   type="button"
                   onClick={() => {
-                    if (destination && dateRange?.from && dateRange?.to) {
-                      setIsDestinationOpen(false);
-                      setIsGuestOpen(true);
-                    }
+                    setIsDestinationOpen(false);
+                    setIsGuestOpen(true);
                   }}
-                  className={`w-full flex items-center justify-between px-4 py-3 border rounded-lg ${guests.adults > 1 || guests.children > 0 ? 'bg-white text-black' : 'bg-gray-50 text-gray-400'}`}
-                  disabled={!destination || !dateRange?.from || !dateRange?.to}
+                  className={`w-full flex items-center justify-between px-4 py-3 border rounded-lg ${guests.adults > 1 || guests.children > 0 ? 'bg-white text-black' : 'bg-white text-gray-600'}`}
                 >
                   <div className="flex items-center gap-2">
                     <Users className="w-5 h-5" />
@@ -169,7 +163,6 @@ const MobileSearchbar = ({
                 type="submit" 
                 variant="primary"
                 className="mt-6"
-                disabled={!destination}
               >
                 Next
               </MobileButton>
@@ -212,7 +205,7 @@ const MobileSearchbar = ({
               >
                 <div className="flex items-center gap-2">
                   <Search className="w-5 h-5 text-gray-400" />
-                  <span>{destination}</span>
+                  <span>{destination || "Where in Denmark?"}</span>
                 </div>
                 <ChevronRight className="w-5 h-5 text-gray-400" />
               </button>
@@ -228,16 +221,13 @@ const MobileSearchbar = ({
                 disabled={{ before: new Date() }}
               />
 
-              {/* Guest Selection - Show actual guest count if selected */}
+              {/* Guest Selection - Always interactive */}
               <button 
                 onClick={() => {
-                  if (dateRange?.from && dateRange?.to) {
-                    setIsDateOpen(false);
-                    setIsGuestOpen(true);
-                  }
+                  setIsDateOpen(false);
+                  setIsGuestOpen(true);
                 }}
-                className={`w-full flex items-center justify-between px-4 py-3 border rounded-lg ${guests.adults > 1 || guests.children > 0 ? 'bg-white text-black' : 'bg-gray-50 text-gray-400'}`}
-                disabled={!dateRange?.from || !dateRange?.to}
+                className="w-full flex items-center justify-between px-4 py-3 border rounded-lg"
               >
                 <div className="flex items-center gap-2">
                   <Users className="w-5 h-5" />
@@ -248,7 +238,6 @@ const MobileSearchbar = ({
 
               <MobileButton 
                 onClick={handleDateSearch}
-                disabled={!dateRange?.from || !dateRange?.to}
                 variant="primary"
               >
                 Next
@@ -292,7 +281,7 @@ const MobileSearchbar = ({
               >
                 <div className="flex items-center gap-2">
                   <Search className="w-5 h-5 text-gray-400" />
-                  <span>{destination}</span>
+                  <span>{destination || "Where in Denmark?"}</span>
                 </div>
                 <ChevronRight className="w-5 h-5 text-gray-400" />
               </button>
@@ -311,7 +300,7 @@ const MobileSearchbar = ({
                 <ChevronRight className="w-5 h-5 text-gray-400" />
               </button>
 
-              {/* Guest Controls */}
+              {/* Guest Controls - Keep minimum limits but remove disabled styling */}
               {["adults", "children", "rooms"].map((type) => (
                 <div key={type} className="flex items-center justify-between">
                   <div>
@@ -322,17 +311,24 @@ const MobileSearchbar = ({
                   </div>
                   <div className="flex items-center gap-4">
                     <button
-                      onClick={() => onGuestChange(type as keyof typeof guests, 'subtract')}
-                      disabled={guests[type as keyof typeof guests] <= (type === 'adults' ? 1 : 0)}
-                      className="w-8 h-8 flex items-center justify-center border rounded-full disabled:opacity-50"
+                      onClick={() => {
+                        const minValue = type === 'adults' ? 1 : 0;
+                        if (guests[type as keyof typeof guests] > minValue) {
+                          onGuestChange(type as keyof typeof guests, 'subtract');
+                        }
+                      }}
+                      className="w-8 h-8 flex items-center justify-center border rounded-full"
                     >
                       -
                     </button>
                     <span>{guests[type as keyof typeof guests]}</span>
                     <button
-                      onClick={() => onGuestChange(type as keyof typeof guests, 'add')}
-                      disabled={type === 'rooms' && guests.rooms >= 10}
-                      className="w-8 h-8 flex items-center justify-center border rounded-full disabled:opacity-50"
+                      onClick={() => {
+                        if (!(type === 'rooms' && guests.rooms >= 10)) {
+                          onGuestChange(type as keyof typeof guests, 'add');
+                        }
+                      }}
+                      className="w-8 h-8 flex items-center justify-center border rounded-full"
                     >
                       +
                     </button>
