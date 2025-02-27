@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { CustomButton } from "@/components/ui/CustomButton";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -30,6 +30,8 @@ const Searchbar = ({
   const [guests, setGuests] = useState<GuestCount>(initialGuests);
   const [isDateOpen, setIsDateOpen] = useState(false);
   const [isGuestOpen, setIsGuestOpen] = useState(false);
+  const [isDestinationFocused, setIsDestinationFocused] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Get unique locations from hotels data
   const locations = useMemo(() => {
@@ -55,8 +57,12 @@ const Searchbar = ({
   }, [locations, destination, showSuggestions, showInitialSuggestions, disableAutocomplete]);
 
   const handleLocationSelect = (location: string) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
     setDestination(location);
     setShowSuggestions(false);
+    setIsDestinationFocused(false);
   };
 
   const handleDestinationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,6 +105,18 @@ const Searchbar = ({
     }));
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  const shouldShowSuggestions = !disableAutocomplete && 
+    isDestinationFocused && 
+    showSuggestions;
+
   return (
     <div className="w-full max-w-4xl mx-auto bg-white rounded-full shadow-lg p-2 relative">
       <div className="flex flex-col md:flex-row gap-2">
@@ -110,13 +128,21 @@ const Searchbar = ({
             placeholder="Where in Denmark?"
             value={destination}
             onChange={handleDestinationChange}
-            onFocus={() => setShowSuggestions(true)}
-            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-            className="w-full pl-10 pr-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#FFB700] h-10"
+            onFocus={() => {
+              setShowSuggestions(true);
+              setIsDestinationFocused(true);
+            }}
+            onBlur={() => {
+              timeoutRef.current = setTimeout(() => {
+                setShowSuggestions(false);
+                setIsDestinationFocused(false);
+              }, 200);
+            }}
+            className="w-full pl-10 pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-[#FFB700] placeholder:font-helvetica"
           />
           
           {/* Suggestions Dropdown */}
-          {showSuggestions && (
+          {shouldShowSuggestions && (
             <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-lg z-50 max-h-[300px] overflow-y-auto">
               {filteredLocations.map((location, index) => (
                 <button
@@ -125,7 +151,7 @@ const Searchbar = ({
                   onClick={() => handleLocationSelect(location)}
                 >
                   <MapPin className="w-4 h-4 shrink-0 text-gray-400" />
-                  <span className="truncate text-sm">
+                  <span className="truncate text-md">
                     {location.split(',').map((part, i) => (
                       <span key={i}>
                         {i > 0 && <span className="text-gray-400">,&nbsp;</span>}
