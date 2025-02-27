@@ -1,16 +1,27 @@
 import { DateRange as DayPickerRange } from "react-day-picker";
 
-// Guest and Booking related types
+// Booking Types
+export type DateRange = DayPickerRange;
+
 export interface GuestCount {
   adults: number;
   children: number;
   rooms: number;
 }
 
-// Only use one DateRange definition
-export type DateRange = DayPickerRange;
+export interface RoomOffer {
+  price: number;
+  currency: string;
+  perNight: boolean;
+  freeCancellation: boolean;
+  breakfast: boolean;
+  paymentType: 'card' | 'cash';
+  guests: number;
+  rooms: number;
+  taxes?: number;
+}
 
-// Hotel related types
+// Hotel Types
 export interface Location {
   address: string;
   city: string;
@@ -48,10 +59,9 @@ export interface Hotel {
   amenities: string[];
   rooms: Room[];
   bookingUrl: string;
-  reviews: number;
 }
 
-// Component Props types
+// Component Props Types
 export interface SearchbarProps {
   initialDestination?: string;
   initialStartDate?: Date;
@@ -76,10 +86,21 @@ export interface MainHeaderProps {
   initialGuests?: GuestCount;
 }
 
+export interface MobileSearchbarProps {
+  destination: string;
+  dateRange: DateRange | undefined;
+  guests: GuestCount;
+  onDestinationChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onDateChange: (range: DateRange | undefined) => void;
+  onGuestChange: (type: keyof GuestCount, operation: 'add' | 'subtract') => void;
+  onSearch: () => void;
+}
+
 // Re-export all types
 export * from './hotel.types';
 export * from './booking.types';
 export * from './components.types';
 
 // Utility types
-export type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] }; 
+export type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
+
