@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { hotels } from "@/data/hotels";
-import SearchResultsGrid from "@/components/results/SearchResultsGrid";
+import SearchResultsGrid from "@/components/search-results/SearchResultsGrid";
 import { MapIcon } from "lucide-react";
-import HotelMap from "@/components/results/HotelMap";
-import AmenitiesFilter from "@/components/results/AmenitiesFilter";
+import HotelMap from "@/components/search-results/map/HotelMap";
+import AmenitiesFilter from "@/components/search-results/AmenitiesFilter";
 import Footer from "@/components/common/Footer";
 import MainHeader from "@/components/common/MainHeader";
 

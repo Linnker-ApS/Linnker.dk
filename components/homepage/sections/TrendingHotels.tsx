@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { hotels } from "@/data/hotels";
 import { Button } from "@/components/ui/button";
-import HotelGrid from "@/components/home/HotelGrid";
+import HotelGrid from "@/components/homepage/HotelGrid";
 import { useRouter } from "next/navigation";
 import { addDays, format } from "date-fns";
 

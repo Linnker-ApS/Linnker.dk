@@ -48,6 +48,7 @@ export interface Hotel {
   amenities: string[];
   rooms: Room[];
   bookingUrl: string;
+  reviews: number;
 }
 
 // Component Props types

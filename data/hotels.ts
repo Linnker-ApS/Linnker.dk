@@ -32,6 +32,7 @@ export type Hotel = {
     imageUrl: string;
   }[];
   bookingUrl: string;
+  reviews: number;
 };
 
 const standardRooms = [
@@ -150,7 +151,8 @@ export const hotels: Hotel[] = [
       HOTEL_AMENITIES.BIKE_RENTAL,
     ],
     rooms: standardRooms,
-    bookingUrl: "https://booking.brochner-hotels.dk/booking?siteid=1491&checkin=25-02-2025&nights=1&adults0=2&hotelsel=hotelsp34&lng=da&bsid=40687981"
+    bookingUrl: "https://booking.brochner-hotels.dk/booking?siteid=1491&checkin=25-02-2025&nights=1&adults0=2&hotelsel=hotelsp34&lng=da&bsid=40687981",
+    reviews: 128,
   },
   {
     id: "hotel-sanders",
@@ -175,7 +177,8 @@ export const hotels: Hotel[] = [
     description: "Intimate luxury hotel with theatrical flair in the heart of Copenhagen.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Vesterbro
@@ -202,7 +205,8 @@ export const hotels: Hotel[] = [
     description: "Colorful boutique hotel in vibrant Vesterbro district.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Nørrebro
@@ -229,7 +233,8 @@ export const hotels: Hotel[] = [
     description: "Eco-friendly hotel with Balinese-inspired decor.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Østerbro
@@ -256,7 +261,8 @@ export const hotels: Hotel[] = [
     description: "Modern apartment hotel near the Little Mermaid statue.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Frederiksberg
@@ -283,7 +289,8 @@ export const hotels: Hotel[] = [
     description: "Newly renovated hotel in the heart of Frederiksberg.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Aarhus Center
@@ -310,7 +317,8 @@ export const hotels: Hotel[] = [
     description: "Historic hotel in the heart of Aarhus, close to ARoS Art Museum.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Aalborg
@@ -337,7 +345,8 @@ export const hotels: Hotel[] = [
     description: "Modern high-rise hotel with panoramic views of Aalborg.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Odense
@@ -364,7 +373,8 @@ export const hotels: Hotel[] = [
     description: "Classic hotel near Hans Christian Andersen Museum.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Helsingør
@@ -391,7 +401,8 @@ export const hotels: Hotel[] = [
     description: "Luxury beach resort with views of Sweden and Kronborg Castle.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Roskilde
@@ -418,7 +429,8 @@ export const hotels: Hotel[] = [
     description: "Modern hotel near Roskilde Cathedral and Viking Ship Museum.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Esbjerg
@@ -445,7 +457,8 @@ export const hotels: Hotel[] = [
     description: "Historic hotel in the heart of Esbjerg's maritime district.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Kolding
@@ -472,7 +485,8 @@ export const hotels: Hotel[] = [
     description: "Scenic hotel overlooking Kolding Fjord, set in historic surroundings.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Vejle
@@ -499,7 +513,8 @@ export const hotels: Hotel[] = [
     description: "Forest hotel with panoramic views of Vejle Fjord.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Silkeborg
@@ -526,7 +541,8 @@ export const hotels: Hotel[] = [
     description: "Contemporary hotel in historic paper mill by Silkeborg's lakes.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Horsens
@@ -553,7 +569,8 @@ export const hotels: Hotel[] = [
     description: "Elegant hotel set in beautiful Bygholm Park.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Copenhagen - Nyhavn
@@ -580,7 +597,8 @@ export const hotels: Hotel[] = [
     description: "Maritime-themed hotel in historic warehouse along Copenhagen's waterfront.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Copenhagen - Islands Brygge
@@ -607,7 +625,8 @@ export const hotels: Hotel[] = [
     description: "Modern apartment hotel with harbor views and minimalist Nordic design.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Copenhagen - Christianshavn
@@ -634,7 +653,8 @@ export const hotels: Hotel[] = [
     description: "Boutique hotel in historic canal house with authentic Danish charm.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Copenhagen - Frederiksstaden
@@ -661,7 +681,8 @@ export const hotels: Hotel[] = [
     description: "Elegant hotel in historic building near Amalienborg Palace.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Copenhagen - Sydhavnen
@@ -688,7 +709,8 @@ export const hotels: Hotel[] = [
     description: "Modern business hotel with easy access to city center and airport.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Copenhagen - Amager Øst
@@ -715,7 +737,8 @@ export const hotels: Hotel[] = [
     description: "Budget-friendly hotel near metro with modern amenities.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Copenhagen - Østerbro
@@ -742,7 +765,8 @@ export const hotels: Hotel[] = [
     description: "Modern apartment hotel with extensive wellness facilities.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Copenhagen - Refshaleøen
@@ -769,7 +793,8 @@ export const hotels: Hotel[] = [
     description: "Industrial-chic hotel in Copenhagen's creative district.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Copenhagen - Nørrebro
@@ -796,7 +821,8 @@ export const hotels: Hotel[] = [
     description: "Tropical-inspired suite hotel with stunning rooftop pool.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Copenhagen - Vesterbro
@@ -823,7 +849,8 @@ export const hotels: Hotel[] = [
     description: "Eco-conscious boutique hotel with Balinese-inspired design.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Copenhagen - Frederiksberg
@@ -850,7 +877,8 @@ export const hotels: Hotel[] = [
     description: "Elegant hotel in a restored palace building with garden views.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Copenhagen - Amager Strand
@@ -877,7 +905,8 @@ export const hotels: Hotel[] = [
     description: "Beachfront hotel with views of Øresund strait.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Copenhagen - Ørestad
@@ -904,7 +933,8 @@ export const hotels: Hotel[] = [
     description: "Modern architectural landmark with stunning city views.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Copenhagen - Valby
@@ -931,7 +961,8 @@ export const hotels: Hotel[] = [
     description: "Charming hotel in quiet residential area near Valby Park.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Copenhagen - Kastrup
@@ -958,7 +989,8 @@ export const hotels: Hotel[] = [
     description: "Convenient airport hotel with 24-hour shuttle service.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Copenhagen - Brønshøj
@@ -985,7 +1017,8 @@ export const hotels: Hotel[] = [
     description: "Comfortable hotel in peaceful suburban setting.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Copenhagen - Nordhavn
@@ -1012,7 +1045,8 @@ export const hotels: Hotel[] = [
     description: "Luxury hotel in converted grain silo with stunning harbor views.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   },
 
   // Copenhagen - Carlsberg City
@@ -1039,9 +1073,11 @@ export const hotels: Hotel[] = [
     description: "Boutique hotel in historic Carlsberg Brewery buildings.",
     amenities: getRandomAmenities(),
     rooms: standardRooms,
-    bookingUrl: "https://example.com/book"
+    bookingUrl: "https://example.com/book",
+    reviews: Math.floor(Math.random() * 200) + 50,
   }
 ].map(hotel => ({
   ...hotel,
-  rooms: hotel.rooms || standardRooms
+  rooms: hotel.rooms || standardRooms,
+  reviews: hotel.reviews || Math.floor(Math.random() * 200) + 50
 })); 

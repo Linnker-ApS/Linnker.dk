@@ -3,10 +3,9 @@
 import { useLoadScript, GoogleMap, MarkerF, InfoWindow, OverlayView } from "@react-google-maps/api";
 import { useMemo, useState, useEffect, useRef, useCallback } from "react";
 import { Hotel } from "@/data/hotels";
-import PriceMarker from "../results/PriceMarker";
-import HotelCard from "../common/HotelCard";
+import PriceMarker from "./PriceMarker";
 import helvetica from "@/lib/fonts";
-import MapCard from "../results/MapCard";
+import MapCard from "./MapCard";
 
 interface HotelMapProps {
   hotels: Hotel[];

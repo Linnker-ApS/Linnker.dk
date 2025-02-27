@@ -79,15 +79,15 @@ const Searchbar = ({
     endDate.setHours(12, 0, 0, 0);
 
     const params = new URLSearchParams({
-      destination,
-      startDate: startDate.toISOString(),
-      endDate: endDate.toISOString(),
+      destination: destination || '',
+      ...(dateRange?.from && { startDate: dateRange.from.toISOString() }),
+      ...(dateRange?.to && { endDate: dateRange.to.toISOString() }),
       adults: guests.adults.toString(),
       children: guests.children.toString(),
       rooms: guests.rooms.toString()
     });
 
-    router.push(`/results?${params.toString()}`);
+    router.push(`/search-results?${params.toString()}`);
   };
 
   const updateGuestCount = useCallback((type: keyof GuestCount, operation: 'add' | 'subtract') => {

@@ -3,12 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 
 //Components
-import Hero from "@/components/home/Hero";
+import Hero from "@/components/homepage/Hero";
 import Searchbar from "@/components/common/Searchbar";
-import TrendingHotels from "@/components/home/sections/TrendingHotels";
+import TrendingHotels from "@/components/homepage/sections/TrendingHotels";
 import MainHeader from "@/components/common/MainHeader";
-import Experiences from "@/components/home/sections/Experiences";
-import Mission from "@/components/home/sections/Mission";
+import Experiences from "@/components/homepage/sections/Experiences";
+import Mission from "@/components/homepage/sections/Mission";
 import Footer from "@/components/common/Footer";
 
 

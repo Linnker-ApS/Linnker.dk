@@ -3,16 +3,17 @@
 import { useParams, useSearchParams } from "next/navigation";
 import MainHeader from "@/components/common/MainHeader";
 import Footer from "@/components/common/Footer";
-import HotelGallery from "@/components/hotel/HotelGallery";
+import HotelGallery from "@/components/hotel-page/HotelGallery";
 import { hotels } from "@/data/hotels";
-import BookingFooter from "@/components/hotel/BookingFooter";
-import HotelAmenities from "@/components/hotel/HotelAmenities";
-import HotelAbout from "@/components/hotel/HotelAbout";
-import HotelRooms from "@/components/hotel/HotelRoomsGrid";
+import BookingFooter from "@/components/hotel-page/BookingFooter";
+import HotelAmenities from "@/components/hotel-page/HotelAmenities";
+import HotelAbout from "@/components/hotel-page/HotelAbout";
+import HotelRooms from "@/components/hotel-page/HotelRoomsGrid";
 import { format } from "date-fns";
-import BookingCard from "@/components/hotel/BookingCard";
+import BookingCard from "@/components/hotel-page/BookingCard";
 import { DateRange } from "react-day-picker";
 import { GuestCount } from "@/types";
+import HotelRating from "@/components/hotel-page/HotelRating";
 
 const HotelProfile = () => {
   const searchParams = useSearchParams();
@@ -108,25 +109,28 @@ const HotelProfile = () => {
                 />
               </div>
 
-              {/* Right column - Booking Card */}
-              <div className="sticky top-24">
-                <BookingCard
-                  price={hotel.price}
-                  onViewOffer={handleViewOffer}
-                  initialDates={
-                    searchParams.get('startDate') && searchParams.get('endDate')
-                      ? {
-                          from: new Date(searchParams.get('startDate')!),
-                          to: new Date(searchParams.get('endDate')!)
-                        }
-                      : undefined
-                  }
-                  initialGuests={{
-                    adults: Number(searchParams.get('adults')) || 2,
-                    children: Number(searchParams.get('children')) || 0,
-                    rooms: Number(searchParams.get('rooms')) || 1
-                  }}
-                />
+              {/* Right column - Booking Card and Rating */}
+              <div className="space-y-8">
+                <div className="top-24">
+                  <BookingCard
+                    price={hotel.price}
+                    onViewOffer={handleViewOffer}
+                    initialDates={
+                      searchParams.get('startDate') && searchParams.get('endDate')
+                        ? {
+                            from: new Date(searchParams.get('startDate')!),
+                            to: new Date(searchParams.get('endDate')!)
+                          }
+                        : undefined
+                    }
+                    initialGuests={{
+                      adults: Number(searchParams.get('adults')) || 2,
+                      children: Number(searchParams.get('children')) || 0,
+                      rooms: Number(searchParams.get('rooms')) || 1
+                    }}
+                  />
+                </div>
+                <HotelRating rating={hotel.rating} reviews={hotel.reviews} />
               </div>
             </div>
 

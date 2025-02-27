@@ -34,28 +34,12 @@ const HotelRating = ({ rating, reviews = 0 }: HotelRatingProps) => {
         </div>
 
         {/* Review Count */}
-        {reviews > 0 && (
-          <div className="text-sm text-gray-600">
-            Based on {reviews} reviews
-          </div>
-        )}
+        
+          
+       
 
         {/* Rating Bars */}
-        <div className="space-y-2">
-          {[5, 4, 3, 2, 1].map((stars) => (
-            <div key={stars} className="flex items-center gap-2">
-              <span className="text-sm w-8">{stars}</span>
-              <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-[#FFB700] rounded-full"
-                  style={{ 
-                    width: `${Math.random() * 100}%` 
-                  }}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
+        
       </div>
     </div>
   );
