@@ -1,20 +1,16 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Search, CalendarDays, Users, MapPin, X, ChevronRight } from "lucide-react";
+import React, { useState } from "react";
+import { Search, CalendarDays, Users, X, ChevronDown, ChevronUp } from "lucide-react";
 import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { MobileSearchbarProps } from "@/types";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Calendar } from "@/components/ui/calendar";
-import Image from "next/image";
-import { DialogTitle } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { CustomButton } from "@/components/ui/CustomButton";
-import {MobileButton} from "../ui/MobileButton";
-import Logo from "@/components/common/Logo";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-
+import Logo from "@/components/common/Logo";
+import { MobileButton } from "../ui/MobileButton";
+import { CustomButton } from "@/components/ui/CustomButton";
 
 const MobileSearchbar = ({
   destination,
@@ -25,337 +21,165 @@ const MobileSearchbar = ({
   onGuestChange,
   onSearch,
 }: MobileSearchbarProps) => {
-  const [isDestinationOpen, setIsDestinationOpen] = useState(false);
-  const [isDateOpen, setIsDateOpen] = useState(false);
-  const [isGuestOpen, setIsGuestOpen] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [expandedSection, setExpandedSection] = useState<'destination' | 'dates' | 'guests' | null>(null);
 
-  // Handle iOS keyboard and scroll
-  useEffect(() => {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-    if (isDestinationOpen || isDateOpen || isGuestOpen) {
-      // Lock scroll
-      document.body.style.height = '100vh';
-      document.body.style.overflow = 'hidden';
-      document.body.style.touchAction = 'none';
-    } else {
-      // Reset
-      document.body.style.height = '';
-      document.body.style.overflow = '';
-      document.body.style.touchAction = '';
-    }
-  }, [isDestinationOpen, isDateOpen, isGuestOpen]);
-
-  const handleDestinationSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsDestinationOpen(false);
-    setIsDateOpen(true);
-  };
-
-  const handleDateSearch = () => {
-    if (dateRange?.from && dateRange?.to) {
-      setIsDateOpen(false);
-      setIsGuestOpen(true);
-    }
-  };
-
-  const handleGuestSearch = () => {
-    setIsGuestOpen(false);
+  const handleSearch = () => {
     onSearch();
+    setIsSheetOpen(false);
   };
 
-  // Format date range for display
-  const getFormattedDateRange = () => {
-    if (!dateRange?.from) return "Select dates";
-    if (!dateRange.to) return format(dateRange.from, "MMM d, yyyy");
+  const formatDateRange = () => {
+    if (!dateRange?.from) return "Add Dates";
+    if (!dateRange.to) return format(dateRange.from, "MMM d");
     return `${format(dateRange.from, "MMM d")} - ${format(dateRange.to, "MMM d")}`;
   };
 
-  // Format guests for display
-  const getFormattedGuests = () => {
+  const formatGuestCount = () => {
     const totalGuests = guests.adults + guests.children;
-    return `${totalGuests} guest${totalGuests !== 1 ? 's' : ''}${guests.rooms > 1 ? `, ${guests.rooms} rooms` : ''}`;
+    return totalGuests === 0 ? "Select Guests" : `${totalGuests} Guests, ${guests.rooms} Rooms`;
+  };
+
+  const toggleSection = (section: 'destination' | 'dates' | 'guests') => {
+    setExpandedSection(prevSection => 
+      prevSection === section ? null : section
+    );
   };
 
   return (
     <div className="flex flex-col gap-3 p-4 bg-white rounded-lg shadow-sm md:hidden">
-      {/* Single Search Button */}
       <CustomButton 
-      
         className="bg-[#FFB700] text-black flex items-center gap-3 p-3 border rounded-lg w-full"
-        onClick={() => setIsDestinationOpen(true)}
+        onClick={() => {
+          setIsSheetOpen(true);
+          // Start with no section expanded
+          setExpandedSection(null);
+        }}
       >
-        <Search className= "w-5 h-5 text-black" />
+        <Search className="w-5 h-5 text-black" />
         <span className="text-black">Start your search</span>
       </CustomButton>
 
-      {/* Destination Sheet */}
-      <Sheet open={isDestinationOpen} onOpenChange={setIsDestinationOpen}>
+      <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <SheetContent 
           side="bottom" 
-          className="h-[80vh] w-full p-0 fixed inset-0 top-auto translate-y-0"
+          className="h-auto h-[80vh] w-full p-0 rounded-t-xl"
           style={{ 
             position: 'fixed',
             bottom: 0,
-            height: 'calc(var(--vh, 1vh) * 90)',
-            maxHeight: '90vh',
             overscrollBehavior: 'contain',
-            WebkitTransform: 'translateY(0)'
+            transition: 'height 0.3s ease-out'
           }}
         >
-          <div className="flex flex-col h-full bg-white">
-            <SheetHeader className="sticky top-0 z-10 bg-white p-4 border-b">
+          <div className="flex flex-col">
+            <SheetHeader className="sticky top-0 z-10 bg-white p-4 border-b rounded-t-xl">
               <div className="flex justify-between items-center">
                 <Logo variant="blackYellow" width={120} height={40} />
-                <button onClick={() => setIsDestinationOpen(false)}>
+                <button onClick={() => setIsSheetOpen(false)}>
                   <X className="h-5 w-5 text-gray-500" />
                 </button>
               </div>
               <VisuallyHidden>
-                <SheetTitle>Select Destination</SheetTitle>
+                <SheetTitle>Search Options</SheetTitle>
               </VisuallyHidden>
-              <SheetDescription className="sr-only">
-                Search and select your destination in Denmark
-              </SheetDescription>
             </SheetHeader>
-            <form onSubmit={handleDestinationSearch} className="p-4 flex-1">
+            
+            <div className="p-4 space-y-4">
+              {/* Destination Input */}
               <div className="space-y-4">
-                {/* Active Input */}
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="Where in Denmark?"
-                    value={destination}
-                    onChange={onDestinationChange}
-                    className="w-full pl-10 pr-4 py-3 border rounded-lg outline-none bg-white focus:ring-2 focus:ring-[#FFB700]"
-                    autoFocus
-                  />
-                </div>
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    <input
+                      type="text"
+                      placeholder="Where in Denmark?"
+                      value={destination}
+                      onChange={onDestinationChange}
+                      className="w-full pl-10 pr-4 py-3 border rounded-lg outline-none bg-white focus:ring-2 focus:ring-[#FFB700]"
+                    />
+                  </div>
+                
+              </div>
 
-                {/* Date Selection - Always interactive */}
+              {/* Dates Input */}
+              <div className="space-y-4">
                 <button 
-                  type="button"
-                  onClick={() => {
-                    setIsDestinationOpen(false);
-                    setIsDateOpen(true);
-                  }}
-                  className={`w-full flex items-center justify-between px-4 py-3 border rounded-lg ${dateRange?.from ? 'bg-white text-black' : 'bg-white text-gray-600'}`}
+                  onClick={() => toggleSection('dates')}
+                  className="w-full flex justify-between items-center py-3 px-4 border rounded-lg"
                 >
                   <div className="flex items-center gap-2">
-                    <CalendarDays className="w-5 h-5" />
-                    <span>{getFormattedDateRange()}</span>
+                    <CalendarDays className="w-5 h-5 text-gray-400" />
+                    <span>{formatDateRange()}</span>
                   </div>
-                  <ChevronRight className="w-5 h-5" />
+                  {expandedSection === 'dates' ? 
+                    <ChevronUp className="w-5 h-5 text-gray-400" /> : 
+                    <ChevronDown className="w-5 h-5 text-gray-400" />
+                  }
                 </button>
 
-                {/* Guest Selection - Always interactive */}
+                {expandedSection === 'dates' && (
+                  <div className="flex justify-center">
+                    <Calendar
+                      mode="range"
+                      selected={dateRange}
+                      onSelect={onDateChange}
+                      numberOfMonths={1}
+                      disabled={{ before: new Date() }}
+                      className="max-w-full"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Guests Input */}
+              <div className="space-y-4">
                 <button 
-                  type="button"
-                  onClick={() => {
-                    setIsDestinationOpen(false);
-                    setIsGuestOpen(true);
-                  }}
-                  className={`w-full flex items-center justify-between px-4 py-3 border rounded-lg ${guests.adults > 1 || guests.children > 0 ? 'bg-white text-black' : 'bg-white text-gray-600'}`}
+                  onClick={() => toggleSection('guests')}
+                  className="w-full flex justify-between items-center py-3 px-4 border rounded-lg"
                 >
                   <div className="flex items-center gap-2">
-                    <Users className="w-5 h-5" />
-                    <span>{guests.adults > 1 || guests.children > 0 ? getFormattedGuests() : "Add guests"}</span>
+                    <Users className="w-5 h-5 text-gray-400" />
+                    <span>{formatGuestCount()}</span>
                   </div>
-                  <ChevronRight className="w-5 h-5" />
+                  {expandedSection === 'guests' ? 
+                    <ChevronUp className="w-5 h-5 text-gray-400" /> : 
+                    <ChevronDown className="w-5 h-5 text-gray-400" />
+                  }
                 </button>
-              </div>
 
-              <MobileButton 
-                type="submit" 
-                variant="primary"
-                className="mt-6"
-              >
-                Next
-              </MobileButton>
-            </form>
-          </div>
-        </SheetContent>
-      </Sheet>
-
-      {/* Date Sheet */}
-      <Sheet open={isDateOpen} onOpenChange={setIsDateOpen}>
-        <SheetContent 
-          side="bottom" 
-          className="h-[90vh] w-full p-0"
-          style={{ 
-            position: 'fixed',
-            bottom: 0,
-            height: 'calc(var(--vh, 1vh) * 90)',
-            maxHeight: '90vh',
-            overscrollBehavior: 'contain'
-          }}
-        >
-          <div className="flex flex-col h-full">
-            <SheetHeader className="sticky top-0 z-10 bg-white p-4 border-b">
-              <div className="flex justify-between items-center">
-                <Logo variant="blackYellow" width={120} height={40} />
-                <button onClick={() => setIsDateOpen(false)}>
-                  <X className="h-5 w-5 text-gray-500" />
-                </button>
-              </div>
-              <VisuallyHidden>
-                <SheetTitle>Select Dates</SheetTitle>
-              </VisuallyHidden>
-              <SheetDescription className="sr-only">
-                Choose your check-in and check-out dates
-              </SheetDescription>
-            </SheetHeader>
-            <div className="p-4 space-y-4">
-              {/* Destination Selection */}
-              <button 
-                onClick={() => {
-                  setIsDateOpen(false);
-                  setIsDestinationOpen(true);
-                }}
-                className="w-full flex items-center justify-between px-4 py-3 border rounded-lg"
-              >
-                <div className="flex items-center gap-2">
-                  <Search className="w-5 h-5 text-gray-400" />
-                  <span>{destination || "Where in Denmark?"}</span>
-                </div>
-                <ChevronRight className="w-5 h-5 text-gray-400" />
-              </button>
-
-              {/* Calendar */}
-              <Calendar
-                initialFocus
-                mode="range"
-                defaultMonth={dateRange?.from}
-                selected={dateRange}
-                onSelect={onDateChange}
-                numberOfMonths={1}
-                disabled={{ before: new Date() }}
-              />
-
-              {/* Guest Selection - Always interactive */}
-              <button 
-                onClick={() => {
-                  setIsDateOpen(false);
-                  setIsGuestOpen(true);
-                }}
-                className="w-full flex items-center justify-between px-4 py-3 border rounded-lg"
-              >
-                <div className="flex items-center gap-2">
-                  <Users className="w-5 h-5" />
-                  <span>{guests.adults > 1 || guests.children > 0 ? getFormattedGuests() : "Add guests"}</span>
-                </div>
-                <ChevronRight className="w-5 h-5" />
-              </button>
-
-              <MobileButton 
-                onClick={handleDateSearch}
-                variant="primary"
-              >
-                Next
-              </MobileButton>
-            </div>
-          </div>
-        </SheetContent>
-      </Sheet>
-
-      {/* Guests Sheet */}
-      <Sheet open={isGuestOpen} onOpenChange={setIsGuestOpen}>
-        <SheetContent 
-          side="bottom" 
-          className="h-[90vh] w-full p-0"
-          style={{ 
-            position: 'fixed',
-            bottom: 0,
-            height: 'calc(var(--vh, 1vh) * 90)',
-            maxHeight: '90vh',
-            overscrollBehavior: 'contain'
-          }}
-        >
-          <div className="flex flex-col h-full">
-            <SheetHeader className="sticky top-0 z-10 bg-white p-4 border-b">
-              <div className="flex justify-between items-center">
-                <Logo variant="blackYellow" width={120} height={40} />
-                <button onClick={() => setIsGuestOpen(false)}>
-                  <X className="h-5 w-5 text-gray-500" />
-                </button>
-              </div>
-              <VisuallyHidden>
-                <SheetTitle>Select Guests</SheetTitle>
-              </VisuallyHidden>
-              <SheetDescription className="sr-only">
-                Choose the number of guests and rooms
-              </SheetDescription>
-            </SheetHeader>
-            <div className="p-4 space-y-4">
-              {/* Previous Selections */}
-              <button 
-                onClick={() => {
-                  setIsGuestOpen(false);
-                  setIsDestinationOpen(true);
-                }}
-                className="w-full flex items-center justify-between px-4 py-3 border rounded-lg"
-              >
-                <div className="flex items-center gap-2">
-                  <Search className="w-5 h-5 text-gray-400" />
-                  <span>{destination || "Where in Denmark?"}</span>
-                </div>
-                <ChevronRight className="w-5 h-5 text-gray-400" />
-              </button>
-
-              <button 
-                onClick={() => {
-                  setIsGuestOpen(false);
-                  setIsDateOpen(true);
-                }}
-                className="w-full flex items-center justify-between px-4 py-3 border rounded-lg"
-              >
-                <div className="flex items-center gap-2">
-                  <CalendarDays className="w-5 h-5 text-gray-400" />
-                  <span>{getFormattedDateRange()}</span>
-                </div>
-                <ChevronRight className="w-5 h-5 text-gray-400" />
-              </button>
-
-              {/* Guest Controls - Keep minimum limits but remove disabled styling */}
-              {["adults", "children", "rooms"].map((type) => (
-                <div key={type} className="flex items-center justify-between">
+                {expandedSection === 'guests' && (
                   <div>
-                    <p className="font-medium capitalize">{type}</p>
-                    <p className="text-sm text-gray-500">
-                      {type === 'adults' ? 'Ages 13 or above' : type === 'children' ? 'Ages 0-12' : ''}
-                    </p>
+                    {["adults", "children", "rooms"].map((type) => (
+                      <div key={type} className="flex items-center justify-between py-2">
+                        <div>
+                          <p className="font-medium capitalize">{type}</p>
+                          <p className="text-sm text-gray-500">
+                            {type === 'adults' ? 'Ages 13 or above' : type === 'children' ? 'Ages 0-12' : ''}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-4">
+                          <button
+                            onClick={() => onGuestChange(type as keyof typeof guests, 'subtract')}
+                            className="w-8 h-8 flex items-center justify-center border rounded-full"
+                          >
+                            -
+                          </button>
+                          <span>{guests[type as keyof typeof guests]}</span>
+                          <button
+                            onClick={() => onGuestChange(type as keyof typeof guests, 'add')}
+                            className="w-8 h-8 flex items-center justify-center border rounded-full"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <div className="flex items-center gap-4">
-                    <button
-                      onClick={() => {
-                        const minValue = type === 'adults' ? 1 : 0;
-                        if (guests[type as keyof typeof guests] > minValue) {
-                          onGuestChange(type as keyof typeof guests, 'subtract');
-                        }
-                      }}
-                      className="w-8 h-8 flex items-center justify-center border rounded-full"
-                    >
-                      -
-                    </button>
-                    <span>{guests[type as keyof typeof guests]}</span>
-                    <button
-                      onClick={() => {
-                        if (!(type === 'rooms' && guests.rooms >= 10)) {
-                          onGuestChange(type as keyof typeof guests, 'add');
-                        }
-                      }}
-                      className="w-8 h-8 flex items-center justify-center border rounded-full"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-              ))}
+                )}
+              </div>
 
+              {/* Search Button */}
               <MobileButton 
-                onClick={handleGuestSearch}
+                onClick={handleSearch} 
                 variant="primary"
               >
                 Search
