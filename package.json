@@ -12,6 +12,7 @@
     "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/react-popover": "^1.1.5",
     "@radix-ui/react-slot": "^1.1.1",
+    "@radix-ui/react-visually-hidden": "^1.1.2",
     "@react-google-maps/api": "^2.20.6",
     "@types/react-datepicker": "^7.0.0",
     "autoprefixer": "^10.4.20",

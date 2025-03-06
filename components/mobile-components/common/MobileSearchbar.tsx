@@ -5,13 +5,16 @@ import { Search, CalendarDays, Users, MapPin, X, ChevronRight } from "lucide-rea
 import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { MobileSearchbarProps } from "@/types";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { Calendar } from "@/components/ui/calendar";
 import Image from "next/image";
 import { DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { CustomButton } from "@/components/ui/CustomButton";
 import {MobileButton} from "../ui/MobileButton";
+import Logo from "@/components/common/Logo";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+
 
 const MobileSearchbar = ({
   destination,
@@ -104,12 +107,17 @@ const MobileSearchbar = ({
           <div className="flex flex-col h-full bg-white">
             <SheetHeader className="sticky top-0 z-10 bg-white p-4 border-b">
               <div className="flex justify-between items-center">
-                <Image src="/images/linnker/LogoBlackYellow.png" alt="Linnker" width={120} height={40} />
+                <Logo variant="blackYellow" width={120} height={40} />
                 <button onClick={() => setIsDestinationOpen(false)}>
                   <X className="h-5 w-5 text-gray-500" />
                 </button>
               </div>
-              <DialogTitle className="sr-only">Select Destination</DialogTitle>
+              <VisuallyHidden>
+                <SheetTitle>Select Destination</SheetTitle>
+              </VisuallyHidden>
+              <SheetDescription className="sr-only">
+                Search and select your destination in Denmark
+              </SheetDescription>
             </SheetHeader>
             <form onSubmit={handleDestinationSearch} className="p-4 flex-1">
               <div className="space-y-4">
@@ -187,12 +195,17 @@ const MobileSearchbar = ({
           <div className="flex flex-col h-full">
             <SheetHeader className="sticky top-0 z-10 bg-white p-4 border-b">
               <div className="flex justify-between items-center">
-                <Image src="/images/linnker/LogoBlackYellow.png" alt="Linnker" width={120} height={40} />
+                <Logo variant="blackYellow" width={120} height={40} />
                 <button onClick={() => setIsDateOpen(false)}>
                   <X className="h-5 w-5 text-gray-500" />
                 </button>
               </div>
-              <DialogTitle className="sr-only">Select Dates</DialogTitle>
+              <VisuallyHidden>
+                <SheetTitle>Select Dates</SheetTitle>
+              </VisuallyHidden>
+              <SheetDescription className="sr-only">
+                Choose your check-in and check-out dates
+              </SheetDescription>
             </SheetHeader>
             <div className="p-4 space-y-4">
               {/* Destination Selection */}
@@ -263,12 +276,17 @@ const MobileSearchbar = ({
           <div className="flex flex-col h-full">
             <SheetHeader className="sticky top-0 z-10 bg-white p-4 border-b">
               <div className="flex justify-between items-center">
-                <Image src="/images/linnker/LogoBlackYellow.png" alt="Linnker" width={120} height={40} />
+                <Logo variant="blackYellow" width={120} height={40} />
                 <button onClick={() => setIsGuestOpen(false)}>
                   <X className="h-5 w-5 text-gray-500" />
                 </button>
               </div>
-              <DialogTitle className="sr-only">Select Number of Guests</DialogTitle>
+              <VisuallyHidden>
+                <SheetTitle>Select Guests</SheetTitle>
+              </VisuallyHidden>
+              <SheetDescription className="sr-only">
+                Choose the number of guests and rooms
+              </SheetDescription>
             </SheetHeader>
             <div className="p-4 space-y-4">
               {/* Previous Selections */}
