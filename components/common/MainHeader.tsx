@@ -28,7 +28,7 @@ const MainHeader = ({
   }
 }: MainHeaderProps) => {
   const headerClasses = cn(
-    "z-50 shadow-md py-[1.5vh] bg-site-background",
+    "z-50 shadow-md py-[1.5vh] bg-site-background hidden lg:block",
     isSticky && "sticky top-0"
   );
   

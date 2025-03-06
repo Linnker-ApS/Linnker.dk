@@ -11,6 +11,7 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import Logo from "@/components/common/Logo";
 import { MobileButton } from "../ui/MobileButton";
 import { CustomButton } from "@/components/ui/CustomButton";
+import { hotels } from "@/data/hotels";
 
 const MobileSearchbar = ({
   destination,
@@ -23,6 +24,12 @@ const MobileSearchbar = ({
 }: MobileSearchbarProps) => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [expandedSection, setExpandedSection] = useState<'destination' | 'dates' | 'guests' | null>(null);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+
+  // Extract unique cities from hotels
+  const DESTINATIONS = Array.from(new Set(
+    hotels.map(hotel => hotel.location.city)
+  ));
 
   const handleSearch = () => {
     onSearch();
@@ -39,11 +46,39 @@ const MobileSearchbar = ({
     const totalGuests = guests.adults + guests.children;
     return totalGuests === 0 ? "Select Guests" : `${totalGuests} Guests, ${guests.rooms} Rooms`;
   };
-
+ 
   const toggleSection = (section: 'destination' | 'dates' | 'guests') => {
     setExpandedSection(prevSection => 
       prevSection === section ? null : section
     );
+  };
+
+  const handleDestinationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    onDestinationChange(e);
+
+    // Filter destinations based on input
+    const filteredSuggestions = DESTINATIONS.filter(dest => 
+      dest.toLowerCase().includes(inputValue.toLowerCase())
+    );
+
+    setSuggestions(inputValue ? filteredSuggestions : []);
+  };
+
+  const handleSuggestionClick = (selectedDestination: string) => {
+    // Update destination input with selected suggestion
+    const event = {
+      target: { value: selectedDestination }
+    } as React.ChangeEvent<HTMLInputElement>;
+    
+    // Update destination
+    onDestinationChange(event);
+
+    // Clear suggestions
+    setSuggestions([]);
+
+    // Automatically move to dates section
+    toggleSection('dates');
   };
 
   return (
@@ -63,7 +98,7 @@ const MobileSearchbar = ({
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <SheetContent 
           side="bottom" 
-          className="h-auto h-[80vh] w-full p-0 rounded-t-xl"
+          className="h-auto h-[90vh] w-full p-0 rounded-t-xl"
           style={{ 
             position: 'fixed',
             bottom: 0,
@@ -86,42 +121,68 @@ const MobileSearchbar = ({
             
             <div className="p-4 space-y-4">
               {/* Destination Input */}
-              <div className="space-y-4">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                    <input
-                      type="text"
-                      placeholder="Where in Denmark?"
-                      value={destination}
-                      onChange={onDestinationChange}
-                      className="w-full pl-10 pr-4 py-3 border rounded-lg outline-none bg-white focus:ring-2 focus:ring-[#FFB700]"
-                    />
-                  </div>
-                
+              <div className="space-y-4 relative">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Where in Denmark?"
+                    value={destination}
+                    onClick={() => toggleSection('destination')}
+                    onChange={handleDestinationChange}
+                    className="w-full pl-10 pr-4 py-3 border rounded-lg outline-none bg-white focus:ring-2 focus:ring-[#FFB700]"
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter' && destination) {
+                        // Blur the input to dismiss the keyboard
+                        e.currentTarget.blur();
+                        toggleSection('dates');
+                      }
+                    }}
+                  />
+                </div>
+
+                {suggestions.length > 0 && (
+                  <ul className="absolute z-10 w-full bg-white border rounded-lg shadow-lg max-h-48 overflow-y-auto">
+                    {suggestions.map((suggestion, index) => (
+                      <li 
+                        key={index}
+                        onClick={() => handleSuggestionClick(suggestion)}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      >
+                        {suggestion}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
 
               {/* Dates Input */}
               <div className="space-y-4">
-                <button 
+                <div 
                   onClick={() => toggleSection('dates')}
-                  className="w-full flex justify-between items-center py-3 px-4 border rounded-lg"
+                  className="flex items-center gap-2 py-3 px-4 border rounded-lg cursor-pointer"
                 >
-                  <div className="flex items-center gap-2">
-                    <CalendarDays className="w-5 h-5 text-gray-400" />
-                    <span>{formatDateRange()}</span>
-                  </div>
+                  <CalendarDays className="w-5 h-5 text-gray-400" />
+                  <span className="flex-1">{formatDateRange()}</span>
                   {expandedSection === 'dates' ? 
                     <ChevronUp className="w-5 h-5 text-gray-400" /> : 
                     <ChevronDown className="w-5 h-5 text-gray-400" />
                   }
-                </button>
+                </div>
 
                 {expandedSection === 'dates' && (
                   <div className="flex justify-center">
                     <Calendar
                       mode="range"
                       selected={dateRange}
-                      onSelect={onDateChange}
+                      onSelect={(selectedRange) => {
+                        onDateChange(selectedRange);
+                        
+                        // Automatically toggle to guests section when end date is selected
+                        if (selectedRange?.from && selectedRange?.to) {
+                          toggleSection('guests');
+                        }
+                      }}
                       numberOfMonths={1}
                       disabled={{ before: new Date() }}
                       className="max-w-full"
