@@ -54,11 +54,11 @@ const HotelCard = ({
     },
     lg: {
       container: 'w-[300px]',
-      image: 'h-[100px]'
+      image: 'h-[300px]'
     },
     full: {
       container: 'w-full',
-      image: 'h-[100px]'
+      image: 'h-[200px]'
     }
   };
 
@@ -72,15 +72,13 @@ const HotelCard = ({
     <div 
       onClick={handleClick}
       className={cn(
-        "group cursor-pointer rounded-lg overflow-hidden mb-4",
-        sizes[size].container,
-        variants[variant],
-        className
+        "group cursor-pointer rounded-lg overflow-hidden flex flex-col"
+        
       )}
     >
-      {/* Image Container */}
+      {/* Image Container - Fixed Aspect Ratio */}
       <div className={cn(
-        "relative w-full overflow-hidden",
+        "relative w-full aspect-square overflow-hidden mb-2",
         sizes[size].image,
         imageClassName
       )}>
@@ -88,16 +86,16 @@ const HotelCard = ({
           src={imageUrl}
           alt={name}
           fill
-          sizes={size === 'full' ? "100vw" : "auto"}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform duration-300 group-hover:scale-110"
         />
       </div>
 
-      {/* Content Container - Fixed Height */}
-      <div className="pt-2 h-[100px] flex flex-col justify-between">
+      {/* Content Container - Flexible Height */}
+      <div className="flex-grow flex flex-col justify-between">
         {/* Hotel Name - Truncate after 2 lines */}
         <div>
-          <h3 className="font-regular text-md text-gray-900 line-clamp-2">
+          <h3 className="font-semibold text-md text-gray-900 line-clamp-1">
             {name.toUpperCase()}
           </h3>
 
@@ -107,8 +105,8 @@ const HotelCard = ({
           </div>
         </div>
 
-        {/* Price and Rating Container - Fixed Position */}
-        <div className="flex justify-between items-center py-2">
+        {/* Price and Rating Container */}
+        <div className="flex justify-between items-center">
           {/* Price */}
           <div className="flex items-baseline gap-1">
             <span className="font-semibold text-sm whitespace-nowrap">
@@ -121,7 +119,7 @@ const HotelCard = ({
 
           {/* Rating */}
           {rating && (
-            <div className="flex items-center gap-1 shrink-0">
+            <div className="flex items-center gap-1 shrink-0 mt-1">
               <Star className="h-3 w-3 text-black fill-black" />
               <span className="text-sm font-medium">{rating.toFixed(1)}</span>
             </div>

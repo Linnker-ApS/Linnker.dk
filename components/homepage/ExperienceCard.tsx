@@ -13,6 +13,7 @@ const ExperienceCard = ({ imageUrl, title }: ExperienceCardProps) => {
       <Image
         src={imageUrl}
         alt={title}
+        sizes="auto"
         fill
         className="object-cover transition-transform duration-300 group-hover:scale-110"
 

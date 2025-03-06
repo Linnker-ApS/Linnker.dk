@@ -130,7 +130,7 @@ const Searchbar = ({
           onDateChange={setDateRange}
           onGuestChange={updateGuestCount}
           onSearch={handleSearch}
-          // ... other props
+          
         />
       </div>
 
@@ -153,7 +153,7 @@ const Searchbar = ({
                 setIsDestinationFocused(false);
               }, 200);
             }}
-            className="w-full pl-10 pr-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#FFB700] placeholder:font-helvetica"
+            className="w-full min-w-[200px] max-w-full pl-10 pr-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#FFB700] placeholder:font-helvetica"
           />
           
           {/* Suggestions Dropdown */}

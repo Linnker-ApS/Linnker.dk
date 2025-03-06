@@ -11,7 +11,7 @@ interface HotelGridProps {
 
 const HotelGrid = ({ hotels, visibleHotels, onHotelClick }: HotelGridProps) => {
   return (
-    <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 px-12">
+    <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 px-8 gap-6">
       {hotels.slice(0, visibleHotels).map((hotel) => (
         <div 
           key={hotel.id}

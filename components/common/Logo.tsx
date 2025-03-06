@@ -48,6 +48,7 @@ const Logo = ({
         alt="Linnker Logo"
         width={width}
         height={height}
+        style={{ width: 'auto', height: 'auto' }}
         className="object-contain"
         priority
       />

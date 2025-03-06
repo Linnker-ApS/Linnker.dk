@@ -1,22 +1,15 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Instagram, Facebook, Linkedin } from "lucide-react";
+import Logo from "./Logo";
 
 const Footer = () => {
   return (
     <footer className="bg-black text-white py-8">
       <div className="max-w-4xl mx-auto px-4">
         <div className="flex flex-col items-center space-y-4">
-          {/* Logo */}
-          <Image
-            src="/images/linnker/LogoWhite.png"
-            alt="Linnker Logo"
-            width={250}
-            height={50}
-            className="mx-auto"
-          />
+          <Logo variant="white" width={170} height={50} />
 
           {/* Social Media Icons */}
           <div className="flex space-x-4 space/">
