@@ -49,16 +49,16 @@ const HotelCard = ({
       image: 'h-[200px]'
     },
     md: {
-      container: 'w-[300px]',
-      image: 'h-[250px]'
+      container: 'w-[270px]',
+      image: 'h-[270px]'
     },
     lg: {
       container: 'w-[300px]',
-      image: 'h-[300px]'
+      image: 'h-[100px]'
     },
     full: {
       container: 'w-full',
-      image: 'h-[320px]'
+      image: 'h-[100px]'
     }
   };
 

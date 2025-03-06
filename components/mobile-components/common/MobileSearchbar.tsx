@@ -79,12 +79,12 @@ const MobileSearchbar = ({
     <div className="flex flex-col gap-3 p-4 bg-white rounded-lg shadow-sm md:hidden">
       {/* Single Search Button */}
       <CustomButton 
-        variant="secondary"
-        className="flex items-center gap-3 p-3 border rounded-lg w-full"
+      
+        className="bg-[#FFB700] text-black flex items-center gap-3 p-3 border rounded-lg w-full"
         onClick={() => setIsDestinationOpen(true)}
       >
-        <Search className="w-5 h-5 text-gray-400" />
-        <span className="text-gray-600">Start your search</span>
+        <Search className= "w-5 h-5 text-black" />
+        <span className="text-black">Start your search</span>
       </CustomButton>
 
       {/* Destination Sheet */}
