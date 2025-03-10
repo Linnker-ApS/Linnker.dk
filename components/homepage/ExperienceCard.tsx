@@ -9,8 +9,8 @@ interface ExperienceCardProps {
 
 const ExperienceCard = ({ imageUrl, title }: ExperienceCardProps) => {
   return (
-    <div className="relative h-[300px] w-[400px] cursor-pointer group overflow-hidden 
-      md:h-[250px] md:w-[300px]  // Smaller on medium screens
+    <div className="relative h-[300px] w-[1000px] cursor-pointer group overflow-hidden 
+      md:h-[250px] md:w-[100px]  // Smaller on medium screens
       sm:h-[200px] sm:w-[250px]  // Even smaller on small screens
       max-w-full"  // Ensures responsiveness
     >

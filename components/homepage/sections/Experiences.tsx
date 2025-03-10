@@ -24,7 +24,7 @@ const Experiences = () => {
         <h2 className="text-4xl font-bold mb-8 text-center">
           DISCOVER DENMARK
         </h2>
-        <div className="mx-20">
+        <div>
           <ExperienceGrid experiences={experiences} />
         </div>
       </div>
