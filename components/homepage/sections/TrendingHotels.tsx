@@ -51,9 +51,9 @@ const TrendingHotels = () => {
         <h2 className="text-4xl font-bold mb-8 text-center">TRENDING NOW</h2>
         
         {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-16">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 px-8 gap-6 mb-16">
             {[...Array(8)].map((_, index) => (
-              <HotelCardSkeleton key={index} />
+              <HotelCardSkeleton key={index} size="full" />
             ))}
           </div>
         ) : (

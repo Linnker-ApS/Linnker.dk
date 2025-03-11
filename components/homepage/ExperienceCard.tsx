@@ -8,11 +8,23 @@ interface ExperienceCardProps {
 }
 
 const ExperienceCard = ({ imageUrl, title }: ExperienceCardProps) => {
+  const handleClick = () => {
+    // Create the Google search URL with the title and "in Denmark"
+    const searchQuery = encodeURIComponent(`${title} in Denmark`);
+    const googleSearchUrl = `https://www.google.com/search?q=${searchQuery}`;
+    
+    // Open in a new tab
+    window.open(googleSearchUrl, '_blank', 'noopener,noreferrer');
+  };
+
   return (
-    <div className="relative h-[300px] w-[334px] cursor-pointer group overflow-hidden 
-      md:h-[250px] md:w-[300px]  // Smaller on medium screens
-      sm:h-[200px] sm:w-[250px]  // Even smaller on small screens
-      max-w-full"  // Ensures responsiveness
+    <div 
+      className="relative h-[300px] w-[334px] cursor-pointer group overflow-hidden 
+        lg:h-[300px] lg:w-[334px] 
+        md:h-[250px] md:w-[300px] 
+        sm:h-[200px] sm:w-[250px] 
+        max-w-full" 
+      onClick={handleClick}
     >
       <Image
         src={imageUrl}
