@@ -111,23 +111,11 @@ const HotelProfile = () => {
       <div className="hidden md:block">
         <MainHeader 
           isSticky={false}
-          initialDestination={destination}
-          initialStartDate={dateRange?.from}
-          initialEndDate={dateRange?.to}
-          initialGuests={guests}
         />
       </div>
 
       <div className="md:hidden">
-        <MobileSearchbar
-          destination={destination}
-          dateRange={dateRange}
-          guests={guests}
-          onDestinationChange={handleDestinationChange}
-          onDateChange={handleDateChange}
-          onGuestChange={handleGuestChange}
-          onSearch={handleSearch}
-        />
+        <MobileSearchbar />
       </div>
 
       {/* Main content wrapper */}

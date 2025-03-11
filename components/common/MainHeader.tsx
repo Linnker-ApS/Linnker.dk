@@ -6,27 +6,9 @@ import { cn } from "@/lib/utils";
 
 interface MainHeaderProps {
   isSticky?: boolean;
-  initialDestination?: string;
-  initialStartDate?: Date;
-  initialEndDate?: Date;
-  initialGuests?: {
-    adults: number;
-    children: number;
-    rooms: number;
-  };
 }
 
-const MainHeader = ({ 
-  isSticky = false,
-  initialDestination = '',
-  initialStartDate,
-  initialEndDate,
-  initialGuests = {
-    adults: 2,
-    children: 0,
-    rooms: 1
-  }
-}: MainHeaderProps) => {
+const MainHeader = ({ isSticky = false }: MainHeaderProps) => {
   const headerClasses = cn(
     "z-50 shadow-md py-[1.5vh] bg-site-background hidden lg:block",
     isSticky && "sticky top-0"
@@ -41,14 +23,7 @@ const MainHeader = ({
             <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[140px]">
               <Logo variant="blackYellow" width={120} height={40} />
             </div>
-            <Searchbar
-              initialDestination={initialDestination}
-              initialStartDate={initialStartDate}
-              initialEndDate={initialEndDate}
-              initialGuests={initialGuests}
-              showInitialSuggestions={false}
-              disableAutocomplete={false}
-            />
+            <Searchbar showInitialSuggestions={false} disableAutocomplete={false} />
           </div>
           <div className="w-[120px] shrink-0"></div>
         </div>

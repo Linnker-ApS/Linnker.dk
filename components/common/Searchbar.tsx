@@ -1,34 +1,39 @@
 "use client";
 
-import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { CustomButton } from "@/components/ui/CustomButton";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Search, CalendarDays, Users, MapPin } from "lucide-react";
-import { format, addDays } from "date-fns";
-import { DateRange } from "react-day-picker";
+import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { hotels } from "@/data/hotels";
 import { useRouter } from "next/navigation";
-import { SearchbarProps, GuestCount } from "@/types";
 import MobileSearchbar from "../mobile-components/common/MobileSearchbar";
+import { useSearchStore } from '@/store/useSearchStore';
+import { DateRange } from "react-day-picker";
+
+// Searchbar component
+interface SearchbarProps {
+  showInitialSuggestions?: boolean;
+  disableAutocomplete?: boolean;
+}
 
 const Searchbar = ({ 
-  initialDestination = "",
-  initialStartDate = undefined,
-  initialEndDate = undefined,
-  initialGuests = { adults: 2, children: 0, rooms: 1 },
   showInitialSuggestions = false,
   disableAutocomplete = false
 }: SearchbarProps) => {
   const router = useRouter();
-  const [destination, setDestination] = useState(initialDestination);
+  const { 
+    destination, 
+    dateRange, 
+    guests,
+    setDestination,
+    setDateRange,
+    setGuests 
+  } = useSearchStore();
+
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [dateRange, setDateRange] = useState<DateRange | undefined>({
-    from: initialStartDate,
-    to: initialEndDate,
-  });
-  const [guests, setGuests] = useState<GuestCount>(initialGuests);
   const [isDateOpen, setIsDateOpen] = useState(false);
   const [isGuestOpen, setIsGuestOpen] = useState(false);
   const [isDestinationFocused, setIsDestinationFocused] = useState(false);
@@ -72,13 +77,11 @@ const Searchbar = ({
   };
 
   const handleSearch = () => {
-    // Validate date range
     if (!dateRange?.from || !dateRange?.to) {
       alert("Please select check-in and check-out dates");
       return;
     }
 
-    // Adjust dates to start of day in local timezone
     const startDate = new Date(dateRange.from);
     startDate.setHours(12, 0, 0, 0);
 
@@ -97,14 +100,9 @@ const Searchbar = ({
     router.push(`/search-results?${params.toString()}`);
   };
 
-  const updateGuestCount = useCallback((type: keyof GuestCount, operation: 'add' | 'subtract') => {
-    setGuests(prev => ({
-      ...prev,
-      [type]: operation === 'add' 
-        ? type === 'rooms' ? Math.min(10, prev[type] + 1) : prev[type] + 1
-        : Math.max(type === 'adults' ? 1 : 0, prev[type] - 1)
-    }));
-  }, []);
+  const updateGuestCount = (type: keyof typeof guests, action: 'add' | 'subtract') => {
+    setGuests(type, action);
+  };
 
   useEffect(() => {
     return () => {
@@ -122,16 +120,7 @@ const Searchbar = ({
     <div className="w-full max-w-4xl mx-auto">
       {/* Mobile View */}
       <div className="md:hidden">
-        <MobileSearchbar
-          destination={destination}
-          dateRange={dateRange}
-          guests={guests}
-          onDestinationChange={handleDestinationChange}
-          onDateChange={setDateRange}
-          onGuestChange={updateGuestCount}
-          onSearch={handleSearch}
-          
-        />
+        <MobileSearchbar />
       </div>
 
       {/* Desktop View - Unchanged */}

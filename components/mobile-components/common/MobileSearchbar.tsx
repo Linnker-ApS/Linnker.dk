@@ -13,16 +13,17 @@ import { MobileButton } from "../ui/MobileButton";
 import { CustomButton } from "@/components/ui/CustomButton";
 import { hotels } from "@/data/hotels";
 import { usePathname, useRouter } from "next/navigation";
+import { useSearchStore } from '@/store/useSearchStore';
 
-const MobileSearchbar = ({
-  destination,
-  dateRange,
-  guests,
-  onDestinationChange,
-  onDateChange,
-  onGuestChange,
-  onSearch,
-}: MobileSearchbarProps) => {
+const MobileSearchbar = () => {
+  const { 
+    destination, 
+    dateRange, 
+    guests,
+    setDestination,
+    setDateRange,
+    setGuests 
+  } = useSearchStore();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [expandedSection, setExpandedSection] = useState<'destination' | 'dates' | 'guests' | null>(null);
   const [suggestions, setSuggestions] = useState<string[]>([]);
@@ -35,7 +36,6 @@ const MobileSearchbar = ({
   ));
 
   const handleSearch = () => {
-    onSearch();
     setIsSheetOpen(false);
   };
 
@@ -57,15 +57,22 @@ const MobileSearchbar = ({
   };
 
   const handleDestinationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value;
-    onDestinationChange(e);
+    setDestination(e.target.value);
 
     // Filter destinations based on input
     const filteredSuggestions = DESTINATIONS.filter(dest => 
-      dest.toLowerCase().includes(inputValue.toLowerCase())
+      dest.toLowerCase().includes(e.target.value.toLowerCase())
     );
 
-    setSuggestions(inputValue ? filteredSuggestions : []);
+    setSuggestions(e.target.value ? filteredSuggestions : []);
+  };
+
+  const handleDateChange = (range: DateRange | undefined) => {
+    setDateRange(range);
+  };
+
+  const handleGuestChange = (type: keyof typeof guests, action: 'add' | 'subtract') => {
+    setGuests(type, action);
   };
 
   const handleSuggestionClick = (selectedDestination: string) => {
@@ -75,7 +82,7 @@ const MobileSearchbar = ({
     } as React.ChangeEvent<HTMLInputElement>;
     
     // Update destination
-    onDestinationChange(event);
+    setDestination(selectedDestination);
 
     // Clear suggestions
     setSuggestions([]);
@@ -212,7 +219,7 @@ const MobileSearchbar = ({
                       mode="range"
                       selected={dateRange}
                       onSelect={(selectedRange) => {
-                        onDateChange(selectedRange);
+                        handleDateChange(selectedRange);
                         
                         // Automatically toggle to guests section when end date is selected
                         if (selectedRange?.from && selectedRange?.to) {
@@ -255,14 +262,14 @@ const MobileSearchbar = ({
                         </div>
                         <div className="flex items-center gap-4">
                           <button
-                            onClick={() => onGuestChange(type as keyof typeof guests, 'subtract')}
+                            onClick={() => handleGuestChange(type as keyof typeof guests, 'subtract')}
                             className="w-8 h-8 flex items-center justify-center border rounded-full"
                           >
                             -
                           </button>
                           <span>{guests[type as keyof typeof guests]}</span>
                           <button
-                            onClick={() => onGuestChange(type as keyof typeof guests, 'add')}
+                            onClick={() => handleGuestChange(type as keyof typeof guests, 'add')}
                             className="w-8 h-8 flex items-center justify-center border rounded-full"
                           >
                             +

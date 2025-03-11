@@ -102,25 +102,11 @@ const SearchResults = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <div className="hidden md:block">
-        <MainHeader 
-          isSticky={true}
-          initialDestination={destination}
-          initialStartDate={dateRange?.from}
-          initialEndDate={dateRange?.to}
-          initialGuests={guests}
-        />
+        <MainHeader isSticky={true} />
       </div>
 
       <div className="md:hidden">
-        <MobileSearchbar
-          destination={destination}
-          dateRange={dateRange}
-          guests={guests}
-          onDestinationChange={handleDestinationChange}
-          onDateChange={handleDateChange}
-          onGuestChange={handleGuestChange}
-          onSearch={handleSearch}
-        />
+        <MobileSearchbar />
       </div>
 
       {/* Main Content */}
