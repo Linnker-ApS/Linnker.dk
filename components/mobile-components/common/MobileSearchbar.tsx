@@ -36,7 +36,22 @@ const MobileSearchbar = () => {
   ));
 
   const handleSearch = () => {
+    if (!dateRange?.from || !dateRange?.to) {
+      alert("Please select check-in and check-out dates");
+      return;
+    }
+
+    const params = new URLSearchParams({
+      destination,
+      startDate: dateRange.from.toISOString(),
+      endDate: dateRange.to.toISOString(),
+      adults: guests.adults.toString(),
+      children: guests.children.toString(),
+      rooms: guests.rooms.toString()
+    });
+
     setIsSheetOpen(false);
+    router.push(`/search-results?${params.toString()}`);
   };
 
   const formatDateRange = () => {
@@ -100,8 +115,8 @@ const MobileSearchbar = () => {
   };
 
   return (
-    <div className="flex flex-col gap-3 p-4 bg-site-background rounded-lg shadow-sm md:hidden">
-      {destination || dateRange?.from ? (
+    <div className="flex flex-col gap-3 p-4 bg-white rounded-lg shadow-sm md:hidden">
+      {(pathname !== '/' && (destination || dateRange?.from)) ? (
         <div className="flex items-center gap-3 w-full">
           <button 
             onClick={handleBackNavigation}
@@ -110,17 +125,16 @@ const MobileSearchbar = () => {
             <ArrowLeft className="w-5 h-5 text-gray-500" />
           </button>
           <CustomButton 
-            className="bg-white text-black flex items-center gap-3 p-3 border rounded-lg flex-1"
+            className="bg-white text-black flex items-center gap-3 p-3 border flex-1"
             onClick={() => {
               setIsSheetOpen(true);
               setExpandedSection(null);
             }}
           >
-            <Search className="w-5 h-5 text-black" />
             <div className="flex items-center gap-2 text-sm">
               <span className="font-medium">{destination || 'Any destination'}</span>
-              <span className="text-black">•</span>
-              <span className="text-black">{formatDateRange()}</span>
+              <span className="text-black font-thin">|</span>
+              <span className="text-black font-medium">{formatDateRange()}</span>
             </div>
           </CustomButton>
         </div>
