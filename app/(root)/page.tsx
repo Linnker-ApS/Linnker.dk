@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 
 //Components
 import Hero from "@/components/homepage/Hero";
@@ -64,17 +65,23 @@ const Home = () => {
       </div>
 
       <div className="mt-20">
-        <Suspense fallback={<LoadingSpinner />}>
-          <TrendingHotels />
-        </Suspense>
+        <ErrorBoundary fallback={<div className="p-8 text-center">Something went wrong loading trending hotels.</div>}>
+          <Suspense fallback={<LoadingSpinner />}>
+            <TrendingHotels />
+          </Suspense>
+        </ErrorBoundary>
         
-        <Suspense fallback={<LoadingSpinner />}>
-          <Experiences />
-        </Suspense>
+        <ErrorBoundary fallback={<div className="p-8 text-center">Something went wrong loading experiences.</div>}>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Experiences />
+          </Suspense>
+        </ErrorBoundary>
         
-        <Suspense fallback={<LoadingSpinner />}>
-          <Mission />
-        </Suspense>
+        <ErrorBoundary fallback={<div className="p-8 text-center">Something went wrong loading our mission.</div>}>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Mission />
+          </Suspense>
+        </ErrorBoundary>
       </div>
       <Footer />
     </main>

@@ -15,7 +15,7 @@ interface ExperiencesProps {
 const defaultExperiences = [
   { imageUrl: '/images/experiences/food.jpg', title: 'Food' },
   { imageUrl: '/images/experiences/culture.jpg', title: 'Culture' },
-  { imageUrl: '/images/experiences/nature.jpg', title: 'Hotels' }
+  { imageUrl: '/images/experiences/hotels.jpg', title: 'Hotels' }
 ];
 
 const Experiences = ({ initialExperiences = [] }: ExperiencesProps) => {
