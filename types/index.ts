@@ -96,6 +96,13 @@ export interface MobileSearchbarProps {
   onSearch: () => void;
 }
 
+export interface MissionProps {
+  title: string;
+  description: string;
+  imageUrl: string;
+}
+
+
 // Utility types
 export type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
 

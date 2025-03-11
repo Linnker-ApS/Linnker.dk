@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense } from 'react';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 //Components
 import Hero from "@/components/homepage/Hero";
@@ -10,6 +12,7 @@ import MainHeader from "@/components/common/MainHeader";
 import Experiences from "@/components/homepage/sections/Experiences";
 import Mission from "@/components/homepage/sections/Mission";
 import Footer from "@/components/common/Footer";
+
 
 
 const Home = () => {
