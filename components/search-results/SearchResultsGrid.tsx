@@ -2,7 +2,7 @@
 
 import { Hotel } from "@/data/hotels";
 import HotelCard from "../common/HotelCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Pagination from "./Pagination";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -12,6 +12,15 @@ interface SearchResultsGridProps {
   startDate?: Date;
   endDate?: Date;
 }
+
+// Match these values to your tailwind.config.ts
+const BREAKPOINTS = {
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280, // This matches your custom xl breakpoint
+  '2xl': 1536 // This matches your custom 2xl breakpoint
+};
 
 const HOTELS_PER_PAGE = 18;
 
@@ -61,8 +70,12 @@ const SearchResultsGrid = ({ hotels, destination, startDate, endDate }: SearchRe
         {startDate && endDate && ` for selected dates`}
       </div>
 
-      {/* Grid of hotel cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pr-6">
+      {/* Grid of hotel cards - Using custom breakpoints */}
+      <div className="grid grid-cols-1 gap-6 pr-6
+        md:grid-cols-2 
+        lg:grid-cols-2 
+        xl:grid-cols-2
+        2xl:grid-cols-3">
         {displayedHotels.map((hotel, index) => (
           <div 
             key={index}
@@ -71,10 +84,10 @@ const SearchResultsGrid = ({ hotels, destination, startDate, endDate }: SearchRe
           >
             <HotelCard 
               {...hotel}
-              size="lg"
+              size="full"
               variant="featured"
               className="w-full max-w-none"
-              imageClassName="aspect-[4/3] w-full h-[256px]"
+              imageClassName="aspect-[4/3]"
             />
           </div>
         ))}

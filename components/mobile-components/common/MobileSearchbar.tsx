@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Search, CalendarDays, Users, X, ChevronDown, ChevronUp } from "lucide-react";
+import { Search, CalendarDays, Users, X, ChevronDown, ChevronUp, ArrowLeft } from "lucide-react";
 import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { MobileSearchbarProps } from "@/types";
@@ -12,6 +12,7 @@ import Logo from "@/components/common/Logo";
 import { MobileButton } from "../ui/MobileButton";
 import { CustomButton } from "@/components/ui/CustomButton";
 import { hotels } from "@/data/hotels";
+import { usePathname, useRouter } from "next/navigation";
 
 const MobileSearchbar = ({
   destination,
@@ -25,6 +26,8 @@ const MobileSearchbar = ({
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [expandedSection, setExpandedSection] = useState<'destination' | 'dates' | 'guests' | null>(null);
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const router = useRouter();
+  const pathname = usePathname();
 
   // Extract unique cities from hotels
   const DESTINATIONS = Array.from(new Set(
@@ -81,19 +84,52 @@ const MobileSearchbar = ({
     toggleSection('dates');
   };
 
+  const handleBackNavigation = () => {
+    if (pathname.startsWith('/hotel/')) {
+      router.push('/search-results');
+    } else if (pathname === '/search-results') {
+      router.push('/');
+    }
+  };
+
   return (
-    <div className="flex flex-col gap-3 p-4 bg-white rounded-lg shadow-sm md:hidden">
-      <CustomButton 
-        className="bg-[#FFB700] text-black flex items-center gap-3 p-3 border rounded-lg w-full"
-        onClick={() => {
-          setIsSheetOpen(true);
-          // Start with no section expanded
-          setExpandedSection(null);
-        }}
-      >
-        <Search className="w-5 h-5 text-black" />
-        <span className="text-black">Start your search</span>
-      </CustomButton>
+    <div className="flex flex-col gap-3 p-4 bg-site-background rounded-lg shadow-sm md:hidden">
+      {destination || dateRange?.from ? (
+        <div className="flex items-center gap-3 w-full">
+          <button 
+            onClick={handleBackNavigation}
+            className="p-2 hover:bg-gray-100 rounded-full"
+          >
+            <ArrowLeft className="w-5 h-5 text-gray-500" />
+          </button>
+          <CustomButton 
+            className="bg-white text-black flex items-center gap-3 p-3 border rounded-lg flex-1"
+            onClick={() => {
+              setIsSheetOpen(true);
+              setExpandedSection(null);
+            }}
+          >
+            <Search className="w-5 h-5 text-black" />
+            <div className="flex items-center gap-2 text-sm">
+              <span className="font-medium">{destination || 'Any destination'}</span>
+              <span className="text-black">•</span>
+              <span className="text-black">{formatDateRange()}</span>
+            </div>
+          </CustomButton>
+        </div>
+      ) : (
+        // Show default button when no data
+        <CustomButton 
+          className="bg-[#FFB700] text-black flex items-center gap-3 p-3 border rounded-lg w-full"
+          onClick={() => {
+            setIsSheetOpen(true);
+            setExpandedSection(null);
+          }}
+        >
+          <Search className="w-5 h-5 text-black" />
+          <span className="text-black">Start your search</span>
+        </CustomButton>
+      )}
 
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <SheetContent 

@@ -14,11 +14,59 @@ import BookingCard from "@/components/hotel-page/BookingCard";
 import { DateRange } from "react-day-picker";
 import { GuestCount } from "@/types";
 import HotelRating from "@/components/hotel-page/HotelRating";
+import MobileSearchbar from "@/components/mobile-components/common/MobileSearchbar";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const HotelProfile = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const { id } = useParams();
   const hotel = hotels.find(h => h.id === id);
+
+  // State for MobileSearchbar
+  const [destination, setDestination] = useState(searchParams.get('destination') || '');
+  const [dateRange, setDateRange] = useState<DateRange | undefined>(() => {
+    const startDate = searchParams.get('startDate');
+    const endDate = searchParams.get('endDate');
+    return startDate && endDate ? {
+      from: new Date(startDate),
+      to: new Date(endDate)
+    } : undefined;
+  });
+  const [guests, setGuests] = useState({
+    adults: Number(searchParams.get('adults')) || 2,
+    children: Number(searchParams.get('children')) || 0,
+    rooms: Number(searchParams.get('rooms')) || 1
+  });
+
+  // Handler functions for MobileSearchbar
+  const handleDestinationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDestination(e.target.value);
+  };
+
+  const handleDateChange = (range: DateRange | undefined) => {
+    setDateRange(range);
+  };
+
+  const handleGuestChange = (type: keyof typeof guests, action: 'add' | 'subtract') => {
+    setGuests(prev => ({
+      ...prev,
+      [type]: action === 'add' ? prev[type] + 1 : Math.max(type === 'rooms' ? 1 : 0, prev[type] - 1)
+    }));
+  };
+
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+    if (destination) params.set('destination', destination);
+    if (dateRange?.from) params.set('startDate', dateRange.from.toISOString());
+    if (dateRange?.to) params.set('endDate', dateRange.to.toISOString());
+    params.set('adults', guests.adults.toString());
+    params.set('children', guests.children.toString());
+    params.set('rooms', guests.rooms.toString());
+    
+    router.push(`/search-results?${params.toString()}`);
+  };
 
   const handleViewOffer = (dates: DateRange, guests: GuestCount) => {
     if (!hotel || !dates.from || !dates.to) return;
@@ -57,25 +105,33 @@ const HotelProfile = () => {
   // Get all search parameters
   const startDate = searchParams.get('startDate') ? new Date(searchParams.get('startDate')!) : undefined;
   const endDate = searchParams.get('endDate') ? new Date(searchParams.get('endDate')!) : undefined;
-  const guests = {
-    adults: Number(searchParams.get('adults')) || 2,
-    children: Number(searchParams.get('children')) || 0,
-    rooms: Number(searchParams.get('rooms')) || 1
-  };
-  const destination = searchParams.get('destination') || '';
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Main content wrapper */}
-      <div className="flex-1 relative">
+      <div className="hidden md:block">
         <MainHeader 
           isSticky={false}
           initialDestination={destination}
-          initialStartDate={startDate}
-          initialEndDate={endDate}
+          initialStartDate={dateRange?.from}
+          initialEndDate={dateRange?.to}
           initialGuests={guests}
         />
+      </div>
 
+      <div className="md:hidden">
+        <MobileSearchbar
+          destination={destination}
+          dateRange={dateRange}
+          guests={guests}
+          onDestinationChange={handleDestinationChange}
+          onDateChange={handleDateChange}
+          onGuestChange={handleGuestChange}
+          onSearch={handleSearch}
+        />
+      </div>
+
+      {/* Main content wrapper */}
+      <div className="flex-1 relative">
         {/* Main Content */}
         <div className="container mx-auto px-36 py-8">
           {/* Hotel Gallery with Name and Photos */}
