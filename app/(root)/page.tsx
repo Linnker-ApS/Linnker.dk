@@ -1,19 +1,24 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { lazy, Suspense } from 'react';
-import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
 
 //Components
 import Hero from "@/components/homepage/Hero";
 import Searchbar from "@/components/common/Searchbar";
-import TrendingHotels from "@/components/homepage/sections/TrendingHotels";
 import MainHeader from "@/components/common/MainHeader";
-import Experiences from "@/components/homepage/sections/Experiences";
-import Mission from "@/components/homepage/sections/Mission";
 import Footer from "@/components/common/Footer";
 
+// Lazy load section components
+const TrendingHotels = lazy(() => import("@/components/homepage/sections/TrendingHotels"));
+const Experiences = lazy(() => import("@/components/homepage/sections/Experiences"));
+const Mission = lazy(() => import("@/components/homepage/sections/Mission"));
 
+// Loading spinner component
+const LoadingSpinner = () => (
+  <div className="flex justify-center items-center py-12">
+    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#FFB700]"></div>
+  </div>
+);
 
 const Home = () => {
   const [isSticky, setIsSticky] = useState(false);
@@ -59,9 +64,17 @@ const Home = () => {
       </div>
 
       <div className="mt-20">
-        <TrendingHotels />
-        <Experiences />
-        <Mission />
+        <Suspense fallback={<LoadingSpinner />}>
+          <TrendingHotels />
+        </Suspense>
+        
+        <Suspense fallback={<LoadingSpinner />}>
+          <Experiences />
+        </Suspense>
+        
+        <Suspense fallback={<LoadingSpinner />}>
+          <Mission />
+        </Suspense>
       </div>
       <Footer />
     </main>
