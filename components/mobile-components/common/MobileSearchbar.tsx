@@ -29,6 +29,7 @@ const MobileSearchbar = () => {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const router = useRouter();
   const pathname = usePathname();
+  const [isFocused, setIsFocused] = useState(false);
 
   // Extract unique cities from hotels
   const DESTINATIONS = Array.from(new Set(
@@ -166,7 +167,7 @@ const MobileSearchbar = () => {
           <div className="flex flex-col">
             <SheetHeader className="sticky top-0 z-10 bg-white p-4 border-b rounded-t-xl">
               <div className="flex justify-between items-center">
-                <Logo variant="blackYellow" width={120} height={40} />
+                <Logo variant="blackYellow" size="xs" />
                 <button onClick={() => setIsSheetOpen(false)}>
                   <X className="h-5 w-5 text-gray-500" />
                 </button>
@@ -187,23 +188,31 @@ const MobileSearchbar = () => {
                     value={destination}
                     onClick={() => toggleSection('destination')}
                     onChange={handleDestinationChange}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => {
+                      // Delay hiding suggestions to allow for clicks
+                      setTimeout(() => setIsFocused(false), 200);
+                    }}
                     className="w-full pl-10 pr-4 py-3 border rounded-lg outline-none bg-white focus:ring-2 focus:ring-[#FFB700]"
                     onKeyPress={(e) => {
                       if (e.key === 'Enter' && destination) {
-                        // Blur the input to dismiss the keyboard
-                        e.currentTarget.blur();
-                        toggleSection('dates');
+                        e.currentTarget.blur(); // Dismiss keyboard
+                        setIsFocused(false);    // Hide suggestions
+                        toggleSection('dates');  // Move to dates section
                       }
                     }}
                   />
                 </div>
 
-                {suggestions.length > 0 && (
+                {suggestions.length > 0 && isFocused && (
                   <ul className="absolute z-10 w-full bg-white border rounded-lg shadow-lg max-h-48 overflow-y-auto">
                     {suggestions.map((suggestion, index) => (
                       <li 
                         key={index}
-                        onClick={() => handleSuggestionClick(suggestion)}
+                        onClick={() => {
+                          handleSuggestionClick(suggestion);
+                          setIsFocused(false); // Hide suggestions after selection
+                        }}
                         className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                       >
                         {suggestion}

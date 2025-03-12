@@ -19,14 +19,7 @@ interface LogoProps {
   className?: string;
 }
 
-const Logo = ({ 
-  variant = "black",
-  size = "md",
-  className = "" 
-}: LogoProps) => {
-  const variantKey = variant.charAt(0).toUpperCase() + variant.slice(1);
-  
-  const sizes = {
+const sizes = {
     xs: { width: 120, height: 35 },    // Mobile
     sm: { width: 150, height: 40 },    // xs breakpoint (360px)
     md: { width: 180, height: 45 },    // sm breakpoint (480px)
@@ -34,6 +27,13 @@ const Logo = ({
     xl: { width: 270, height: 70 },    // lg breakpoint (1024px)
     '2xl': { width: 300, height: 80 }, // xl breakpoint (1280px)
   };
+
+const Logo = ({ 
+  variant = "black",
+  size = "md",
+  className = "" 
+}: LogoProps) => {
+  const variantKey = variant.charAt(0).toUpperCase() + variant.slice(1);
 
   const logoVariants = {
     // Single color variants
