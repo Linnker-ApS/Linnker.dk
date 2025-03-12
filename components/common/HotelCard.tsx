@@ -46,15 +46,15 @@ const HotelCard = ({
   const sizes = {
     sm: {
       container: 'w-[180px] xs:w-[200px] sm:w-[220px]',
-      image: 'h-[180px] xs:h-[200px] sm:h-[220px]'
+      image: 'aspect-square'
     },
     md: {
-      container: 'w-[240px] sm:w-[260px] md:w-[280px] lg:w-[300px]',
-      image: 'h-[240px] sm:h-[260px] md:h-[280px] lg:h-[300px]'
+      container: 'w-[300px]',
+      image: 'aspect-square'
     },
     lg: {
       container: 'w-[280px] sm:w-[300px] md:w-[320px] lg:w-[340px]',
-      image: 'h-[280px] sm:h-[300px] md:h-[320px] lg:h-[340px]'
+      image: 'aspect-square'
     },
     full: {
       container: 'w-full',

@@ -52,20 +52,11 @@ const TrendingHotels = () => {
         
         {isLoading ? (
           <div className="
-            /* Mobile */
-            grid grid-cols-1 gap-y-6 gap-x-2 px-4 place-items-center
-            
-            /* xs (360px) */
-            xs:grid-cols-2 xs:gap-x-3
-            
-            /* sm (480px) */
-            sm:px-6
-            
-            /* md (768px) */
-            md:grid-cols-3 md:gap-x-4 md:px-8
-            
-            /* xl (1280px) */
-            xl:grid-cols-4"
+            grid grid-cols-1 gap-y-6 place-items-center
+      xs:grid-cols-1 xs:gap-x-3
+      sm:px-6
+      md:grid-cols-3 md:gap-x-4 md:px-8
+      xl:grid-cols-4"
           >
             {[...Array(8)].map((_, index) => (
               <div key={index} className="w-full flex justify-center">
