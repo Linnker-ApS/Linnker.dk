@@ -1,27 +1,35 @@
+import { cn } from "@/lib/utils";
+
 const HotelCardSkeleton = ({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' | 'full' }) => {
   const sizes = {
     sm: {
-      container: 'w-[200px]',
-      image: 'aspect-[4/3]'
+      container: 'w-[180px] xs:w-[200px] sm:w-[220px]',
+      image: 'aspect-square'
     },
     md: {
-      container: 'w-[270px]',
-      image: 'aspect-[4/3]'
+      container: 'w-[300px]',
+      image: 'aspect-square'
     },
     lg: {
-      container: 'w-[300px]',
-      image: 'aspect-[4/3]'
+      container: 'w-[280px] sm:w-[300px] md:w-[320px] lg:w-[340px]',
+      image: 'aspect-square'
     },
     full: {
       container: 'w-full',
-      image: 'aspect-[4/3]'
+      image: 'h-[200px] sm:h-[220px] md:h-[240px] lg:h-[260px]'
     }
   };
 
   return (
-    <div className={`rounded-lg overflow-hidden animate-pulse flex flex-col ${sizes[size].container}`}>
+    <div className={cn(
+      "rounded-lg overflow-hidden animate-pulse flex flex-col",
+      sizes[size].container
+    )}>
       {/* Image placeholder */}
-      <div className={`relative w-full aspect-square bg-gray-200 mb-2 ${sizes[size].image}`}></div>
+      <div className={cn(
+        "relative w-full bg-gray-200 mb-2",
+        sizes[size].image
+      )}></div>
       
       {/* Content Container */}
       <div className="flex-grow flex flex-col justify-between">

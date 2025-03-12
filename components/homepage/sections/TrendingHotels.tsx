@@ -47,13 +47,30 @@ const TrendingHotels = () => {
 
   return (
     <section className="py-12">
-      <div className="container mx-auto px-4">
+      <div className="container">
         <h2 className="text-4xl font-bold mb-8 text-center">TRENDING NOW</h2>
         
         {isLoading ? (
-          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 px-8 gap-6 mb-16">
+          <div className="
+            /* Mobile */
+            grid grid-cols-1 gap-y-6 gap-x-2 px-4 place-items-center
+            
+            /* xs (360px) */
+            xs:grid-cols-2 xs:gap-x-3
+            
+            /* sm (480px) */
+            sm:px-6
+            
+            /* md (768px) */
+            md:grid-cols-3 md:gap-x-4 md:px-8
+            
+            /* xl (1280px) */
+            xl:grid-cols-4"
+          >
             {[...Array(8)].map((_, index) => (
-              <HotelCardSkeleton key={index} size="full" />
+              <div key={index} className="w-full flex justify-center">
+                <HotelCardSkeleton size="md" />
+              </div>
             ))}
           </div>
         ) : (
