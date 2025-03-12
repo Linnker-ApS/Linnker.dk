@@ -89,10 +89,11 @@ const HotelCard = ({
           alt={name}
           fill
           sizes="(max-width: 360px) 180px,
+                 (max-width: 400px) 200px,
                  (max-width: 480px) 220px,
-                 (max-width: 768px) 280px,
+                 (max-width: 768px) 300px,
                  (max-width: 1024px) 300px,
-                 340px"
+                 300px"
           className="object-cover transition-transform duration-300 group-hover:scale-110"
         />
       </div>
@@ -100,18 +101,18 @@ const HotelCard = ({
       {/* Content Container */}
       <div className="flex-grow flex flex-col justify-between p-0">
         <div>
-          <h3 className="font-semibold text-sm sm:text-md text-gray-900 line-clamp-1">
+          <h3 className="font-semibold text-sm sm:text-lg text-gray-900 line-clamp-1">
             {name.toUpperCase()}
           </h3>
 
-          <div className="text-xs sm:text-sm text-gray-500 truncate">
+          <div className="text-sm sm:text-base text-gray-500 truncate">
             {location.city} · {location.country}
           </div>
         </div>
 
         <div className="flex justify-between items-center">
           <div className="flex items-baseline gap-1">
-            <span className="font-semibold text-xs sm:text-sm whitespace-nowrap">
+            <span className="font-semibold text-sm sm:text-base whitespace-nowrap">
               from {price.currency} {price.amount}
             </span>
             <span className="text-xs text-gray-500">
