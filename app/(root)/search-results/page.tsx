@@ -101,12 +101,14 @@ const SearchResults = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="hidden md:block">
-        <MainHeader isSticky={true} />
-      </div>
-
-      <div className="md:hidden">
-        <MobileSearchbar />
+      {/* Sticky Header for Desktop */}
+      <div className="sticky top-0 z-50">
+        <div className="hidden md:block">
+          <MainHeader isSticky={true} />
+        </div>
+        <div className="md:hidden">
+          <MobileSearchbar />
+        </div>
       </div>
 
       {/* Main Content */}
@@ -170,7 +172,6 @@ const SearchResults = () => {
           </div>
         )}
       </div>
-      {/* Footer */}
       <Footer />
     </div>
   );
