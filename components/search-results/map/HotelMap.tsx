@@ -173,76 +173,76 @@ const HotelMap = ({ hotels, destination, center = { lat: 55.676098, lng: 12.5683
       </OverlayView>
     )), [filteredHotels, handleMarkerClick, selectedHotel]);
 
-  if (!isLoaded) {
-    return (
-      <div className="w-full h-full flex items-center justify-center bg-gray-100">
-        <div className="animate-spin rounded-full w-8 h-8 border-b-2 border-gray-900" />
-      </div>
-    );
-  }
-
   return (
-    <GoogleMap
-      zoom={13}
-      center={isInitialLoad ? center : undefined}
-      mapContainerClassName="w-full h-[91vh]"
-      options={mapOptions}
-      onLoad={onMapLoad}
-    >
-      {markers}
-      {selectedHotel && (
-        <InfoWindow
-          position={{
-            lat: selectedHotel.location.coordinates.latitude,
-            lng: selectedHotel.location.coordinates.longitude,
-          }}
-          onCloseClick={handleInfoWindowClose}
-          options={getInfoWindowOptions(selectedHotel)}
+    <div className="w-full h-full relative">
+      {!isLoaded ? (
+        <div className="w-full h-full flex items-center justify-center bg-gray-100">
+          <div className="animate-spin rounded-full w-8 h-8 border-b-2 border-gray-900" />
+        </div>
+      ) : (
+        <GoogleMap
+          zoom={13}
+          center={isInitialLoad ? center : undefined}
+          mapContainerClassName="w-full h-full"
+          options={mapOptions}
+          onLoad={onMapLoad}
         >
-          <div 
-            className={`${helvetica.className}`}
-            style={{ 
-              background: 'transparent',
-              padding: 0,
-              margin: 0,
-            }}
-          >
-            <style>
-            {`
-              .gm-style-iw-d { 
-                background: transparent !important; 
-                padding: 0 !important;
-                overflow: hidden !important;
-              }
-              .gm-style-iw-c {
-                background: transparent !important;
-                padding: 0 !important;
-                box-shadow: none !important;
-                max-width: none !important;
-              }
-              .gm-style-iw {
-                background: transparent !important;
-                padding: 0 !important;
-              }
-              .gm-style-iw button.gm-ui-hover-effect {
-                display: none !important;
-              }
-              .gm-style .gm-style-iw-tc {
-                display: none !important;
-              }
-              .gm-style .gm-style-iw-t::after {
-                display: none !important;
-              }
-            `}
-            </style>
-            <MapCard 
-              {...selectedHotel} 
-              onClose={handleInfoWindowClose}
-            />
-          </div>
-        </InfoWindow>
+          {markers}
+          {selectedHotel && (
+            <InfoWindow
+              position={{
+                lat: selectedHotel.location.coordinates.latitude,
+                lng: selectedHotel.location.coordinates.longitude,
+              }}
+              onCloseClick={handleInfoWindowClose}
+              options={getInfoWindowOptions(selectedHotel)}
+            >
+              <div 
+                className={`${helvetica.className}`}
+                style={{ 
+                  background: 'transparent',
+                  padding: 0,
+                  margin: 0,
+                }}
+              >
+                <style>
+                {`
+                  .gm-style-iw-d { 
+                    background: transparent !important; 
+                    padding: 0 !important;
+                    overflow: hidden !important;
+                  }
+                  .gm-style-iw-c {
+                    background: transparent !important;
+                    padding: 0 !important;
+                    box-shadow: none !important;
+                    max-width: none !important;
+                  }
+                  .gm-style-iw {
+                    background: transparent !important;
+                    padding: 0 !important;
+                  }
+                  .gm-style-iw button.gm-ui-hover-effect {
+                    display: none !important;
+                  }
+                  .gm-style .gm-style-iw-tc {
+                    display: none !important;
+                  }
+                  .gm-style .gm-style-iw-t::after {
+                    display: none !important;
+                  }
+                `}
+                </style>
+                <MapCard 
+                  {...selectedHotel} 
+                  onClose={handleInfoWindowClose}
+                />
+              </div>
+            </InfoWindow>
+          )}
+        </GoogleMap>
       )}
-    </GoogleMap>
+    </div>
   );
 };
 

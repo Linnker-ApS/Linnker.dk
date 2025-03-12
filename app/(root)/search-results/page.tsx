@@ -101,7 +101,7 @@ const SearchResults = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Sticky Header for Desktop */}
+      {/* Sticky Header */}
       <div className="sticky top-0 z-50">
         <div className="hidden md:block">
           <MainHeader isSticky={true} />
@@ -156,19 +156,29 @@ const SearchResults = () => {
 
         {/* Right side - Map */}
         {showMap && (
-          <div className={`${isMobile ? 'fixed inset-0 z-50' : 'w-[45%] sticky top-[84px]'} h-[calc(100vh-82px)]`}>
-            {isMobile && (
-              <button 
-                className="absolute top-4 right-4 z-10 bg-white p-2 rounded-full shadow-md"
-                onClick={() => setShowMap(false)}
-              >
-                <XIcon size={24} />
-              </button>
-            )}
-            <HotelMap 
-              hotels={hotels}
-              destination={destination}
-            />
+          <div className={`${
+            isMobile 
+              ? 'fixed inset-0 z-40' 
+              : 'w-[45%]'
+          }`}>
+            <div className={`${
+              isMobile 
+                ? 'h-screen' 
+                : 'sticky top-[84px] h-[calc(100vh-84px)]'
+            }`}>
+              {isMobile && (
+                <button 
+                  className="absolute top-4 right-4 z-10 bg-white p-2 rounded-full shadow-md"
+                  onClick={() => setShowMap(false)}
+                >
+                  <XIcon size={24} />
+                </button>
+              )}
+              <HotelMap 
+                hotels={hotels}
+                destination={destination}
+              />
+            </div>
           </div>
         )}
       </div>

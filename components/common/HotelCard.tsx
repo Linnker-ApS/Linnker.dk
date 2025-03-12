@@ -45,20 +45,20 @@ const HotelCard = ({
 
   const sizes = {
     sm: {
-      container: 'w-[200px]',
-      image: 'h-[200px]'
+      container: 'w-[180px] xs:w-[200px] sm:w-[220px]',
+      image: 'h-[180px] xs:h-[200px] sm:h-[220px]'
     },
     md: {
-      container: 'w-[270px]',
-      image: 'h-[270px]'
+      container: 'w-[240px] sm:w-[260px] md:w-[280px] lg:w-[300px]',
+      image: 'h-[240px] sm:h-[260px] md:h-[280px] lg:h-[300px]'
     },
     lg: {
-      container: 'w-[300px]',
-      image: 'h-[300px]'
+      container: 'w-[280px] sm:w-[300px] md:w-[320px] lg:w-[340px]',
+      image: 'h-[280px] sm:h-[300px] md:h-[320px] lg:h-[340px]'
     },
     full: {
       container: 'w-full',
-      image: 'h-[200px]'
+      image: 'h-[200px] sm:h-[220px] md:h-[240px] lg:h-[260px]'
     }
   };
 
@@ -72,13 +72,15 @@ const HotelCard = ({
     <div 
       onClick={handleClick}
       className={cn(
-        "group cursor-pointer rounded-lg overflow-hidden flex flex-col"
-        
+        "group cursor-pointer rounded-lg overflow-hidden flex flex-col",
+        sizes[size].container,
+        variants[variant],
+        className
       )}
     >
-      {/* Image Container - Fixed Aspect Ratio */}
+      {/* Image Container */}
       <div className={cn(
-        "relative w-full aspect-square overflow-hidden mb-2",
+        "relative w-full overflow-hidden mb-2",
         sizes[size].image,
         imageClassName
       )}>
@@ -86,30 +88,30 @@ const HotelCard = ({
           src={imageUrl}
           alt={name}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="(max-width: 360px) 180px,
+                 (max-width: 480px) 220px,
+                 (max-width: 768px) 280px,
+                 (max-width: 1024px) 300px,
+                 340px"
           className="object-cover transition-transform duration-300 group-hover:scale-110"
         />
       </div>
 
-      {/* Content Container - Flexible Height */}
-      <div className="flex-grow flex flex-col justify-between">
-        {/* Hotel Name - Truncate after 2 lines */}
+      {/* Content Container */}
+      <div className="flex-grow flex flex-col justify-between p-0">
         <div>
-          <h3 className="font-semibold text-md text-gray-900 line-clamp-1">
+          <h3 className="font-semibold text-sm sm:text-md text-gray-900 line-clamp-1">
             {name.toUpperCase()}
           </h3>
 
-          {/* Location - Truncate after 1 line */}
-          <div className="text-sm text-gray-500 truncate">
+          <div className="text-xs sm:text-sm text-gray-500 truncate">
             {location.city} · {location.country}
           </div>
         </div>
 
-        {/* Price and Rating Container */}
         <div className="flex justify-between items-center">
-          {/* Price */}
           <div className="flex items-baseline gap-1">
-            <span className="font-semibold text-sm whitespace-nowrap">
+            <span className="font-semibold text-xs sm:text-sm whitespace-nowrap">
               from {price.currency} {price.amount}
             </span>
             <span className="text-xs text-gray-500">
@@ -117,11 +119,10 @@ const HotelCard = ({
             </span>
           </div>
 
-          {/* Rating */}
           {rating && (
-            <div className="flex items-center gap-1 shrink-0 mt-1">
+            <div className="flex items-center gap-1 shrink-0">
               <Star className="h-3 w-3 text-black fill-black" />
-              <span className="text-sm font-medium">{rating.toFixed(1)}</span>
+              <span className="text-xs sm:text-sm font-medium">{rating.toFixed(1)}</span>
             </div>
           )}
         </div>
