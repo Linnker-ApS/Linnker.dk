@@ -110,7 +110,7 @@ const HotelProfile = () => {
     <div className="min-h-screen flex flex-col">
       <div className="hidden md:block">
         <MainHeader 
-          isSticky={false}
+          isSticky={true}
         />
       </div>
 

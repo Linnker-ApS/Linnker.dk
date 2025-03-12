@@ -158,7 +158,7 @@ const SearchResults = () => {
         {showMap && (
           <div className={`${
             isMobile 
-              ? 'fixed inset-0 z-40' 
+              ? 'fixed inset-0 z-[999]'
               : 'w-[45%]'
           }`}>
             <div className={`${
@@ -168,7 +168,7 @@ const SearchResults = () => {
             }`}>
               {isMobile && (
                 <button 
-                  className="absolute top-4 right-4 z-10 bg-white p-2 rounded-full shadow-md"
+                  className="absolute top-4 right-4 z-[1000] bg-white p-2 rounded-full shadow-md"
                   onClick={() => setShowMap(false)}
                 >
                   <XIcon size={24} />

@@ -116,7 +116,7 @@ const MobileSearchbar = () => {
   };
 
   return (
-    <div className="flex flex-col gap-3 p-4 bg-white rounded-lg shadow-sm md:hidden">
+    <div className="flex flex-col gap-3 p-4 bg-white rounded-lg shadow-sm md:hidden z-40">
       {(pathname !== '/' && (destination || dateRange?.from)) ? (
         <div className="flex items-center gap-3 w-full">
           <button 
@@ -156,7 +156,7 @@ const MobileSearchbar = () => {
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
         <SheetContent 
           side="bottom" 
-          className="h-auto h-[90vh] w-full p-0 rounded-t-xl"
+          className="h-auto h-[90vh] w-full p-0 rounded-t-xl z-50"
           style={{ 
             position: 'fixed',
             bottom: 0,

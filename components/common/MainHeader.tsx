@@ -21,7 +21,7 @@ const MainHeader = ({ isSticky = false }: MainHeaderProps) => {
           <div className="w-[120px] shrink-0"></div>
           <div className="flex-1 max-w-3xl mx-auto px-4 relative">
             <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[140px]">
-              <Logo variant="blackYellow" width={120} height={40} />
+              <Logo variant="blackYellow" size="sm" />
             </div>
             <Searchbar showInitialSuggestions={false} disableAutocomplete={false} />
           </div>

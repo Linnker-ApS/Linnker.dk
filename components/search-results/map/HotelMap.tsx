@@ -27,7 +27,7 @@ const HotelMap = ({ hotels, destination, center = { lat: 55.676098, lng: 12.5683
     disableDefaultUI: true,
     zoomControl: true,
     scrollwheel: true,
-    fullscreenControl: true,
+    fullscreenControl: false,
     clickableIcons: false,
     disableDoubleClickZoom: true,
   }), []);
@@ -174,7 +174,7 @@ const HotelMap = ({ hotels, destination, center = { lat: 55.676098, lng: 12.5683
     )), [filteredHotels, handleMarkerClick, selectedHotel]);
 
   return (
-    <div className="w-full h-full relative">
+    <div className="w-full h-full relative z-[60]">
       {!isLoaded ? (
         <div className="w-full h-full flex items-center justify-center bg-gray-100">
           <div className="animate-spin rounded-full w-8 h-8 border-b-2 border-gray-900" />
