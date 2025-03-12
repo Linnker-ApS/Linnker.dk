@@ -24,16 +24,38 @@ const Hero: FC = () => {
             <div className="absolute -top-2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               <Logo 
                 variant="whiteYellow"
-                width={270}
-                height={100}
-                className="mx-auto"
+                size="xl"
               />
             </div>
             <div className="space-y-4 py-10">
-              <h1 className="text-5xl md:text-7xl translate-y-10 font-bold text-white drop-shadow-xl">
+              <h1 className="
+                font-bold text-white drop-shadow-xl translate-y-10
+                /* Mobile */
+                text-3xl
+                /* xs (360px) */
+                xs:text-4xl
+                /* sm (480px) */
+                sm:text-5xl
+                /* md (768px) */
+                md:text-6xl
+                /* lg (1024px) */
+                lg:text-7xl"
+              >
                 Direct Booking. Real benefits.
               </h1>
-              <p className="text-lg md:text-xl translate-y-8 font-bold text-yellow-500">
+              <p className="
+                font-bold text-yellow-500 translate-y-8
+                /* Mobile */
+                text-sm
+                /* xs (360px) */
+                xs:text-base
+                /* sm (480px) */
+                sm:text-lg
+                /* md (768px) */
+                md:text-xl
+                /* lg (1024px) */
+                lg:text-2xl"
+              >
                 Direct prices, better service, flexible terms.
               </p>
             </div>
