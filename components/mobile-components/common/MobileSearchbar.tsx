@@ -118,31 +118,33 @@ const MobileSearchbar = () => {
   return (
     <div className="flex flex-col gap-3 p-4 bg-white rounded-lg shadow-sm md:hidden z-40">
       {(pathname !== '/' && (destination || dateRange?.from)) ? (
-        <div className="flex items-center gap-3 w-full">
+        <div className="flex items-center w-full relative">
           <button 
             onClick={handleBackNavigation}
-            className="p-2 hover:bg-gray-100 rounded-full"
+            className="p-2 hover:bg-gray-100 rounded-full absolute left-0 z-10"
           >
             <ArrowLeft className="w-5 h-5 text-gray-500" />
           </button>
-          <CustomButton 
-            className="bg-white text-black flex items-center gap-3 p-3 border flex-1"
-            onClick={() => {
-              setIsSheetOpen(true);
-              setExpandedSection(null);
-            }}
-          >
-            <div className="flex items-center gap-2 text-sm">
-              <span className="font-medium">{destination || 'Any destination'}</span>
-              <span className="text-black font-thin">|</span>
-              <span className="text-black font-medium">{formatDateRange()}</span>
-            </div>
-          </CustomButton>
+          <div className="w-full flex justify-center">
+            <CustomButton 
+              className="bg-white text-black flex items-center gap-3 p-3 px-10 border max-w-[80%]"
+              onClick={() => {
+                setIsSheetOpen(true);
+                setExpandedSection(null);
+              }}
+            >
+              <div className="flex items-center gap-2 text-sm">
+                <span className="font-medium">{destination || 'Any destination'}</span>
+                <span className="text-black font-thin">|</span>
+                <span className="text-black font-medium">{formatDateRange()}</span>
+              </div>
+            </CustomButton>
+          </div>
         </div>
       ) : (
         // Show default button when no data
         <CustomButton 
-          className="bg-[#FFB700] text-black flex items-center gap-3 p-3 border rounded-lg w-full"
+          variant="secondary"
           onClick={() => {
             setIsSheetOpen(true);
             setExpandedSection(null);

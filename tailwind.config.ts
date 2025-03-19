@@ -79,10 +79,10 @@ export default {
   			},
   			screens: {
   				'sm': '480px',
-  			'md': '768px',
-  			'lg': '1230px',
-  			'xl': '1920px',
-			'2xl': '2560px',
+  				'md': '768px',
+  				'lg': '1230px',
+  				'xl': '1920px',
+				'2xl': '2560px',
   			},
   		},
   	}
