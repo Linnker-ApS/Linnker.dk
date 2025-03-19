@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, useSearchParams } from "next/navigation";
-import MainHeader from "@/components/common/MainHeader";
+import MainHeader from "@/components/common/PageSearchbar";
 import Footer from "@/components/common/Footer";
 import HotelGallery from "@/components/hotel-page/HotelGallery";
 import { hotels } from "@/data/hotels";

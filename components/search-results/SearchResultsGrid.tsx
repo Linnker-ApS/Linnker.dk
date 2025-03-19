@@ -13,15 +13,6 @@ interface SearchResultsGridProps {
   endDate?: Date;
 }
 
-// Match these values to your tailwind.config.ts
-const BREAKPOINTS = {
-  sm: 640,
-  md: 768,
-  lg: 1024,
-  xl: 1280, // This matches your custom xl breakpoint
-  '2xl': 1536 // This matches your custom 2xl breakpoint
-};
-
 const HOTELS_PER_PAGE = 18;
 
 const SearchResultsGrid = ({ hotels, destination, startDate, endDate }: SearchResultsGridProps) => {
@@ -62,7 +53,7 @@ const SearchResultsGrid = ({ hotels, destination, startDate, endDate }: SearchRe
   };
 
   return (
-    <div className="flex flex-col space-y-6">
+    <div className="flex flex-col space-y-6 max-w-[1184px] mx-auto w-full">
       {/* Results count */}
       <div className="text-gray-600">
         Found {filteredHotels.length} hotels
@@ -70,27 +61,30 @@ const SearchResultsGrid = ({ hotels, destination, startDate, endDate }: SearchRe
         {startDate && endDate && ` for selected dates`}
       </div>
 
-      {/* Grid of hotel cards - Using custom breakpoints */}
-      <div className="grid grid-cols-1 gap-6 pr-6
-        md:grid-cols-2 
-        lg:grid-cols-2 
-        xl:grid-cols-2
-        2xl:grid-cols-3">
-        {displayedHotels.map((hotel, index) => (
-          <div 
-            key={index}
-            onClick={() => handleHotelClick(hotel.id)}
-            className="cursor-pointer"
-          >
-            <HotelCard 
-              {...hotel}
-              size="full"
-              variant="featured"
-              className="w-full max-w-none"
-              imageClassName="aspect-[4/3]"
-            />
-          </div>
-        ))}
+      {/* Grid of hotel cards - Using standardized breakpoints */}
+      <div className="w-full">
+        <div className="grid grid-cols-1 gap-6 px-4
+          sm:grid-cols-1
+          md:grid-cols-2 
+          lg:grid-cols-3
+          xl:grid-cols-3
+          2xl:grid-cols-3">
+          {displayedHotels.map((hotel, index) => (
+            <div 
+              key={index}
+              onClick={() => handleHotelClick(hotel.id)}
+              className="cursor-pointer"
+            >
+              <HotelCard 
+                {...hotel}
+                size="full"
+                variant="featured"
+                className="w-full max-w-none"
+                imageClassName="aspect-[4/3]"
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Pagination */}

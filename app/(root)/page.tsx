@@ -6,7 +6,7 @@ import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 //Components
 import Hero from "@/components/homepage/Hero";
 import Searchbar from "@/components/common/Searchbar";
-import MainHeader from "@/components/common/MainHeader";
+import MainHeader from "@/components/common/PageSearchbar";
 import Footer from "@/components/common/Footer";
 
 // Lazy load section components
