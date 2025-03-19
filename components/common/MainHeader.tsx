@@ -17,15 +17,13 @@ const MainHeader = ({ isSticky = false }: MainHeaderProps) => {
   return (
     <header className={headerClasses}>
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between">
-          <div className="w-[120px] shrink-0"></div>
-          <div className="flex-1 max-w-3xl mx-auto px-4 relative">
+        <div className="flex items-center justify-center relative">
+          <div className="flex-1 max-w-3xl relative">
             <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[140px]">
-              <Logo variant="blackYellow" size="sm" />
+              <Logo variant="blackYellow" size="xs" />
             </div>
             <Searchbar showInitialSuggestions={false} disableAutocomplete={false} />
           </div>
-          <div className="w-[120px] shrink-0"></div>
         </div>
       </div>
     </header>
