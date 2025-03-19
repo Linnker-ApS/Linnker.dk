@@ -116,7 +116,7 @@ const MobileSearchbar = () => {
   };
 
   return (
-    <div className="flex flex-col gap-3 p-4 bg-transparent border-t border-gray-200 rounded-lg md:hidden z-40">
+    <div className="flex flex-col gap-3 p-4 bg-transparent border-t border-gray-200 rounded-lg lg:hidden z-40">
       {(pathname !== '/' && (destination || dateRange?.from)) ? (
         <div className="flex items-center w-full relative">
           <button 
@@ -142,13 +142,13 @@ const MobileSearchbar = () => {
           </div>
         </div>
       ) : (
-        // Show default button when no data
         <CustomButton 
           variant="secondary"
           onClick={() => {
             setIsSheetOpen(true);
             setExpandedSection(null);
           }}
+          className="lg:hidden"
         >
           <Search className="w-5 h-5 text-black" />
           <span className="text-black">Start your search</span>

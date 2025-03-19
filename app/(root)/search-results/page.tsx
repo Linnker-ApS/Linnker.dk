@@ -103,10 +103,11 @@ const SearchResults = () => {
     <div className="flex flex-col min-h-screen">
       {/* Sticky Header */}
       <div className="sticky top-0 z-50">
-        <div className="hidden md:block">
-          <MainHeader isSticky={true} />
-        </div>
-        <div className="md:hidden">
+        {/* Desktop searchbar - visible from lg and up */}
+        <MainHeader isSticky={true} />
+        
+        {/* Mobile searchbar - visible up to lg */}
+        <div className="lg:hidden">
           <MobileSearchbar />
         </div>
       </div>
