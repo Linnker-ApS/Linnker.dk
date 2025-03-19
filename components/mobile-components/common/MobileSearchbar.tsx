@@ -116,12 +116,12 @@ const MobileSearchbar = () => {
   };
 
   return (
-    <div className="flex flex-col gap-3 p-4 bg-white rounded-lg shadow-sm md:hidden z-40">
+    <div className="flex flex-col gap-3 p-4 bg-transparent border-t border-gray-200 rounded-lg md:hidden z-40">
       {(pathname !== '/' && (destination || dateRange?.from)) ? (
         <div className="flex items-center w-full relative">
           <button 
             onClick={handleBackNavigation}
-            className="p-2 hover:bg-gray-100 rounded-full absolute left-0 z-10"
+            className="p-2 hover:bg-gray-100 bg-white rounded-full outline outline-1 outline-gray-200 absolute left-0 z-10"
           >
             <ArrowLeft className="w-5 h-5 text-gray-500" />
           </button>
