@@ -114,7 +114,7 @@ const SearchResults = () => {
       {/* Main Content */}
       <div className="flex flex-1 w-full">
         {/* Left side - Hotel listings */}
-        <div className={`${showMap && !isMobile ? 'w-[55%] xl:w-auto xl:flex-1' : 'w-full'} px-4 pt-4 transition-all duration-300 max-w-[1184px] mx-auto`}>
+        <div className={`${showMap && !isMobile ? 'w-[65%] xl:w-auto xl:flex-1' : 'w-full'} px-4 pt-4 transition-all duration-300 max-w-[1184px] mx-auto`}>
           {/* Amenities Filters */}
           <AmenitiesFilter 
             filters={AMENITIES}
@@ -124,7 +124,7 @@ const SearchResults = () => {
           />
 
           <div className="flex justify-between items-center mb-4 max-w-[1184px] mx-auto">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">Search Results</h1>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold px-4">Search Results</h1>
             <button 
               className="flex items-center gap-2 text-sm bg-white px-3 py-2 rounded-full shadow-md lg:hidden"
               onClick={toggleMap}
@@ -159,7 +159,7 @@ const SearchResults = () => {
           <div className={`${
             isMobile 
               ? 'fixed inset-0 z-[999]'
-              : 'w-[45%] xl:flex-1'
+              : 'w-[35%] xl:flex-1'
           }`}>
             <div className={`${
               isMobile 

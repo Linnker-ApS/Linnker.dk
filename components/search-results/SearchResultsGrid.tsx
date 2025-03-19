@@ -55,7 +55,7 @@ const SearchResultsGrid = ({ hotels, destination, startDate, endDate }: SearchRe
   return (
     <div className="flex flex-col space-y-6 max-w-[1184px] mx-auto w-full">
       {/* Results count */}
-      <div className="text-gray-600">
+      <div className="text-gray-600 px-4">
         Found {filteredHotels.length} hotels
         {destination && ` in ${destination}`}
         {startDate && endDate && ` for selected dates`}

@@ -101,7 +101,7 @@ const HotelCard = ({
       {/* Content Container */}
       <div className="flex-grow flex flex-col justify-between p-0">
         <div>
-          <h3 className="font-semibold text-sm sm:text-lg text-gray-900 line-clamp-1">
+          <h3 className="font-semibold text-sm text-gray-900 line-clamp-1 sm:text-base md:text-lg">
             {name.toUpperCase()}
           </h3>
 
@@ -112,7 +112,7 @@ const HotelCard = ({
 
         <div className="flex justify-between items-center">
           <div className="flex items-baseline gap-1">
-            <span className="font-semibold text-sm sm:text-base whitespace-nowrap">
+            <span className="font-semibold text-sm sm:text-sm whitespace-nowrap">
               from {price.currency} {price.amount}
             </span>
             <span className="text-xs text-gray-500">
