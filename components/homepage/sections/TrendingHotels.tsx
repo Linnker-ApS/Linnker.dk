@@ -49,7 +49,7 @@ const TrendingHotels = () => {
     <section className="py-12">
       <div className="container">
         <h2 className="text-4xl font-bold mb-8 text-center">TRENDING NOW</h2>
-        
+        <div className="max-w-[1184px] mx-auto">
         {isLoading ? (
           <div className="
             grid grid-cols-1 gap-y-6 place-items-center
@@ -84,7 +84,8 @@ const TrendingHotels = () => {
               {isAllHotelsVisible ? 'No more hotels' : 'Load more'}
             </Button>
           </div>
-        )}
+          )}
+        </div>
       </div>
     </section>
   );

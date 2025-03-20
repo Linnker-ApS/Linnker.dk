@@ -13,17 +13,13 @@ import { MobileButton } from "../ui/MobileButton";
 import { CustomButton } from "@/components/ui/CustomButton";
 import { hotels } from "@/data/hotels";
 import { usePathname, useRouter } from "next/navigation";
-import { useSearchStore } from '@/store/useSearchStore';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { setDestination, setDateRange, setGuests, getDateRangeWithDateObjects } from '@/store/slices/searchSlice';
 
 const MobileSearchbar = () => {
-  const { 
-    destination, 
-    dateRange, 
-    guests,
-    setDestination,
-    setDateRange,
-    setGuests 
-  } = useSearchStore();
+  const { destination, dateRange: serializedDateRange, guests } = useAppSelector(state => state.search);
+  const dateRange = getDateRangeWithDateObjects(serializedDateRange);
+  const dispatch = useAppDispatch();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [expandedSection, setExpandedSection] = useState<'destination' | 'dates' | 'guests' | null>(null);
   const [suggestions, setSuggestions] = useState<string[]>([]);
@@ -73,7 +69,7 @@ const MobileSearchbar = () => {
   };
 
   const handleDestinationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDestination(e.target.value);
+    dispatch(setDestination(e.target.value));
 
     // Filter destinations based on input
     const filteredSuggestions = DESTINATIONS.filter(dest => 
@@ -84,21 +80,16 @@ const MobileSearchbar = () => {
   };
 
   const handleDateChange = (range: DateRange | undefined) => {
-    setDateRange(range);
+    dispatch(setDateRange(range));
   };
 
   const handleGuestChange = (type: keyof typeof guests, action: 'add' | 'subtract') => {
-    setGuests(type, action);
+    dispatch(setGuests({ type, action }));
   };
 
   const handleSuggestionClick = (selectedDestination: string) => {
-    // Update destination input with selected suggestion
-    const event = {
-      target: { value: selectedDestination }
-    } as React.ChangeEvent<HTMLInputElement>;
-    
     // Update destination
-    setDestination(selectedDestination);
+    dispatch(setDestination(selectedDestination));
 
     // Clear suggestions
     setSuggestions([]);

@@ -67,7 +67,7 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		fontFamily: {
-  			helvetica: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+  			helvetica: ["var(--font-helvetica)", "sans-serif"],
   		},
   		container: {
   			center: true,
@@ -77,13 +77,7 @@ export default {
   				lg: '4rem',
   				xl: '5rem',
   			},
-  			screens: {
-  				'sm': '480px',
-  				'md': '768px',
-  				'lg': '1230px',
-  				'xl': '1920px',
-				'2xl': '2560px',
-  			},
+  			
   		},
   	}
   },
