@@ -11,6 +11,8 @@ interface SearchResultsGridProps {
   destination?: string;
   startDate?: Date;
   endDate?: Date;
+  currentPage: number;
+  onPageChange: (page: number, displayedHotels: any[]) => void;
 }
 
 const HOTELS_PER_PAGE = 18;

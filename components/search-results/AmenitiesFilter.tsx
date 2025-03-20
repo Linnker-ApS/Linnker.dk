@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils";
 
 interface AmenitiesFilterProps {
   filters: string[];
-  selectedFilters?: string[];
-  onChange?: (filter: string) => void;
+  selectedFilters: string[];
+  onChange: (filters: string[]) => void;
   className?: string;
 }
 
@@ -20,7 +20,12 @@ const AmenitiesFilter = ({
       {filters.map((filter) => (
         <button
           key={filter}
-          onClick={() => onChange?.(filter)}
+          onClick={() => {
+            const newFilters = selectedFilters.includes(filter)
+              ? selectedFilters.filter(f => f !== filter)
+              : [...selectedFilters, filter];
+            onChange?.(newFilters);
+          }}
           className={cn(
             "px-4 py-2 border rounded-full text-sm whitespace-nowrap transition-colors",
             "hover:bg-black hover:text-white",

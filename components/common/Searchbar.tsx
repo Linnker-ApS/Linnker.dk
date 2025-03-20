@@ -10,7 +10,8 @@ import { cn } from "@/lib/utils";
 import { hotels } from "@/data/hotels";
 import { useRouter } from "next/navigation";
 import MobileSearchbar from "../mobile-components/common/MobileSearchbar";
-import { useSearchStore } from '@/store/useSearchStore';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { setDestination, setDateRange, setGuests, getDateRangeWithDateObjects } from '@/store/slices/searchSlice';
 import { DateRange } from "react-day-picker";
 
 // Searchbar component
@@ -20,26 +21,29 @@ interface SearchbarProps {
 }
 
 const Searchbar = ({ 
-  showInitialSuggestions = false,
-  disableAutocomplete = false
+  showInitialSuggestions = true,
+  disableAutocomplete = true
 }: SearchbarProps) => {
   const router = useRouter();
-  const { 
-    destination, 
-    dateRange, 
-    guests,
-    setDestination,
-    setDateRange,
-    setGuests 
-  } = useSearchStore();
+  const dispatch = useAppDispatch();
+  
+  // Get state from Redux
+  const { destination, dateRange: serializedDateRange, guests } = useAppSelector(state => state.search);
+  
+  // Convert serialized date range to Date objects only once during render
+  const dateRange = useMemo(() => 
+    getDateRangeWithDateObjects(serializedDateRange), 
+    [serializedDateRange]
+  );
 
+  // Local UI state
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isDateOpen, setIsDateOpen] = useState(false);
   const [isGuestOpen, setIsGuestOpen] = useState(false);
   const [isDestinationFocused, setIsDestinationFocused] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Get unique locations from hotels data
+  
+  // Memoize locations to prevent recalculation
   const locations = useMemo(() => {
     const uniqueLocations = new Set(
       hotels.map(hotel => `${hotel.location.city}, ${hotel.location.country}`)
@@ -47,7 +51,7 @@ const Searchbar = ({
     return Array.from(uniqueLocations);
   }, []);
 
-  // Filter locations based on input or show first 4 if enabled
+  // Memoize filtered locations
   const filteredLocations = useMemo(() => {
     if (disableAutocomplete || !showSuggestions) return [];
     
@@ -62,21 +66,22 @@ const Searchbar = ({
       .slice(0, 4);
   }, [locations, destination, showSuggestions, showInitialSuggestions, disableAutocomplete]);
 
-  const handleLocationSelect = (location: string) => {
+  // Handlers with memoization to prevent recreation on each render
+  const handleLocationSelect = React.useCallback((location: string) => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-    setDestination(location);
+    dispatch(setDestination(location));
     setShowSuggestions(false);
     setIsDestinationFocused(false);
-  };
+  }, [dispatch]);
 
-  const handleDestinationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDestination(e.target.value);
+  const handleDestinationChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setDestination(e.target.value));
     setShowSuggestions(true);
-  };
+  }, [dispatch]);
 
-  const handleSearch = () => {
+  const handleSearch = React.useCallback(() => {
     if (!dateRange?.from || !dateRange?.to) {
       alert("Please select check-in and check-out dates");
       return;
@@ -98,12 +103,25 @@ const Searchbar = ({
     });
 
     router.push(`/search-results?${params.toString()}`);
-  };
+  }, [dateRange, destination, guests, router]);
 
-  const updateGuestCount = (type: keyof typeof guests, action: 'add' | 'subtract') => {
-    setGuests(type, action);
-  };
+  const handleDateChange = React.useCallback((range: DateRange | undefined) => {
+    // Create a deep comparison to prevent unnecessary updates
+    const currentFrom = dateRange?.from?.toISOString();
+    const currentTo = dateRange?.to?.toISOString();
+    const newFrom = range?.from?.toISOString();
+    const newTo = range?.to?.toISOString();
+    
+    if (currentFrom !== newFrom || currentTo !== newTo) {
+      dispatch(setDateRange(range));
+    }
+  }, [dateRange, dispatch]);
 
+  const handleGuestChange = React.useCallback((type: keyof typeof guests, action: 'add' | 'subtract') => {
+    dispatch(setGuests({ type, action }));
+  }, [dispatch, guests]);
+
+  // Cleanup timeout on unmount
   useEffect(() => {
     return () => {
       if (timeoutRef.current) {
@@ -112,6 +130,7 @@ const Searchbar = ({
     };
   }, []);
 
+  // Compute this value once per render
   const shouldShowSuggestions = !disableAutocomplete && 
     isDestinationFocused && 
     showSuggestions;
@@ -123,7 +142,7 @@ const Searchbar = ({
         <MobileSearchbar />
       </div>
 
-      {/* Desktop View - Unchanged */}
+      {/* Desktop View */}
       <div className="hidden md:flex bg-white rounded-full shadow-lg p-2 gap-2 relative">
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -170,7 +189,12 @@ const Searchbar = ({
         </div>
 
         {/* Date Range Selector */}
-        <Popover open={isDateOpen} onOpenChange={setIsDateOpen}>
+        <Popover 
+          open={isDateOpen} 
+          onOpenChange={(open) => {
+            setIsDateOpen(open);
+          }}
+        >
           <PopoverTrigger asChild>
             <CustomButton
               variant="white"
@@ -200,7 +224,7 @@ const Searchbar = ({
               mode="range"
               defaultMonth={dateRange?.from}
               selected={dateRange}
-              onSelect={setDateRange}
+              onSelect={handleDateChange}
               numberOfMonths={2}
               disabled={{ before: new Date() }}
               className="rounded-md border"
@@ -237,7 +261,7 @@ const Searchbar = ({
                     <CustomButton
                       variant="white"
                       size="icon"
-                      onClick={() => updateGuestCount(type as keyof typeof guests, 'subtract')}
+                      onClick={() => handleGuestChange(type as keyof typeof guests, 'subtract')}
                       disabled={guests[type as keyof typeof guests] <= (type === 'adults' ? 1 : 0)}
                     >
                       -
@@ -246,7 +270,7 @@ const Searchbar = ({
                     <CustomButton
                       variant="white"
                       size="icon"
-                      onClick={() => updateGuestCount(type as keyof typeof guests, 'add')}
+                      onClick={() => handleGuestChange(type as keyof typeof guests, 'add')}
                       disabled={type === 'rooms' && guests.rooms >= 10}
                     >
                       +
@@ -273,7 +297,7 @@ const Searchbar = ({
   );
 };
 
-export default Searchbar;
+export default React.memo(Searchbar);
 
 // Extract date management logic
 export const useDateRange = (initialDates?: DateRange) => {
