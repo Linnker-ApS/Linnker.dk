@@ -15,14 +15,12 @@ export async function GET(request: Request) {
   
   console.log(destination)
   if (destination) {
-    filteredHotels = filteredHotels.filter(hotel => {
-      console.log(destination, 'destination')
-      console.log(hotel.location.city, 'HOTEL LOCATCON')
-      console.log( hotel.location.city.toLowerCase().includes(destination.toLowerCase()) ||
-      hotel.location.country.toLowerCase().includes(destination.toLowerCase()), 'IS EQUAL?')
-
-      return destination.toLowerCase().includes(hotel.location.city.toLowerCase()) ||
-      destination.toLowerCase().includes(hotel.location.country.toLowerCase())
+    filteredHotels = filteredHotels.filter(hotel => {if (destination) {
+      const searchLocation = destination.toLowerCase();
+      const hotelLocation = `${hotel.location.city}, ${hotel.location.country}`.toLowerCase();
+      return hotelLocation.includes(searchLocation);
+    }
+    return true;
     });
 
 
