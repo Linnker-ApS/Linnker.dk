@@ -7,7 +7,7 @@ import { MapIcon, XIcon } from "lucide-react";
 import HotelMap from "@/components/search-results/map/HotelMap";
 import AmenitiesFilter from "@/components/search-results/AmenitiesFilter";
 import Footer from "@/components/common/Footer";
-import MainHeader from "@/components/common/PageSearchbar";
+import PageSearchbar from "@/components/common/PageSearchbar";
 import MobileSearchbar from "@/components/mobile-components/common/MobileSearchbar";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setDestination, setDateRange, setGuests } from "@/store/slices/searchSlice";
@@ -116,7 +116,7 @@ const SearchResults = () => {
       {/* Sticky Header */}
       <div className="sticky top-0 z-50">
         {/* Desktop searchbar - visible from lg and up */}
-        <MainHeader isSticky={true} />
+        <PageSearchbar isSticky={true} />
         
         {/* Mobile searchbar - visible up to lg */}
         <div className="lg:hidden">

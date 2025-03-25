@@ -4,11 +4,11 @@ import Logo from "@/components/common/Logo";
 import Searchbar from "@/components/common/Searchbar";
 import { cn } from "@/lib/utils";
 
-interface MainHeaderProps {
+interface PageSearchbarProps {
   isSticky?: boolean;
 }
 
-const MainHeader = ({ isSticky = false }: MainHeaderProps) => {
+const PageSearchbar = ({ isSticky = false }: PageSearchbarProps) => {
   const headerClasses = cn(
     "z-50 shadow-md py-[1.5vh] bg-site-background hidden lg:block",
     isSticky && "sticky top-0"
@@ -30,5 +30,5 @@ const MainHeader = ({ isSticky = false }: MainHeaderProps) => {
   );
 };
 
-export default MainHeader;
+export default PageSearchbar;
 

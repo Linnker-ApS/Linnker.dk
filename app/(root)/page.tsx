@@ -6,7 +6,7 @@ import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 //Components
 import Hero from "@/components/homepage/Hero";
 import Searchbar from "@/components/common/Searchbar";
-import MainHeader from "@/components/common/PageSearchbar";
+import PageSearchbar from "@/components/common/PageSearchbar";
 import Footer from "@/components/common/Footer";
 
 // Lazy load section components
@@ -60,7 +60,7 @@ const Home = () => {
           className={`fixed top-0 left-0 right-0 transition-transform duration-300 z-50
             ${isSticky ? 'translate-y-0' : '-translate-y-full'}`}
         >
-          <MainHeader isSticky={true} />
+          <PageSearchbar isSticky={true} />
         </div>
       </div>
 

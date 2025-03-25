@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, useSearchParams } from "next/navigation";
-import MainHeader from "@/components/common/PageSearchbar";
+import PageSearchbar from "@/components/common/PageSearchbar";
 import Footer from "@/components/common/Footer";
 import HotelGallery from "@/components/hotel-page/HotelGallery";
 import { hotels } from "@/data/hotels";
@@ -109,7 +109,7 @@ const HotelProfile = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <div className="hidden md:block">
-        <MainHeader 
+        <PageSearchbar 
           isSticky={true}
         />
       </div>

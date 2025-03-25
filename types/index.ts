@@ -78,7 +78,7 @@ export interface BookingCardProps {
   initialGuests?: GuestCount;
 }
 
-export interface MainHeaderProps {
+export interface PageSearchbarProps {
   isSticky?: boolean;
   initialDestination?: string;
   initialStartDate?: Date;
