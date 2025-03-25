@@ -13,12 +13,19 @@ export const makeStore = () => {
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: {
-          // Ignore these action types
-          ignoredActions: ['search/setDateRange'],
-          // Ignore these field paths in all actions
-          ignoredActionPaths: ['payload.from', 'payload.to'],
-          // Ignore these paths in the state
-          ignoredPaths: ['search.dateRange'],
+          // Ignore RTK Query specific paths
+          ignoredActions: [
+            'search/setDateRange',
+            'api/executeQuery/fulfilled'
+          ],
+          ignoredActionPaths: [
+            'meta.baseQueryMeta.request',
+            'meta.baseQueryMeta.response'
+          ],
+          ignoredPaths: [
+            'search.dateRange',
+            `${api.reducerPath}.queries`
+          ],
         },
       }).concat(api.middleware),
   });

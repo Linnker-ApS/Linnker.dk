@@ -140,7 +140,7 @@ const SearchResults = () => {
 
       {/* Main Content */}
       {!isLoading && !error && (
-        <div className="flex flex-1 w-full">
+        <div className="flex flex-1 w-full bg-site-background">
           {/* Left side - Hotel listings */}
           <div className={`${showMap && !isMobile ? 'w-[65%] xl:w-auto xl:flex-1' : 'w-full'} px-4 pt-4 transition-all duration-300 max-w-[1184px] mx-auto`}>
             {/* Amenities Filters */}

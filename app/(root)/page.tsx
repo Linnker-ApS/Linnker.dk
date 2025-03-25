@@ -16,7 +16,7 @@ const Mission = lazy(() => import("@/components/homepage/sections/Mission"));
 
 // Loading spinner component
 const LoadingSpinner = () => (
-  <div className="flex justify-center items-center py-12">
+  <div className="flex justify-center items-center py-12 bg-site-background">
     <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#FFB700]"></div>
   </div>
 );
@@ -41,7 +41,7 @@ const Home = () => {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col">
+    <main className="flex min-h-screen flex-col bg-site-background">
       <div className="relative">
         <Hero />
         {/* Placeholder div for intersection observer */}
@@ -64,7 +64,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="mt-20">
+      <div className="mt-20 bg-site-background">
         <ErrorBoundary fallback={<div className="p-8 text-center">Something went wrong loading trending hotels.</div>}>
           <Suspense fallback={<LoadingSpinner />}>
             <TrendingHotels />
