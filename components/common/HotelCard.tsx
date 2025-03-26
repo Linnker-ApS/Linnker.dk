@@ -72,7 +72,7 @@ const HotelCard = ({
     <div 
       onClick={handleClick}
       className={cn(
-        "group cursor-pointer rounded-lg overflow-hidden flex flex-col",
+        "group cursor-pointer rounded-md overflow-hidden flex flex-col",
         sizes[size].container,
         variants[variant],
         className

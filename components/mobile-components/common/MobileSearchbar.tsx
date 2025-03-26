@@ -107,7 +107,7 @@ const MobileSearchbar = () => {
   };
 
   return (
-    <div className="flex flex-col gap-3 p-4 bg-transparent border-t border-gray-200 rounded-lg lg:hidden z-40">
+    <div className="flex flex-col gap-3  border-gray-200 rounded-lg lg:hidden z-40">
       {(pathname !== '/' && (destination || dateRange?.from)) ? (
         <div className="flex items-center w-full relative">
           <button 
@@ -135,14 +135,14 @@ const MobileSearchbar = () => {
       ) : (
         <CustomButton 
           variant="secondary"
+          className="lg:hidden h-12"
           onClick={() => {
             setIsSheetOpen(true);
             setExpandedSection(null);
           }}
-          className="lg:hidden"
         >
           <Search className="w-5 h-5 text-black" />
-          <span className="text-black">Start your search</span>
+          <span className="text-black text-lg font-bold">Start your search</span>
         </CustomButton>
       )}
 

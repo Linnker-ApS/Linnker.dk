@@ -29,12 +29,13 @@ const Hero: FC = () => {
             </div>
             <div className="space-y-4 py-10">
               <h1 className="
+              px-4
                 font-bold text-white drop-shadow-xl translate-y-10
-                text-3xl
-                xs:text-4xl
-                sm:text-5xl
-                md:text-6xl
-                lg:text-7xl"
+                text-4xl
+                lg:text-6xl
+                xl:text-7xl
+                2xl:text-8xl
+                "
               >
                 Direct Booking. Real benefits.
               </h1>
