@@ -32,6 +32,7 @@ const Hero: FC = () => {
               px-4
                 font-bold text-white drop-shadow-xl translate-y-10
                 text-4xl
+                md:text-5xl
                 lg:text-6xl
                 xl:text-7xl
                 2xl:text-8xl
@@ -41,11 +42,11 @@ const Hero: FC = () => {
               </h1>
               <p className="
                 font-bold text-yellow-500 translate-y-8
-                text-sm
-                xs:text-base
-                sm:text-lg
-                md:text-xl
-                lg:text-2xl"
+                text-lg
+                md:text-2xl
+                lg:text-2xl
+                xl:text-3xl
+                "
               >
                 Direct prices, better service, flexible terms.
               </p>

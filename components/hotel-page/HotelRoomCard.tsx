@@ -6,7 +6,7 @@ interface HotelRoomCardProps {
 
 const HotelRoomCard = ({ room }: HotelRoomCardProps) => {
   return (
-    <div className="border rounded-xl overflow-hidden h-full w-full">
+    <div className="border rounded-md bg-white overflow-hidden h-full w-full">
       <div className="grid md:grid-cols-3 gap-6 h-full">
         <div className="relative h-full min-h-[300px]">
           <img

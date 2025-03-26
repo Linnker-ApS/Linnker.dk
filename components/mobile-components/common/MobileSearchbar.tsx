@@ -107,16 +107,16 @@ const MobileSearchbar = () => {
   };
 
   return (
-    <div className="flex flex-col gap-3  border-gray-200 rounded-lg lg:hidden z-40">
+    <div className="flex flex-col gap-3  border-gray-200 rounded-lg lg:hidden bg-transparent z-40">
       {(pathname !== '/' && (destination || dateRange?.from)) ? (
-        <div className="flex items-center w-full relative">
+        <div className="flex items-center w-full relative ">
           <button 
             onClick={handleBackNavigation}
-            className="p-2 hover:bg-gray-100 bg-white rounded-full outline outline-1 outline-gray-200 absolute left-0 z-10"
+            className="ml-4 p-2 hover:bg-gray-100 bg-white rounded-full outline outline-1 outline-gray-200 absolute left-0 z-10"
           >
             <ArrowLeft className="w-5 h-5 text-gray-500" />
           </button>
-          <div className="w-full flex justify-center">
+          <div className="w-full py-4 flex bg-transparent justify-center">
             <CustomButton 
               className="bg-white text-black flex items-center gap-3 p-3 px-10 border max-w-[80%]"
               onClick={() => {
@@ -142,7 +142,7 @@ const MobileSearchbar = () => {
           }}
         >
           <Search className="w-5 h-5 text-black" />
-          <span className="text-black text-lg font-bold">Start your search</span>
+          <span className="text-black text-lg">Start your search</span>
         </CustomButton>
       )}
 

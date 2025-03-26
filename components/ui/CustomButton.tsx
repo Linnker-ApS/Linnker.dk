@@ -11,6 +11,7 @@ const buttonVariants = cva(
         primary: "bg-black hover:bg-[#FFB700] text-white hover:text-black",
         secondary: "bg-[#FFB700] text-black hover:bg-black hover:text-white",
         white: "bg-white hover:bg-gray-50 text-black border border-gray-200",
+        whiteWhite: "bg-white hover:bg-[#FFB700] text-black",
       },
       size: {
         sm: "h-8 px-3 text-xs text-base",

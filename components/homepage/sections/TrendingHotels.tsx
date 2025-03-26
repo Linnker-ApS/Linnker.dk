@@ -46,7 +46,7 @@ const TrendingHotels = () => {
   const isAllHotelsVisible = visibleHotels >= trendingHotels.length;
 
   return (
-    <section className="py-6 md:py-12 bg-site-background">
+    <section className="py-6 md:py-12 ">
       <div className="container">
         <h2 className="text-4xl font-bold mb-8 text-center">TRENDING NOW</h2>
         <div className="max-w-[1184px] mx-auto">

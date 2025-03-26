@@ -13,17 +13,17 @@ const BookingFooter = ({
   onViewOffer 
 }: BookingFooterProps) => {
   return (
-    <div className="sticky bottom-0 bg-site-background border-t  shadow-lg z-50">
+    <div className="sticky bottom-0 bg-black border-t  shadow-lg z-50">
       <div className="container mx-auto px-4 py-2 ">
         <div className="flex items-center justify-between">
           {/* Price Section */}
           <div className="flex flex-col">
-            <span className="text-sm text-gray-500">Starting at</span>
+            <span className="text-sm text-white">Starting at</span>
             <div className="flex items-baseline gap-1">
-              <span className="text-2xl font-semibold">
+              <span className="text-2xl text-white font-semibold">
                 {hotel.price.currency} {hotel.price.amount}
               </span>
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-white">
                 per {hotel.price.per}
               </span>
             </div>
@@ -31,8 +31,8 @@ const BookingFooter = ({
 
           {/* View Offer Button */}
           <CustomButton 
-            variant="secondary"
             size="lg"
+            variant="whiteWhite"
             onClick={onViewOffer}
           >
             View Offer

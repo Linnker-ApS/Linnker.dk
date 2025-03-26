@@ -62,19 +62,12 @@ const HotelCard = ({
     }
   };
 
-  const variants = {
-    default: 'bg-site-background',
-    compact: 'bg-site-background',
-    featured: 'bg-site-background'
-  };
-
   return (
     <div 
       onClick={handleClick}
       className={cn(
         "group cursor-pointer rounded-md overflow-hidden flex flex-col",
-        sizes[size].container,
-        variants[variant],
+        sizes[size].container, 
         className
       )}
     >

@@ -112,7 +112,7 @@ const SearchResults = () => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-site-background">
       {/* Sticky Header */}
       <div className="sticky top-0 z-50">
         {/* Desktop searchbar - visible from lg and up */}

@@ -88,16 +88,6 @@ const HotelProfile = () => {
     window.open(`${hotel.bookingUrl}?${params.toString()}`, '_blank');
   };
 
-  // Log the parameters to verify they exist
-  console.log('Search Params:', {
-    destination: searchParams.get('destination'),
-    startDate: searchParams.get('startDate'),
-    endDate: searchParams.get('endDate'),
-    adults: searchParams.get('adults'),
-    children: searchParams.get('children'),
-    rooms: searchParams.get('rooms')
-  });
-
   if (!hotel) {
     return <div>Hotel not found</div>;
   }
@@ -107,21 +97,21 @@ const HotelProfile = () => {
   const endDate = searchParams.get('endDate') ? new Date(searchParams.get('endDate')!) : undefined;
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <main className="flex min-h-screen flex-col bg-site-background">
       <div className="hidden md:block">
         <PageSearchbar 
           isSticky={true}
         />
       </div>
 
-      <div className="md:hidden">
+      <div className="lg:hidden">
         <MobileSearchbar />
       </div>
 
       {/* Main content wrapper */}
       <div className="flex-1 relative">
         {/* Main Content */}
-        <div className="container mx-auto px-36 py-8">
+        <div className="max-w-[1184px] mx-auto px-4 md:px-6 lg:px-8 py-8">
           {/* Hotel Gallery with Name and Photos */}
           <HotelGallery 
             images={hotel.images}
@@ -141,9 +131,9 @@ const HotelProfile = () => {
           {/* Hotel Details */}
           <div className="space-y-12">
             {/* Top Section: About, Amenities, and Booking Card */}
-            <div className="grid grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Left column */}
-              <div className="col-span-2 space-y-12">
+              <div className="lg:col-span-2 space-y-12">
                 <HotelAbout 
                   description={hotel.description}
                   highlights={hotel.highlights}
@@ -192,7 +182,7 @@ const HotelProfile = () => {
       </div>
 
       <Footer />
-    </div>
+    </main>
   );
 };
 

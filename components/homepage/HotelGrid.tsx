@@ -12,7 +12,6 @@ interface HotelGridProps {
 const HotelGrid = ({ hotels, visibleHotels, onHotelClick }: HotelGridProps) => {
   return (
     <div className="
-      bg-site-background
       grid grid-cols-1 gap-y-8 gap-4 
       md:grid-cols-2 md:px-4
       lg:grid-cols-3

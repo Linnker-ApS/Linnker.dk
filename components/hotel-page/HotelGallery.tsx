@@ -57,7 +57,7 @@ const HotelGallery = ({ images, hotelName, location }: HotelGalleryProps) => {
       </div>
 
       {/* Gallery Grid */}
-      <div className="grid grid-cols-1 gap-3 mb-8 relative">
+      <div className="grid grid-cols-4 gap-3 mb-8 relative">
         {/* Smaller image left */}
         <div className="col-span-1">
           <div 
